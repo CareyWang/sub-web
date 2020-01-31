@@ -136,7 +136,6 @@ export default {
           Quantumult: "quan",
           QuantumultX: "quanx",
           Surfboard: "surfboard",
-          V2Ray: "v2ray",
           ss: "ss",
           ssr: "ssr",
           ssd: "ssd"
