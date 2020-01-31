@@ -169,6 +169,11 @@ export default {
                 label: "Nexitally",
                 value:
                   "https://raw.githubusercontent.com/CareyWang/sub-web/master/docs/customized/nexitally.ini"
+              },
+              {
+                label: "贼船",
+                value:
+                  "https://raw.githubusercontent.com/CareyWang/sub-web/master/docs/customized/zeichuan.ini"
               }
             ]
           },
@@ -192,11 +197,6 @@ export default {
         remoteConfig: "",
         excludeRemarks: "",
         includeRemarks: "",
-        ClashBaseRule: "",
-        SurgeBaseRule: "",
-        SurfboardRuleBase: "",
-        rename_node: "",
-        ruleset: ""
       },
 
       loading: false,
