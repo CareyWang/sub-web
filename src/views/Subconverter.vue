@@ -5,16 +5,7 @@
         <el-card>
           <div slot="header">Subscription Converter</div>
           <el-container>
-            <el-form
-              :model="form"
-              label-width="120px"
-              label-position="left"
-              style="width: 100%"
-            >
-              <el-form-item label="模式设置:">
-                <el-radio v-model="advanced" label="1">基础模式</el-radio>
-                <el-radio v-model="advanced" label="2">进阶模式</el-radio>
-              </el-form-item>
+            <el-form :model="form" label-width="120px" label-position="left" style="width: 100%">
               <el-form-item label="订阅链接:">
                 <el-input
                   v-model="form.sourceSubUrl"
@@ -25,12 +16,7 @@
               </el-form-item>
               <el-form-item label="客户端:">
                 <el-select v-model="form.clientType" style="width: 100%">
-                  <el-option
-                    v-for="(v, k) in options.clientTypes"
-                    :key="k"
-                    :label="k"
-                    :value="v"
-                  />
+                  <el-option v-for="(v, k) in options.clientTypes" :key="k" :label="k" :value="v"></el-option>
                 </el-select>
               </el-form-item>
 
@@ -45,12 +31,7 @@
                     v-model="form.customBackend"
                     placeholder="动动小手，（建议）自行搭建后端服务。例：http://127.0.0.1:25500?sub"
                   >
-                    <el-button
-                      slot="append"
-                      @click="gotoGayhub"
-                      icon="el-icon-link"
-                      >前往项目仓库</el-button
-                    >
+                    <el-button slot="append" @click="gotoGayhub" icon="el-icon-link">前往项目仓库</el-button>
                   </el-input>
                 </el-form-item>
                 <el-form-item label="远程配置:">
@@ -71,35 +52,23 @@
                         :key="item.value"
                         :label="item.label"
                         :value="item.value"
-                      >
-                      </el-option>
+                      ></el-option>
                     </el-option-group>
-                    <el-button
-                      slot="append"
-                      @click="gotoRemoteConfig"
-                      icon="el-icon-link"
-                      >配置示例</el-button
-                    >
+                    <el-button slot="append" @click="gotoRemoteConfig" icon="el-icon-link">配置示例</el-button>
                   </el-select>
                 </el-form-item>
                 <el-form-item label="IncludeRemarks:">
-                  <el-input
-                    v-model="form.includeRemarks"
-                    placeholder="节点名包含的关键字，支持正则"
-                  />
+                  <el-input v-model="form.includeRemarks" placeholder="节点名包含的关键字，支持正则" />
                 </el-form-item>
                 <el-form-item label="ExcludeRemarks:">
-                  <el-input
-                    v-model="form.excludeRemarks"
-                    placeholder="节点名不包含的关键字，支持正则"
-                  />
+                  <el-input v-model="form.excludeRemarks" placeholder="节点名不包含的关键字，支持正则" />
                 </el-form-item>
               </div>
 
               <div style="margin-top: 50px"></div>
 
               <el-divider content-position="center">
-                <i class="el-icon-magic-stick" />
+                <i class="el-icon-magic-stick"></i>
               </el-divider>
 
               <el-form-item label="定制订阅:">
@@ -110,32 +79,32 @@
                     v-clipboard:success="onCopy"
                     ref="copy-btn"
                     icon="el-icon-document-copy"
-                    >复制</el-button
-                  >
+                  >复制</el-button>
                 </el-input>
               </el-form-item>
 
-              <el-form-item
-                label-width="0px"
-                style="margin-top: 40px; text-align: center"
-              >
-                <el-button style="width: 120px" type="danger" @click="makeUrl"
-                  >生成订阅链接</el-button
-                >
+              <el-form-item label-width="0px" style="margin-top: 40px; text-align: center">
+                <el-button style="width: 120px" type="danger" @click="makeUrl">生成订阅链接</el-button>
+                <el-button
+                  style="width: 120px"
+                  type="danger"
+                  @click="makeShortUrl"
+                  :loading="loading"
+                >生成短链接</el-button>
+              </el-form-item>
+              <el-form-item label-width="0px" style="text-align: center">
                 <el-button
                   style="width: 120px"
                   type="primary"
                   @click="clashInstall"
                   icon="el-icon-connection"
-                  >一键导入Clash</el-button
-                >
+                >一键导入Clash</el-button>
                 <el-button
                   style="width: 120px"
                   type="primary"
                   @click="surgeInstall"
                   icon="el-icon-connection"
-                  >一键导入Surge</el-button
-                >
+                >一键导入Surge</el-button>
               </el-form-item>
             </el-form>
           </el-container>
@@ -150,6 +119,7 @@ const remoteConfigSample =
   "https://raw.githubusercontent.com/tindy2013/subconverter/master/base/example_external_config.ini";
 const gayhubRelease = "https://github.com/tindy2013/subconverter/releases";
 const defaultBackend = "https://api.wcc.best/sub?";
+const shortUrlBackend = "";
 
 export default {
   data() {
@@ -158,24 +128,19 @@ export default {
 
       options: {
         clientTypes: {
-          clash: "clash",
-          clashr: "clashr",
-          surge2: "surge&ver=2",
-          surge3: "surge&ver=3",
-          surge4: "surge&ver=4",
-          quantumult: "quan",
-          quantumultx: "quanx",
-          surfboard: "surfboard",
+          Clash: "clash",
+          ClashR: "clashr",
+          Surge2: "surge&ver=2",
+          Surge3: "surge&ver=3",
+          Surge4: "surge&ver=4",
+          Quantumult: "quan",
+          QuantumultX: "quanx",
+          Surfboard: "surfboard",
+          V2Ray: "v2ray",
           ss: "ss",
           ssr: "ssr",
-          ssd: "ssd",
-          v2ray: "v2ray"
+          ssd: "ssd"
         },
-        customBaseRules: [
-          "ClashBaseRule",
-          "SurgeBaseRule",
-          "SurfboardRuleBase"
-        ],
         remoteConfig: [
           {
             label: "universal",
@@ -183,12 +148,12 @@ export default {
               {
                 label: "No-Urltest",
                 value:
-                  "https://careywong-public-docs.oss-cn-shanghai.aliyuncs.com/subconverter/universal/no-urltest.ini"
+                  "https://raw.githubusercontent.com/CareyWang/sub-web/master/docs/universal/no-urltest.ini"
               },
               {
                 label: "Urltest",
                 value:
-                  "https://careywong-public-docs.oss-cn-shanghai.aliyuncs.com/subconverter/universal/urltest.ini"
+                  "https://raw.githubusercontent.com/CareyWang/sub-web/master/docs/universal/urltest.ini"
               }
             ]
           },
@@ -198,12 +163,12 @@ export default {
               {
                 label: "Maying",
                 value:
-                  "https://careywong-public-docs.oss-cn-shanghai.aliyuncs.com/subconverter/customized/maying.ini"
+                  "https://raw.githubusercontent.com/CareyWang/sub-web/master/docs/customized/maying.ini"
               },
               {
                 label: "Nexitally",
                 value:
-                  "https://careywong-public-docs.oss-cn-shanghai.aliyuncs.com/subconverter/customized/nexitally.ini"
+                  "https://raw.githubusercontent.com/CareyWang/sub-web/master/docs/customized/nexitally.ini"
               }
             ]
           },
@@ -213,7 +178,7 @@ export default {
               {
                 label: "NeteaseUnblock",
                 value:
-                  "https://careywong-public-docs.oss-cn-shanghai.aliyuncs.com/subconverter/special/netease.ini"
+                  "https://raw.githubusercontent.com/CareyWang/sub-web/master/docs/special/netease.ini"
               }
             ]
           }
@@ -243,6 +208,7 @@ export default {
   },
   mounted() {
     this.form.clientType = "clashr";
+    this.notify();
   },
   methods: {
     onCopy() {
@@ -321,6 +287,51 @@ export default {
 
       this.$copyText(this.customSubUrl);
       this.$message.success("定制订阅已复制到剪切板");
+    },
+    makeShortUrl() {
+      if (shortUrlBackend === "") {
+        this.$message.warning("短链接服务后端自定义正在咕……");
+        return false;
+      }
+
+      if (this.customSubUrl === "") {
+        this.$message.warning("请先生成订阅链接，再获取对应短链接");
+        return false;
+      }
+
+      this.loading = true;
+
+      this.$axios
+        .get(
+          shortUrlBackend + "?longUrl=" + encodeURIComponent(this.customSubUrl)
+        )
+        .then(res => {
+          if (res.data.Code === 1 && res.data.ShortUrl !== "") {
+            this.$copyText(res.data.ShortUrl);
+            this.$message.success("短链接已复制到剪切板");
+          } else {
+            this.$message.error("短链接获取失败：" + res.data.Message);
+          }
+        })
+        .catch(() => {
+          this.$message.error("短链接获取失败");
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    },
+    notify() {
+      const h = this.$createElement;
+
+      this.$notify({
+        title: "隐私提示",
+        type: "warning",
+        message: h(
+          "i",
+          { style: "color: teal" },
+          "各种订阅链接（短链接服务除外）生成纯前端实现，无隐私问题。默认提供后端转换服务，隐私担忧者请自行搭建后端服务。"
+        )
+      });
     }
   }
 };
