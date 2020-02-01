@@ -6,6 +6,10 @@
           <div slot="header">Subscription Converter</div>
           <el-container>
             <el-form :model="form" label-width="120px" label-position="left" style="width: 100%">
+              <el-form-item label="模式设置:">
+                <el-radio v-model="advanced" label="1">基础模式</el-radio>
+                <el-radio v-model="advanced" label="2">进阶模式</el-radio>
+              </el-form-item>
               <el-form-item label="订阅链接:">
                 <el-input
                   v-model="form.sourceSubUrl"
