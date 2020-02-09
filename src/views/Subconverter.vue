@@ -25,10 +25,6 @@
               </el-form-item>
 
               <div v-if="advanced === '2'">
-                <el-form-item label="emoji:">
-                  <el-radio v-model="form.emoji" label="true">是</el-radio>
-                  <el-radio v-model="form.emoji" label="false">否</el-radio>
-                </el-form-item>
                 <el-form-item label="后端地址:">
                   <el-input
                     ref="backend"
@@ -66,6 +62,29 @@
                 </el-form-item>
                 <el-form-item label="ExcludeRemarks:">
                   <el-input v-model="form.excludeRemarks" placeholder="节点名不包含的关键字，支持正则" />
+                </el-form-item>
+                <el-form-item label-width="0px">
+                  <el-row type="flex">
+                    <el-col>
+                      <el-checkbox v-model="form.nodeList" label="输出为 Node List" border></el-checkbox>
+                      <el-checkbox v-model="form.emoji" label="Emoji" border></el-checkbox>
+                    </el-col>
+                    <el-popover v-model="form.extraset">
+                      <el-row>
+                        <el-checkbox v-model="form.sort" label="排序节点"></el-checkbox>
+                      </el-row>
+                      <el-row>
+                        <el-checkbox v-model="form.udp" label="启用 UDP"></el-checkbox>
+                      </el-row>
+                      <el-row>
+                        <el-checkbox v-model="form.tfo" label="启用 TFO"></el-checkbox>
+                      </el-row>
+                      <el-row>
+                        <el-checkbox v-model="form.scv" label="跳过证书验证"></el-checkbox>
+                      </el-row>
+                      <el-button slot="reference">更多选项</el-button>
+                    </el-popover>
+                  </el-row>
                 </el-form-item>
               </div>
 
@@ -195,11 +214,18 @@ export default {
       form: {
         sourceSubUrl: "",
         clientType: "",
-        emoji: "true",
         customBackend: "",
         remoteConfig: "",
         excludeRemarks: "",
         includeRemarks: "",
+        emoji: true,
+        nodeList: false,
+        extraset: false,
+        sort: false,
+        udp: false,
+        tfo: false,
+        scv: false,
+        fdn: true
       },
 
       loading: false,
@@ -286,6 +312,16 @@ export default {
           this.customSubUrl +=
             "&include=" + encodeURIComponent(this.form.includeRemarks);
         }
+
+        this.customSubUrl +=
+          "&list=" +
+          this.form.nodeList.toString() +
+          "&udp=" +
+          this.form.udp.toString() +
+          "&tfo=" +
+          this.form.tfo.toString() +
+          "&scv=" +
+          this.form.scv.toString();
       }
 
       this.$copyText(this.customSubUrl);
