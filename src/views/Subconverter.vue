@@ -193,6 +193,11 @@ export default {
                   "https://raw.githubusercontent.com/CareyWang/sub-web/master/docs/customized/nexitally.ini"
               },
               {
+                label: "YoYu",
+                value:
+                  "https://raw.githubusercontent.com/CareyWang/sub-web/master/docs/customized/yoyu.ini"
+              },
+              {
                 label: "贼船",
                 value:
                   "https://raw.githubusercontent.com/CareyWang/sub-web/master/docs/customized/zeichuan.ini"
