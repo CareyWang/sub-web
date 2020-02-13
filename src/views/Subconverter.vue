@@ -29,7 +29,7 @@
                   <el-input
                     ref="backend"
                     v-model="form.customBackend"
-                    placeholder="动动小手，（建议）自行搭建后端服务。例：http://127.0.0.1:25500?sub"
+                    placeholder="动动小手，（建议）自行搭建后端服务。例：http://127.0.0.1:25500/sub?"
                   >
                     <el-button slot="append" @click="gotoGayhub" icon="el-icon-link">前往项目仓库</el-button>
                   </el-input>
@@ -107,33 +107,75 @@
               </el-form-item>
 
               <el-form-item label-width="0px" style="margin-top: 40px; text-align: center">
-                <el-button style="width: 120px" type="danger" @click="makeUrl">生成订阅链接</el-button>
+                <el-button
+                  style="width: 120px"
+                  type="danger"
+                  @click="makeUrl"
+                  :disabled="form.sourceSubUrl.length === 0"
+                >生成订阅链接</el-button>
                 <el-button
                   style="width: 120px"
                   type="danger"
                   @click="makeShortUrl"
                   :loading="loading"
+                  :disabled="customSubUrl.length === 0"
                 >生成短链接</el-button>
+                <!-- <el-button style="width: 120px" type="primary" @click="surgeInstall" icon="el-icon-connection">一键导入Surge</el-button> -->
               </el-form-item>
+
               <el-form-item label-width="0px" style="text-align: center">
+                <el-button
+                  style="width: 120px"
+                  type="primary"
+                  @click="dialogUploadConfigVisible = true"
+                  icon="el-icon-upload"
+                  :loading="loading"
+                >上传配置</el-button>
                 <el-button
                   style="width: 120px"
                   type="primary"
                   @click="clashInstall"
                   icon="el-icon-connection"
+                  :disabled="customSubUrl.length === 0"
                 >一键导入Clash</el-button>
-                <el-button
-                  style="width: 120px"
-                  type="primary"
-                  @click="surgeInstall"
-                  icon="el-icon-connection"
-                >一键导入Surge</el-button>
               </el-form-item>
             </el-form>
           </el-container>
         </el-card>
       </el-col>
     </el-row>
+
+    <el-dialog
+      title="Remote config upload"
+      :visible.sync="dialogUploadConfigVisible"
+      :show-close="false"
+      :close-on-click-modal="false"
+      :close-on-press-escape="false"
+      width="700px"
+    >
+      <el-form label-position="left" label-width="130px">
+        <el-form-item label="密码" prop="uploadPasswordItem">
+          <el-input v-model="uploadPassword" show-password placeholder="请输入密码" style="width: 250px"></el-input>
+        </el-form-item>
+        <el-form-item label="Remote config" prop="uploadConfig">
+          <el-input
+            v-model="uploadConfig"
+            type="textarea"
+            :autosize="{ minRows: 15, maxRows: 15}"
+            maxlength="2000"
+            show-word-limit
+          ></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="uploadConfig = ''; dialogUploadConfigVisible = false">取 消</el-button>
+        <el-button
+          type="primary"
+          @click="confirmUploadConfig"
+          :disabled="uploadConfig.length === 0"
+        >确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -143,6 +185,7 @@ const remoteConfigSample =
 const gayhubRelease = "https://github.com/tindy2013/subconverter/releases";
 const defaultBackend = "https://api.wcc.best/sub?";
 const shortUrlBackend = "";
+const configUploadBackend = "https://api.wcc.best/config/upload"
 
 export default {
   data() {
@@ -234,7 +277,11 @@ export default {
       },
 
       loading: false,
-      customSubUrl: ""
+      customSubUrl: "",
+
+      dialogUploadConfigVisible: false,
+      uploadConfig: "",
+      uploadPassword: ""
     };
   },
   created() {
@@ -330,7 +377,7 @@ export default {
       }
 
       this.$copyText(this.customSubUrl);
-      this.$message.success("定制订阅已复制到剪切板");
+      this.$message.success("定制订阅已复制到剪贴板");
     },
     makeShortUrl() {
       if (shortUrlBackend === "") {
@@ -352,7 +399,7 @@ export default {
         .then(res => {
           if (res.data.Code === 1 && res.data.ShortUrl !== "") {
             this.$copyText(res.data.ShortUrl);
-            this.$message.success("短链接已复制到剪切板");
+            this.$message.success("短链接已复制到剪贴板");
           } else {
             this.$message.error("短链接获取失败：" + res.data.Message);
           }
@@ -376,6 +423,46 @@ export default {
           "各种订阅链接（短链接服务除外）生成纯前端实现，无隐私问题。默认提供后端转换服务，隐私担忧者请自行搭建后端服务。"
         )
       });
+    },
+    confirmUploadConfig() {
+      if (this.uploadConfig === "") {
+        this.$message.warning("远程配置不能为空");
+        return false;
+      }
+
+      this.loading = true;
+
+      let data = new FormData();
+      data.append("password", this.uploadPassword);
+      data.append("config", this.uploadConfig);
+
+      this.$axios
+        .post(configUploadBackend, data, {
+          header: {
+            "Content-Type": "application/form-data; charset=utf-8"
+          }
+        })
+        .then(res => {
+          if (res.data.Code === 1 && res.data.url !== "") {
+            this.$message.success(
+              "远程配置上传成功，配置链接已复制到剪贴板，有效期三个月望知悉"
+            );
+
+            // 自动填充至『表单-远程配置』
+            this.form.remoteConfig = res.data.Url;
+            this.$copyText(this.form.remoteConfig);
+
+            this.dialogUploadConfigVisible = false;
+          } else {
+            this.$message.error("远程配置上传失败：" + res.data.Message);
+          }
+        })
+        .catch(() => {
+          this.$message.error("远程配置上传失败");
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     }
   }
 };
