@@ -12,6 +12,7 @@
 
 ## Requirements
 你需要安装 [Node](https://nodejs.org/zh-cn/) 与 [Yarn](https://legacy.yarnpkg.com/en/docs/install) 来安装依赖与打包发布。你可以通过以下命令查看是否安装成功。
+注：以下步骤为 Ubuntu 下相应命令，其他系统请自行修改。为了方便后来人解决问题，有问题请发 issue。
 
 ```
 node -v
@@ -30,7 +31,7 @@ yarn install
 yarn serve
 ```
 
-浏览器访问 http://localhost:8081/
+浏览器访问 http://localhost:8080/
 
 ## Deploy
 
@@ -40,7 +41,7 @@ yarn serve
 yarn build
 ```
 
-你需要安装 nginx (或其他 web 服务器)并正确配置。以下为示例配置，你需要修改 example.com 为自己域名（并自行配置 https）并配置正确的项目根路径。
+你需要安装 nginx (或其他 web 服务器)并正确配置。以下为示例配置，你需要修改 example.com 为自己域名并配置正确的项目根路径（https 自行配置）。
 
 ```
 server {
