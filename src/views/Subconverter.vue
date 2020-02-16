@@ -378,9 +378,6 @@ export default {
           this.customSubUrl +=
             "&config=" + encodeURIComponent(this.form.remoteConfig);
         }
-        if (this.form.emoji === "false") {
-          this.customSubUrl += "&emoji=" + this.form.emoji;
-        }
         if (this.form.excludeRemarks !== "") {
           this.customSubUrl +=
             "&exclude=" + encodeURIComponent(this.form.excludeRemarks);
@@ -390,7 +387,9 @@ export default {
             "&include=" + encodeURIComponent(this.form.includeRemarks);
         }
 
-        this.customSubUrl +=
+        this.customSubUrl += 
+          "&emoji=" +
+          this.form.emoji.toString() +
           "&list=" +
           this.form.nodeList.toString() +
           "&udp=" +
