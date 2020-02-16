@@ -82,6 +82,9 @@
                       <el-row>
                         <el-checkbox v-model="form.scv" label="跳过证书验证"></el-checkbox>
                       </el-row>
+                      <el-row>
+                        <el-checkbox v-model="form.fdn" label="过滤非法节点"></el-checkbox>
+                      </el-row>
                       <el-button slot="reference">更多选项</el-button>
                     </el-popover>
                   </el-row>
@@ -271,7 +274,7 @@ export default {
             label: "Special",
             options: [
               {
-                label: "NeteaseUnblock",
+                label: "NeteaseUnblock(仅规则，No-Urltest)",
                 value:
                   "https://raw.githubusercontent.com/CareyWang/sub-web/master/docs/special/netease.ini"
               }
@@ -293,7 +296,7 @@ export default {
         udp: false,
         tfo: false,
         scv: false,
-        fdn: true
+        fdn: false,
       },
 
       loading: false,
@@ -395,7 +398,9 @@ export default {
           "&tfo=" +
           this.form.tfo.toString() +
           "&scv=" +
-          this.form.scv.toString();
+          this.form.scv.toString() + 
+          "&fdn=" + 
+          this.form.fdn.toString();
       }
 
       this.$copyText(this.customSubUrl);
