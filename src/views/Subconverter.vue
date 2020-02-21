@@ -399,7 +399,9 @@ export default {
           "&scv=" +
           this.form.scv.toString() + 
           "&fdn=" + 
-          this.form.fdn.toString();
+          this.form.fdn.toString() +
+          "&sort=" + 
+          this.form.sort.toString();
       }
 
       this.$copyText(this.customSubUrl);
