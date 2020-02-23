@@ -63,6 +63,9 @@
                 <el-form-item label="ExcludeRemarks:">
                   <el-input v-model="form.excludeRemarks" placeholder="节点名不包含的关键字，支持正则" />
                 </el-form-item>
+                <el-form-item label="FileName:">
+                  <el-input v-model="form.filename" placeholder="返回的订阅文件名" />
+                </el-form-item>
                 <el-form-item label-width="0px">
                   <el-row type="flex">
                     <el-col>
@@ -220,6 +223,7 @@ export default {
           Quantumult: "quan",
           QuantumultX: "quanx",
           Surfboard: "surfboard",
+          Loon: "loon",
           ss: "ss",
           ssr: "ssr",
           ssd: "ssd"
@@ -289,6 +293,7 @@ export default {
         remoteConfig: "",
         excludeRemarks: "",
         includeRemarks: "",
+        filename: "",
         emoji: true,
         nodeList: false,
         extraset: false,
@@ -385,6 +390,10 @@ export default {
         if (this.form.includeRemarks !== "") {
           this.customSubUrl +=
             "&include=" + encodeURIComponent(this.form.includeRemarks);
+        }
+        if (this.form.filename !== "") {
+          this.customSubUrl +=
+            "&filename=" + encodeURIComponent(this.form.filename);
         }
 
         this.customSubUrl += 
