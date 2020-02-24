@@ -164,7 +164,12 @@
           <div slot="label">
             密码：
             <el-popover trigger="hover" placement="right">
-              <el-link type="primary" :href="myBot" target="_blank" icon="el-icon-s-promotion">@CareyWong_bot</el-link>
+              <el-link
+                type="primary"
+                :href="myBot"
+                target="_blank"
+                icon="el-icon-s-promotion"
+              >@CareyWong_bot</el-link>
               <i class="el-icon-question" slot="reference"></i>
             </el-popover>
           </div>
@@ -206,7 +211,7 @@ const gayhubRelease = "https://github.com/tindy2013/subconverter/releases";
 const defaultBackend = "https://api.wcc.best/sub?";
 const shortUrlBackend = "";
 const configUploadBackend = "https://api.wcc.best/config/upload";
-const tgBotLink = "https://t.me/CareyWong_bot"
+const tgBotLink = "https://t.me/CareyWong_bot";
 
 export default {
   data() {
@@ -283,6 +288,66 @@ export default {
                   "https://raw.githubusercontent.com/CareyWang/sub-web/master/docs/special/netease.ini"
               }
             ]
+          },
+          {
+            label: "友商推荐",
+            options: [
+              {
+                label: "ACL4SSR_Onlie 与Github规则同步",
+                value:
+                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Onlie.ini"
+              },
+              {
+                label: "ACL4SSR_Onlie_Mini 精简版 与Github规则同步",
+                value:
+                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Onlie_Mini.ini"
+              },
+              {
+                label: "ACL4SSR_Onlie_NoAuto 与Github规则同步",
+                value:
+                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Onlie_NoAuto.ini"
+              },
+              {
+                label: "ACL4SSR",
+                value:
+                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR.ini"
+              },
+              {
+                label: "ACL4SSR_Mini 精简版",
+                value:
+                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Mini.ini"
+              },
+              {
+                label: "ACL4SSR_BackCN",
+                value:
+                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_BackCN.ini"
+              },
+              {
+                label: "ACL4SSR_NoApple",
+                value:
+                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_NoApple.ini"
+              },
+              {
+                label: "ACL4SSR_NoAuto",
+                value:
+                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_NoAuto.ini"
+              },
+              {
+                label: "ACL4SSR_NoAuto_NoApple",
+                value:
+                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_NoAuto_NoApple.ini"
+              },
+              {
+                label: "ACL4SSR_NoMicrosoft",
+                value:
+                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_NoMicrosoft.ini"
+              },
+              {
+                label: "ACL4SSR_WithGFW",
+                value:
+                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_WithGFW.ini"
+              }
+            ]
           }
         ]
       },
@@ -301,7 +366,7 @@ export default {
         udp: false,
         tfo: false,
         scv: false,
-        fdn: false,
+        fdn: false
       },
 
       loading: false,
@@ -311,7 +376,7 @@ export default {
       uploadConfig: "",
       uploadPassword: "",
       myBot: tgBotLink,
-      sampleConfig: remoteConfigSample,
+      sampleConfig: remoteConfigSample
     };
   },
   created() {
@@ -396,7 +461,7 @@ export default {
             "&filename=" + encodeURIComponent(this.form.filename);
         }
 
-        this.customSubUrl += 
+        this.customSubUrl +=
           "&emoji=" +
           this.form.emoji.toString() +
           "&list=" +
@@ -406,10 +471,10 @@ export default {
           "&tfo=" +
           this.form.tfo.toString() +
           "&scv=" +
-          this.form.scv.toString() + 
-          "&fdn=" + 
+          this.form.scv.toString() +
+          "&fdn=" +
           this.form.fdn.toString() +
-          "&sort=" + 
+          "&sort=" +
           this.form.sort.toString();
       }
 
