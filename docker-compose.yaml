@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  node: 
+    build: ./node
+    container_name: node
+
+  nginx: 
+    build: ./nginx
+    container_name: nginx 
+    ports: 
+      - "80:80"
+      - "443:443"
+    volumes: 
+      - ./containers/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./logs/nginx:/var/log/nginx
+      - ./app:/var/www/http/sub-web
+    restart: always
