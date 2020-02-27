@@ -209,7 +209,7 @@ const remoteConfigSample =
   "https://raw.githubusercontent.com/tindy2013/subconverter/master/base/config/example_external_config.ini";
 const gayhubRelease = "https://github.com/tindy2013/subconverter/releases";
 const defaultBackend = "https://api.wcc.best/sub?";
-const shortUrlBackend = "";
+const shortUrlBackend = "https://api.wcc.best/short";
 const configUploadBackend = "https://api.wcc.best/config/upload";
 const tgBotLink = "https://t.me/CareyWong_bot";
 
@@ -482,11 +482,6 @@ export default {
       this.$message.success("定制订阅已复制到剪贴板");
     },
     makeShortUrl() {
-      if (shortUrlBackend === "") {
-        this.$message.warning("短链接服务后端自定义正在咕……");
-        return false;
-      }
-
       if (this.customSubUrl === "") {
         this.$message.warning("请先生成订阅链接，再获取对应短链接");
         return false;
@@ -495,9 +490,7 @@ export default {
       this.loading = true;
 
       this.$axios
-        .get(
-          shortUrlBackend + "?longUrl=" + encodeURIComponent(this.customSubUrl)
-        )
+        .get(shortUrlBackend + "?longUrl=" + btoa(this.customSubUrl))
         .then(res => {
           if (res.data.Code === 1 && res.data.ShortUrl !== "") {
             this.$copyText(res.data.ShortUrl);
