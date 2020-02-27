@@ -4,11 +4,17 @@
 
 ## Table of Contents
 
+- [Update](#Update)
 - [Requirements](#Requirements)
 - [Install](#install)
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [License](#license)
+
+## Update
+- 20200227
+    - 提供了短链接服务，可用于缩短生成的订阅 url，请和谐使用。
+    > 注：需要后端支持。自行搭建服务，请参考 [bitly](https://github.com/CareyWang/bitly) 并修改 Subconverter.vue 中 **shortUrlBackend** 配置项。
 
 ## Requirements
 你需要安装 [Node](https://nodejs.org/zh-cn/) 与 [Yarn](https://legacy.yarnpkg.com/en/docs/install) 来安装依赖与打包发布。你可以通过以下命令查看是否安装成功。
