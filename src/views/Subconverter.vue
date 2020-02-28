@@ -24,16 +24,6 @@
                 </el-select>
               </el-form-item>
 
-              <div v-if="advanced === '2'">
-                <el-form-item label="后端地址:">
-                  <el-input
-                    ref="backend"
-                    v-model="form.customBackend"
-                    placeholder="动动小手，（建议）自行搭建后端服务。例：http://127.0.0.1:25500/sub?"
-                  >
-                    <el-button slot="append" @click="gotoGayhub" icon="el-icon-link">前往项目仓库</el-button>
-                  </el-input>
-                </el-form-item>
                 <el-form-item label="远程配置:">
                   <el-select
                     v-model="form.remoteConfig"
@@ -54,9 +44,27 @@
                         :value="item.value"
                       ></el-option>
                     </el-option-group>
-                    <el-button slot="append" @click="gotoRemoteConfig" icon="el-icon-link">配置示例</el-button>
-                  </el-select>
-                </el-form-item>
+                </el-select>
+              </el-form-item>
+              
+              <el-form-item label="后端地址:">
+              
+              <el-select
+                  v-model="form.customBackend"
+                  allow-create
+                  filterable
+                  placeholder="请选择"
+                  style="width: 100%"
+                >
+                  <el-option v-for="(v, k) in options.customBackend" :key="k" :label="k" :value="v"></el-option>
+                  
+                </el-select>
+              
+              </el-form-item>
+              
+              <div v-if="advanced === '2'">
+            
+
                 <el-form-item label="IncludeRemarks:">
                   <el-input v-model="form.includeRemarks" placeholder="节点名包含的关键字，支持正则" />
                 </el-form-item>
@@ -208,15 +216,15 @@
 const remoteConfigSample =
   "https://raw.githubusercontent.com/tindy2013/subconverter/master/base/config/example_external_config.ini";
 const gayhubRelease = "https://github.com/tindy2013/subconverter/releases";
-const defaultBackend = "https://api.wcc.best/sub?";
+const defaultBackend = "http://localhost:25500/sub?";
 const shortUrlBackend = "https://api.wcc.best/short";
-const configUploadBackend = "https://api.wcc.best/config/upload";
-const tgBotLink = "https://t.me/CareyWong_bot";
+const configUploadBackend = "http://localhost:25500/config/upload";
+const tgBotLink = "https://t.me/ACL4SSR";
 
 export default {
   data() {
     return {
-      advanced: "2",
+      advanced: "1",
 
       options: {
         clientTypes: {
@@ -233,7 +241,75 @@ export default {
           ssr: "ssr",
           ssd: "ssd"
         },
+        customBackend: {
+          "localhost:25500 本地版": "http://localhost:25500/sub?",
+          "gfwsb.114514.best(subconverter作者提供)":
+            "https://gfwsb.114514.best/sub?",
+          "api.niconewbeee.tk(STC提供) ": "https://api.niconewbeee.tk/sub?",
+          "api.wcc.best(sub-web作者提供)": "https://api.wcc.best/sub?"
+        },
         remoteConfig: [
+          {
+            label: "默认",
+            options: [
+              {
+                label: "不选，由接口提供方提供",
+                value: ""
+              }
+            ]
+          },
+          {
+            label: "ACL4SSR",
+            options: [
+              {
+                label: "ACL4SSR_Onlie 默认版 分组比较全 (与Github规则同步)",
+                value:
+                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Onlie.ini"
+              },
+              {
+                label: "ACL4SSR_Onlie_Mini 精简版 (与Github规则同步)",
+                value:
+                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Onlie_Mini.ini"
+              },
+              {
+                label: "ACL4SSR_Onlie_NoAuto 无自动测速 (与Github规则同步)",
+                value:
+                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Onlie_NoAuto.ini"
+              },
+              {
+                label: "ACL4SSR 本地 默认版 分组比较全",
+                value: "config/ACL4SSR.ini"
+              },
+              {
+                label: "ACL4SSR_Mini 本地 精简版",
+                value: "config/ACL4SSR_Mini.ini"
+              },
+              {
+                label: "ACL4SSR_BackCN 本地 回国",
+                value: "config/ACL4SSR_BackCN.ini"
+              },
+              {
+                label: "ACL4SSR_NoApple 本地 无苹果分流",
+                value: "config/ACL4SSR_NoApple.ini"
+              },
+              {
+                label: "ACL4SSR_NoAuto 本地 无自动测速 ",
+                value: "config/ACL4SSR_NoAuto.ini"
+              },
+              {
+                label: "ACL4SSR_NoAuto_NoApple 本地 无自动测速&无苹果分流",
+                value: "config/ACL4SSR_NoAuto_NoApple.ini"
+              },
+              {
+                label: "ACL4SSR_NoMicrosoft 本地 无微软分流",
+                value: "config/ACL4SSR_NoMicrosoft.ini"
+              },
+              {
+                label: "ACL4SSR_WithGFW 本地 GFW列表",
+                value: "config/ACL4SSR_WithGFW.ini"
+              }
+            ]
+          },
           {
             label: "universal",
             options: [
@@ -288,66 +364,6 @@ export default {
                   "https://raw.githubusercontent.com/CareyWang/sub-web/master/docs/special/netease.ini"
               }
             ]
-          },
-          {
-            label: "友商推荐",
-            options: [
-              {
-                label: "ACL4SSR_Onlie 与Github规则同步",
-                value:
-                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Onlie.ini"
-              },
-              {
-                label: "ACL4SSR_Onlie_Mini 精简版 与Github规则同步",
-                value:
-                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Onlie_Mini.ini"
-              },
-              {
-                label: "ACL4SSR_Onlie_NoAuto 与Github规则同步",
-                value:
-                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Onlie_NoAuto.ini"
-              },
-              {
-                label: "ACL4SSR",
-                value:
-                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR.ini"
-              },
-              {
-                label: "ACL4SSR_Mini 精简版",
-                value:
-                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Mini.ini"
-              },
-              {
-                label: "ACL4SSR_BackCN",
-                value:
-                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_BackCN.ini"
-              },
-              {
-                label: "ACL4SSR_NoApple",
-                value:
-                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_NoApple.ini"
-              },
-              {
-                label: "ACL4SSR_NoAuto",
-                value:
-                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_NoAuto.ini"
-              },
-              {
-                label: "ACL4SSR_NoAuto_NoApple",
-                value:
-                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_NoAuto_NoApple.ini"
-              },
-              {
-                label: "ACL4SSR_NoMicrosoft",
-                value:
-                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_NoMicrosoft.ini"
-              },
-              {
-                label: "ACL4SSR_WithGFW",
-                value:
-                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_WithGFW.ini"
-              }
-            ]
           }
         ]
       },
@@ -380,10 +396,12 @@ export default {
     };
   },
   created() {
-    document.title = "Subscription Converter";
+    document.title = "ACL4SSR Subscription Converter";
   },
   mounted() {
     this.form.clientType = "clashr";
+    this.form.customBackend = "https://gfwsb.114514.best/sub?";
+    this.form.remoteConfig = "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Onlie.ini";
     this.notify();
   },
   methods: {
@@ -427,11 +445,15 @@ export default {
         this.$message.error("订阅链接与客户端为必填项");
         return false;
       }
-
+      // 远程接口
       let backend =
         this.form.customBackend === ""
           ? defaultBackend
           : this.form.customBackend;
+      
+      // 远程配置
+      let config = this.form.remoteConfig === "" ? "" : this.form.remoteConfig;
+       
 
       let sourceSub = this.form.sourceSubUrl;
       sourceSub = sourceSub.replace(/[\n|\r|\n\r]/g, "|");
@@ -443,11 +465,11 @@ export default {
         "&url=" +
         encodeURIComponent(sourceSub);
 
+      if (config !== "") {
+        this.customSubUrl += "&config=" + encodeURIComponent(config);
+      }
+
       if (this.advanced === "2") {
-        if (this.form.remoteConfig !== "") {
-          this.customSubUrl +=
-            "&config=" + encodeURIComponent(this.form.remoteConfig);
-        }
         if (this.form.excludeRemarks !== "") {
           this.customSubUrl +=
             "&exclude=" + encodeURIComponent(this.form.excludeRemarks);
