@@ -293,19 +293,19 @@ export default {
             label: "友商推荐",
             options: [
               {
-                label: "ACL4SSR_Onlie 与Github规则同步",
+                label: "ACL4SSR_Online 与Github规则同步",
                 value:
-                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Onlie.ini"
+                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online.ini"
               },
               {
-                label: "ACL4SSR_Onlie_Mini 精简版 与Github规则同步",
+                label: "ACL4SSR_Online_Mini 精简版 与Github规则同步",
                 value:
-                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Onlie_Mini.ini"
+                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_Mini.ini"
               },
               {
-                label: "ACL4SSR_Onlie_NoAuto 与Github规则同步",
+                label: "ACL4SSR_Online_NoAuto 与Github规则同步",
                 value:
-                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Onlie_NoAuto.ini"
+                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_NoAuto.ini"
               },
               {
                 label: "ACL4SSR",
