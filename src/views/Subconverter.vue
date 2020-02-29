@@ -262,19 +262,24 @@ export default {
             label: "ACL4SSR",
             options: [
               {
-                label: "ACL4SSR_Onlie 默认版 分组比较全 (与Github规则同步)",
+                label: "ACL4SSR_Online 默认版 分组比较全 (与Github规则同步)",
                 value:
-                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Onlie.ini"
+                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online.ini"
               },
               {
-                label: "ACL4SSR_Onlie_Mini 精简版 (与Github规则同步)",
+                label: "ACL4SSR_Online_Mini 精简版 (与Github规则同步)",
                 value:
-                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Onlie_Mini.ini"
+                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_Mini.ini"
               },
               {
-                label: "ACL4SSR_Onlie_NoAuto 无自动测速 (与Github规则同步)",
+                label: "ACL4SSR_Online_Full 全规则，重度用户使用 (与Github规则同步)",
                 value:
-                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Onlie_NoAuto.ini"
+                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_Full.ini"
+              },
+              {
+                label: "ACL4SSR_Online_NoAuto 无自动测速 (与Github规则同步)",
+                value:
+                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_NoAuto.ini"
               },
               {
                 label: "ACL4SSR 本地 默认版 分组比较全",
@@ -401,7 +406,7 @@ export default {
   mounted() {
     this.form.clientType = "clashr";
     this.form.customBackend = "https://gfwsb.114514.best/sub?";
-    this.form.remoteConfig = "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Onlie.ini";
+    this.form.remoteConfig = "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online.ini";
     this.notify();
   },
   methods: {
