@@ -244,12 +244,12 @@ export default {
               {
                 label: "No-Urltest",
                 value:
-                  "https://raw.githubusercontent.com/CareyWang/sub-web/master/docs/universal/no-urltest.ini"
+                  "https://cdn.jsdelivr.net/gh/CareyWang/Rules@master/RemoteConfig/universal/no-urltest.ini"
               },
               {
                 label: "Urltest",
                 value:
-                  "https://raw.githubusercontent.com/CareyWang/sub-web/master/docs/universal/urltest.ini"
+                  "https://cdn.jsdelivr.net/gh/CareyWang/Rules@master/RemoteConfig/universal/urltest.ini"
               }
             ]
           },
@@ -259,27 +259,27 @@ export default {
               {
                 label: "Maying",
                 value:
-                  "https://raw.githubusercontent.com/CareyWang/sub-web/master/docs/customized/maying.ini"
+                  "https://cdn.jsdelivr.net/gh/CareyWang/Rules@master/RemoteConfig/customized/maying.ini"
               },
               {
                 label: "Nexitally",
                 value:
-                  "https://raw.githubusercontent.com/CareyWang/sub-web/master/docs/customized/nexitally.ini"
+                  "https://cdn.jsdelivr.net/gh/CareyWang/Rules@master/RemoteConfig/customized/nexitally.ini"
               },
               {
                 label: "YoYu",
                 value:
-                  "https://raw.githubusercontent.com/CareyWang/sub-web/master/docs/customized/yoyu.ini"
+                  "https://cdn.jsdelivr.net/gh/CareyWang/Rules@master/RemoteConfig/customized/yoyu.ini"
               },
               {
                 label: "Ytoo",
                 value:
-                  "https://raw.githubusercontent.com/CareyWang/sub-web/master/docs/customized/ytoo.ini"
+                  "https://cdn.jsdelivr.net/gh/CareyWang/Rules@master/RemoteConfig/customized/ytoo.ini"
               },
               {
                 label: "贼船",
                 value:
-                  "https://raw.githubusercontent.com/CareyWang/sub-web/master/docs/customized/zeichuan.ini"
+                  "https://cdn.jsdelivr.net/gh/CareyWang/Rules@master/RemoteConfig/customized/zeichuan.ini"
               }
             ]
           },
@@ -289,7 +289,7 @@ export default {
               {
                 label: "NeteaseUnblock(仅规则，No-Urltest)",
                 value:
-                  "https://raw.githubusercontent.com/CareyWang/sub-web/master/docs/special/netease.ini"
+                  "https://cdn.jsdelivr.net/gh/CareyWang/Rules@master/RemoteConfig/special/netease.ini"
               }
             ]
           },
