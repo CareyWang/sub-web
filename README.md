@@ -12,44 +12,54 @@
 - [License](#license)
 
 ## Update
+
+- 20200301
+  - 现在你可以使用 docker 部署
+
+  ```shell
+  docker run -d -p 58080:80 --name subweb careywong/subweb:latest
+  ```
+
 - 20200227
-    - 提供了短链接服务，可用于缩短生成的订阅 url，请和谐使用。
-    > 注：需要后端支持。自行搭建服务，请参考 [bitly](https://github.com/CareyWang/bitly) 并修改 Subconverter.vue 中 **shortUrlBackend** 配置项。
+  - 提供了短链接服务，可用于缩短生成的订阅 url，请和谐使用。
+
+  > 注：需要后端支持。自行搭建服务，请参考 [bitly](https://github.com/CareyWang/bitly) 并修改 Subconverter.vue 中 **shortUrlBackend** 配置项。
 
 ## Requirements
+
 你需要安装 [Node](https://nodejs.org/zh-cn/) 与 [Yarn](https://legacy.yarnpkg.com/en/docs/install) 来安装依赖与打包发布。你可以通过以下命令查看是否安装成功。
 注：以下步骤为 Ubuntu 下相应命令，其他系统请自行修改。为了方便后来人解决问题，有问题请发 issue。
 
-```
+```shell
 node -v
 yarn -v
 ```
 
 ## Install
 
-```
+```shell
 yarn install
 ```
 
 ## Usage
 
-```
+```shell
 yarn serve
 ```
 
-浏览器访问 http://localhost:8080/
+浏览器访问 <http://localhost:8080/>
 
 ## Deploy
 
 发布到线上环境，你需要安装依赖，执行以下打包命令，生成的 dist 目录即为发布目录。
 
-```
+```shell
 yarn build
 ```
 
 你需要安装 nginx (或其他 web 服务器)并正确配置。以下为示例配置，你需要修改 example.com 为自己域名并配置正确的项目根路径（https 自行配置）。
 
-```
+```shell
 server {
     listen 80;
     server_name example.com;
