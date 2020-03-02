@@ -78,6 +78,9 @@
                         <el-checkbox v-model="form.sort" label="排序节点"></el-checkbox>
                       </el-row>
                       <el-row>
+                        <el-checkbox v-model="form.appendType" label="节点类型"></el-checkbox>
+                      </el-row>
+                      <el-row>
                         <el-checkbox v-model="form.udp" label="启用 UDP"></el-checkbox>
                       </el-row>
                       <el-row>
@@ -370,7 +373,8 @@ export default {
         udp: false,
         tfo: false,
         scv: false,
-        fdn: false
+        fdn: false,
+        appendType: false
       },
 
       loading: false,
@@ -455,6 +459,10 @@ export default {
         if (this.form.filename !== "") {
           this.customSubUrl +=
             "&filename=" + encodeURIComponent(this.form.filename);
+        }
+        if (this.form.appendType) {
+          this.customSubUrl +=
+            "&append_type=" + this.form.appendType.toString();
         }
 
         this.customSubUrl +=
