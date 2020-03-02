@@ -5,6 +5,7 @@
 ## Table of Contents
 
 - [Update](#Update)
+- [Docker](#Docker)
 - [Requirements](#Requirements)
 - [Install](#install)
 - [Usage](#usage)
@@ -17,13 +18,25 @@
   - 现在你可以使用 docker 部署
 
   ```shell
-  docker run -d -p 58080:80 --name subweb careywong/subweb:latest
+  docker run -d -p 58080:80 --restart always --name subweb careywong/subweb:latest
   ```
 
 - 20200227
   - 提供了短链接服务，可用于缩短生成的订阅 url，请和谐使用。
 
   > 注：需要后端支持。自行搭建服务，请参考 [bitly](https://github.com/CareyWang/bitly) 并修改 Subconverter.vue 中 **shortUrlBackend** 配置项。
+
+## Docker
+
+若需要对代码进行修改，你需要在本地构建镜像并运行。
+
+```shell
+docker build -t subweb-local:latest .
+
+docker run -d -p 58080:80 --restart always --name subweb subweb-local:latest
+```
+
+> 注：每次修改代码，你都需要重新执行 docker build 来执行打包操作。
 
 ## Requirements
 
