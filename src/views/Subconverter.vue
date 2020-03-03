@@ -245,7 +245,6 @@ export default {
           "localhost:25500 本地版": "http://localhost:25500/sub?",
           "gfwsb.114514.best(subconverter作者提供)":
             "https://gfwsb.114514.best/sub?",
-          "api.niconewbeee.tk(STC提供) ": "https://api.niconewbeee.tk/sub?",
           "api.wcc.best(sub-web作者提供)": "https://api.wcc.best/sub?"
         },
         remoteConfig: [
@@ -270,6 +269,11 @@ export default {
                 label: "ACL4SSR_Online_Mini 精简版 (与Github规则同步)",
                 value:
                   "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_Mini.ini"
+              },
+              {
+                label: "ACL4SSR_Online_Mini_Fallback.ini 精简版 带故障转移 (与Github规则同步)",
+                value:
+                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_Mini_Fallback.ini"
               },
               {
                 label: "ACL4SSR_Online_Full 全规则，重度用户使用 (与Github规则同步)",
