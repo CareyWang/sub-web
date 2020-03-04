@@ -24,19 +24,18 @@
 - 20200227
   - 提供了短链接服务，可用于缩短生成的订阅 url，请和谐使用。
 
-  > 注：需要后端支持。自行搭建服务，请参考 [bitly](https://github.com/CareyWang/bitly) 并修改 Subconverter.vue 中 **shortUrlBackend** 配置项。
+  > 注：需要后端支持。自行搭建服务，请参考 [bitly](https://github.com/CareyWang/bitly) 并修改 src/views/Subconverter.vue 中 **shortUrlBackend** 配置项。
 
 ## Docker
 
 若需要对代码进行修改，你需要在本地构建镜像并运行。
+注：每次修改代码，你都需要重新执行 docker build 来执行打包操作。
 
 ```shell
 docker build -t subweb-local:latest .
 
 docker run -d -p 58080:80 --restart always --name subweb subweb-local:latest
 ```
-
-> 注：每次修改代码，你都需要重新执行 docker build 来执行打包操作。
 
 ## Requirements
 
@@ -64,7 +63,7 @@ yarn serve
 
 ## Deploy
 
-发布到线上环境，你需要安装依赖，执行以下打包命令，生成的 dist 目录即为发布目录。
+发布到线上环境，你需要安装依赖，执行以下打包命令，生成的 dist 目录即为发布目录。如需修改默认后端，请修改 src/views/Subconverter.vue 中 **defaultBackend** 配置项。
 
 ```shell
 yarn build

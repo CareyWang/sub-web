@@ -115,6 +115,17 @@
                   >复制</el-button>
                 </el-input>
               </el-form-item>
+              <el-form-item label="订阅短链接:">
+                <el-input class="copy-content" disabled v-model="curtomShortSubUrl">
+                  <el-button
+                    slot="append"
+                    v-clipboard:copy="curtomShortSubUrl"
+                    v-clipboard:success="onCopy"
+                    ref="copy-btn"
+                    icon="el-icon-document-copy"
+                  >复制</el-button>
+                </el-input>
+              </el-form-item>
 
               <el-form-item label-width="0px" style="margin-top: 40px; text-align: center">
                 <el-button
@@ -295,66 +306,6 @@ export default {
                   "https://raw.githubusercontent.com/CareyWang/Rules/master/RemoteConfig/special/netease.ini"
               }
             ]
-          },
-          {
-            label: "友商推荐",
-            options: [
-              {
-                label: "ACL4SSR_Online 与Github规则同步",
-                value:
-                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online.ini"
-              },
-              {
-                label: "ACL4SSR_Online_Mini 精简版 与Github规则同步",
-                value:
-                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_Mini.ini"
-              },
-              {
-                label: "ACL4SSR_Online_NoAuto 与Github规则同步",
-                value:
-                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_NoAuto.ini"
-              },
-              {
-                label: "ACL4SSR",
-                value:
-                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR.ini"
-              },
-              {
-                label: "ACL4SSR_Mini 精简版",
-                value:
-                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Mini.ini"
-              },
-              {
-                label: "ACL4SSR_BackCN",
-                value:
-                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_BackCN.ini"
-              },
-              {
-                label: "ACL4SSR_NoApple",
-                value:
-                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_NoApple.ini"
-              },
-              {
-                label: "ACL4SSR_NoAuto",
-                value:
-                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_NoAuto.ini"
-              },
-              {
-                label: "ACL4SSR_NoAuto_NoApple",
-                value:
-                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_NoAuto_NoApple.ini"
-              },
-              {
-                label: "ACL4SSR_NoMicrosoft",
-                value:
-                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_NoMicrosoft.ini"
-              },
-              {
-                label: "ACL4SSR_WithGFW",
-                value:
-                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_WithGFW.ini"
-              }
-            ]
           }
         ]
       },
@@ -379,6 +330,7 @@ export default {
 
       loading: false,
       customSubUrl: "",
+      curtomShortSubUrl: "",
 
       dialogUploadConfigVisible: false,
       uploadConfig: "",
@@ -497,6 +449,7 @@ export default {
         .get(shortUrlBackend + "?longUrl=" + btoa(this.customSubUrl))
         .then(res => {
           if (res.data.Code === 1 && res.data.ShortUrl !== "") {
+            this.curtomShortSubUrl = res.data.ShortUrl;
             this.$copyText(res.data.ShortUrl);
             this.$message.success("短链接已复制到剪贴板");
           } else {
