@@ -167,37 +167,21 @@
     </el-row>
 
     <el-dialog
-      title="Remote config upload"
       :visible.sync="dialogUploadConfigVisible"
       :show-close="false"
       :close-on-click-modal="false"
       :close-on-press-escape="false"
       width="700px"
     >
-      <el-form label-position="left" label-width="150px">
-        <el-form-item prop="uploadPasswordItem">
-          <div slot="label">
-            密码：
-            <el-popover trigger="hover" placement="right">
-              <el-link
-                type="primary"
-                :href="myBot"
-                target="_blank"
-                icon="el-icon-s-promotion"
-              >@CareyWong_bot</el-link>
-              <i class="el-icon-question" slot="reference"></i>
-            </el-popover>
-          </div>
-          <el-input v-model="uploadPassword" show-password placeholder="请输入密码" style="width: 250px"></el-input>
-        </el-form-item>
+      <div slot="title">
+        Remote config upload
+        <el-popover trigger="hover" placement="right" style="margin-left: 10px">
+          <el-link type="primary" :href="sampleConfig" target="_blank" icon="el-icon-info">参考配置</el-link>
+          <i class="el-icon-question" slot="reference"></i>
+        </el-popover>
+      </div>
+      <el-form label-position="left">
         <el-form-item prop="uploadConfig">
-          <div slot="label">
-            RemoteConfig：
-            <el-popover trigger="hover" placement="right">
-              <el-link type="primary" :href="sampleConfig" target="_blank" icon="el-icon-info">参考配置</el-link>
-              <i class="el-icon-question" slot="reference"></i>
-            </el-popover>
-          </div>
           <el-input
             v-model="uploadConfig"
             type="textarea"
