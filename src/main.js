@@ -7,6 +7,8 @@ require(`@/plugins/base64`)
 require(`@/plugins/particles`)
 require(`@/plugins/axios`)
 
+import '@/icons' // icon
+
 Vue.config.productionTip = false
 
 new Vue({

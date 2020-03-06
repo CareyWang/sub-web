@@ -3,7 +3,10 @@
     <el-row style="margin-top: 10px">
       <el-col>
         <el-card>
-          <div slot="header">Subscription Converter</div>
+          <div slot="header">
+            Subscription Converter
+            <svg-icon icon-class="github" style="margin-left: 20px" @click="goToProject" />
+          </div>
           <el-container>
             <el-form :model="form" label-width="120px" label-position="left" style="width: 100%">
               <el-form-item label="模式设置:">
@@ -204,6 +207,7 @@
 </template>
 
 <script>
+const project = "https://github.com/CareyWang/sub-web";
 const remoteConfigSample =
   "https://raw.githubusercontent.com/tindy2013/subconverter/master/base/config/example_external_config.ini";
 const gayhubRelease = "https://github.com/tindy2013/subconverter/releases";
@@ -232,9 +236,7 @@ export default {
           ssr: "ssr",
           ssd: "ssd"
         },
-        backendOptions: [
-          { value: "http://127.0.0.1:25500/sub?" }
-        ],
+        backendOptions: [{ value: "http://127.0.0.1:25500/sub?" }],
         remoteConfig: [
           {
             label: "universal",
@@ -333,6 +335,9 @@ export default {
   methods: {
     onCopy() {
       this.$message.success("Copied!");
+    },
+    goToProject() {
+      window.open(project);
     },
     gotoGayhub() {
       window.open(gayhubRelease);
