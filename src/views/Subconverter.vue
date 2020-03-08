@@ -434,10 +434,11 @@ export default {
 
       this.loading = true;
 
+      let data = new FormData();
+      data.append("longUrl", btoa(this.customSubUrl));
+
       this.$axios
-        .post(shortUrlBackend, {
-          longUrl: btoa(this.customSubUrl)
-        })
+        .post(shortUrlBackend, data)
         .then(res => {
           if (res.data.Code === 1 && res.data.ShortUrl !== "") {
             this.curtomShortSubUrl = res.data.ShortUrl;
