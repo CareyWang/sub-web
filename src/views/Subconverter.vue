@@ -438,7 +438,11 @@ export default {
       data.append("longUrl", btoa(this.customSubUrl));
 
       this.$axios
-        .post(shortUrlBackend, data)
+        .post(shortUrlBackend, data, {
+          header: {
+            "Content-Type": "application/form-data; charset=utf-8"
+          }
+        })
         .then(res => {
           if (res.data.Code === 1 && res.data.ShortUrl !== "") {
             this.curtomShortSubUrl = res.data.ShortUrl;
