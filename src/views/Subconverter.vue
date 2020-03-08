@@ -435,7 +435,9 @@ export default {
       this.loading = true;
 
       this.$axios
-        .get(shortUrlBackend + "?longUrl=" + btoa(this.customSubUrl))
+        .post(shortUrlBackend, {
+          longUrl: btoa(this.customSubUrl)
+        })
         .then(res => {
           if (res.data.Code === 1 && res.data.ShortUrl !== "") {
             this.curtomShortSubUrl = res.data.ShortUrl;
