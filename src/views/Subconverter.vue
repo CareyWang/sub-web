@@ -168,7 +168,19 @@
         </el-card>
       </el-col>
     </el-row>
-
+    <br />
+    <el-divider content-position="center">
+      <i class="el-icon-guide"></i>
+      <span id="busuanzi_container_site_pv">
+        本站总访问量
+        <span id="busuanzi_value_site_pv"></span>次
+      </span>
+      <i class="el-icon-user" style="margin-left: 20px"></i>
+      <span id="busuanzi_container_site_uv">
+        本站访客数
+        <span id="busuanzi_value_site_uv"></span>人次
+      </span>
+    </el-divider>
     <el-dialog
       :visible.sync="dialogUploadConfigVisible"
       :show-close="false"
