@@ -15,8 +15,9 @@
 ## Update
 
 - 20200309
-  - 现在你可以放弃bitly，使用本地部署的短链接服务。参考 [MyUrls](https://github.com/CareyWang/MyUrls)
-
+  
+- 由于 bitly 免费账户月调用量限制，现在你可以放弃bitly，使用本地部署的短链接服务。参考 [MyUrls](https://github.com/CareyWang/MyUrls) 搭建。
+  
 - 20200301
   - 现在你可以使用 docker 部署
 
