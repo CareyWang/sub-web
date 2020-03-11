@@ -277,6 +277,11 @@ export default {
                   "https://raw.githubusercontent.com/CareyWang/Rules/master/RemoteConfig/customized/ytoo.ini"
               },
               {
+                label: "NyanCAT",
+                value:
+                  "https://raw.githubusercontent.com/CareyWang/Rules/master/RemoteConfig/customized/nyancat.ini"
+              },
+              {
                 label: "贼船",
                 value:
                   "https://raw.githubusercontent.com/CareyWang/Rules/master/RemoteConfig/customized/zeichuan.ini"
