@@ -27,17 +27,7 @@
                 </el-select>
               </el-form-item>
 
-              <div v-if="advanced === '2'">
-                <el-form-item label="后端地址:">
-                  <el-autocomplete
-                    style="width: 100%"
-                    v-model="form.customBackend"
-                    :fetch-suggestions="backendSearch"
-                    placeholder="动动小手，（建议）自行搭建后端服务。例：http://127.0.0.1:25500/sub?"
-                  >
-                    <el-button slot="append" @click="gotoGayhub" icon="el-icon-link">前往项目仓库</el-button>
-                  </el-autocomplete>
-                </el-form-item>
+
                 <el-form-item label="远程配置:">
                   <el-select
                     v-model="form.remoteConfig"
@@ -225,14 +215,14 @@
 </template>
 
 <script>
-const project = "https://github.com/CareyWang/sub-web";
+const project = "https://github.com/leosam1024/sub-web";
 const remoteConfigSample =
   "https://raw.githubusercontent.com/tindy2013/subconverter/master/base/config/example_external_config.ini";
 const gayhubRelease = "https://github.com/tindy2013/subconverter/releases";
 const defaultBackend = "https://api.wcc.best/sub?";
 const shortUrlBackend = "https://s.wcc.best/short";
 const configUploadBackend = "https://api.wcc.best/config/upload";
-const tgBotLink = "https://t.me/CareyWong_bot";
+const tgBotLink = "https://t.me/ACL4SSR";
 
 export default {
   data() {
@@ -256,11 +246,17 @@ export default {
         },
         customBackend: {
           "localhost:25500 本地版": "http://localhost:25500/sub?",
-          "gfwsb.114514.best(subconverter作者提供)":
+          "gfwsb.114514.best(subconverter作者提供1)":
             "https://gfwsb.114514.best/sub?",
+          "subconverter-web.now.sh(subconverter作者提供2)":
+            "https://subconverter-web.now.sh/sub?",
           "api.wcc.best(sub-web作者提供)": "https://api.wcc.best/sub?"
         },
-        backendOptions: [{ value: "http://127.0.0.1:25500/sub?" }],
+        backendOptions: [
+		{ value: "http://127.0.0.1:25500/sub?" },
+		{ value: "https://gfwsb.114514.best/sub?" },
+		{ value: "https://api.wcc.best/sub?" }
+		],
         remoteConfig: [
           {
             label: "默认",
