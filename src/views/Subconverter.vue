@@ -6,6 +6,8 @@
           <div slot="header">
             Subscription Converter
             <svg-icon icon-class="github" style="margin-left: 20px" @click="goToProject" />
+
+            <div style="display: inline-block; position:absolute; right: 20px">{{ backendVersion }}</div>
           </div>
           <el-container>
             <el-form :model="form" label-width="120px" label-position="left" style="width: 100%">
@@ -219,6 +221,7 @@ const tgBotLink = "https://t.me/CareyWong_bot";
 export default {
   data() {
     return {
+      backendVersion: '',
       advanced: "2",
 
       options: {
@@ -336,6 +339,7 @@ export default {
   mounted() {
     this.form.clientType = "clashr";
     this.notify();
+    this.getBackendVersion();
   },
   methods: {
     onCopy() {
@@ -533,6 +537,11 @@ export default {
           candidate.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0
         );
       };
+    },
+    getBackendVersion() {
+      this.$axios.get(defaultBackend.substring(0, defaultBackend.length - 5) + '/version').then(res => {
+        this.backendVersion = res.data.replace(/\n$/gm, '');
+      })
     }
   }
 };
