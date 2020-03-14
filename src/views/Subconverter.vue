@@ -482,9 +482,6 @@ export default {
       });
     },
     confirmUploadConfig() {
-      this.$message.warning('数据迁移，暂时下线');
-      return
-
       if (this.uploadConfig === "") {
         this.$message.warning("远程配置不能为空");
         return false;
