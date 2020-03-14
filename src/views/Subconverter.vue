@@ -253,7 +253,7 @@ export default {
           "api.wcc.best(sub-web作者提供)": "https://api.wcc.best/sub?"
         },
         backendOptions: [
-		{ value: "http://127.0.0.1:25500/sub?" },
+		{ value: "http://localhost:25500/sub?" },
 		{ value: "https://gfwsb.114514.best/sub?" },
 		{ value: "https://api.wcc.best/sub?" }
 		],
@@ -302,6 +302,10 @@ export default {
               {
                 label: "ACL4SSR_Mini 本地 精简版",
                 value: "config/ACL4SSR_Mini.ini"
+              },
+			  {
+                label: "ACL4SSR_Mini_Fallback.ini 本地 精简版+fallback",
+                value: "config/ACL4SSR_Mini_Fallback.ini"
               },
               {
                 label: "ACL4SSR_BackCN 本地 回国",
