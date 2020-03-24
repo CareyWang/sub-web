@@ -7,13 +7,6 @@ services:
     ports: 
       - "${SUBWEB_PORT}:80"
 
-  subconverter:
-    image: "tindy2013/subconverter:latest"
-    container_name: subconverter
-    restart: always
-    ports: 
-      - "${SUBCONVERTER_PORT}:25500"
-
   myurls:
     image: "careywong/myurls:latest"
     container_name: myurls

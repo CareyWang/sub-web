@@ -15,7 +15,7 @@
 ## Update
   
 - 20200324
-  - 现在你可以使用 docker-compose 启动包括前后端、短链接服务，服务端口及其他参数请自行在 .env 中配置。
+  - 现在你可以使用 docker-compose 启动前端及短链接服务，服务端口及其他参数请自行在 .env 中配置。
 
   ```shell
   git clone https://github.com/CareyWang/sub-web.git sub-web
