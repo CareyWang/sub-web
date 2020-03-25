@@ -265,9 +265,9 @@ export default {
                   "https://raw.githubusercontent.com/CareyWang/Rules/master/RemoteConfig/customized/maying.ini"
               },
               {
-                label: "Nexitally",
+                label: "rixCloud",
                 value:
-                  "https://raw.githubusercontent.com/CareyWang/Rules/master/RemoteConfig/customized/nexitally.ini"
+                  "https://raw.githubusercontent.com/CareyWang/Rules/master/RemoteConfig/customized/rixcloud.ini"
               },
               {
                 label: "YoYu",
@@ -283,6 +283,11 @@ export default {
                 label: "NyanCAT",
                 value:
                   "https://raw.githubusercontent.com/CareyWang/Rules/master/RemoteConfig/customized/nyancat.ini"
+              },
+              {
+                label: "Nexitally",
+                value:
+                  "https://raw.githubusercontent.com/CareyWang/Rules/master/RemoteConfig/customized/nexitally.ini"
               },
               {
                 label: "贼船",
@@ -337,7 +342,7 @@ export default {
     document.title = "Subscription Converter";
   },
   mounted() {
-    this.form.clientType = "clashr";
+    this.form.clientType = "clash";
     this.notify();
     this.getBackendVersion();
   },
