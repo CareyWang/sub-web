@@ -6,7 +6,6 @@
           <div slot="header">
             Subscription Converter
             <svg-icon icon-class="github" style="margin-left: 20px" @click="goToProject" />
-            <i class="el-icon-s-promotion" />
 
             <div style="display: inline-block; position:absolute; right: 20px">{{ backendVersion }}</div>
           </div>
