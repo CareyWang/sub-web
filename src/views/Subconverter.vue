@@ -78,15 +78,15 @@
                       <el-checkbox v-model="form.nodeList" label="输出为 Node List" border></el-checkbox>
                       <el-checkbox v-model="form.emoji" label="Emoji" border></el-checkbox>
                     </el-col>
-                    <el-popover v-model="form.extraset">
+                    <el-popover placement="left" v-model="form.extraset">
                       <el-row>
-                        <el-checkbox v-model="form.sort" label="排序节点"></el-checkbox>
+                        <el-checkbox v-model="form.udp" label="启用 UDP"></el-checkbox>
                       </el-row>
                       <el-row>
                         <el-checkbox v-model="form.appendType" label="节点类型"></el-checkbox>
                       </el-row>
                       <el-row>
-                        <el-checkbox v-model="form.udp" label="启用 UDP"></el-checkbox>
+                        <el-checkbox v-model="form.sort" label="排序节点"></el-checkbox>
                       </el-row>
                       <el-row>
                         <el-checkbox v-model="form.tfo" label="启用 TFO"></el-checkbox>
@@ -98,6 +98,12 @@
                         <el-checkbox v-model="form.fdn" label="过滤非法节点"></el-checkbox>
                       </el-row>
                       <el-button slot="reference">更多选项</el-button>
+                    </el-popover>
+                    <el-popover placement="left" style="margin-left: 20px">
+                      <el-row>
+                        <el-checkbox v-model="form.tpl.surge.doh" label="Surge.DoH"></el-checkbox>
+                      </el-row>
+                      <el-button slot="reference">模板定制功能</el-button>
                     </el-popover>
                   </el-row>
                 </el-form-item>
@@ -324,7 +330,14 @@ export default {
         tfo: false,
         scv: false,
         fdn: false,
-        appendType: false
+        appendType: false,
+
+        // tpl 定制功能
+        tpl: {
+          surge: {
+            doh: false, // dns 查询是否使用 DoH 
+          }
+        }
       },
 
       loading: false,
@@ -435,6 +448,10 @@ export default {
           this.form.fdn.toString() +
           "&sort=" +
           this.form.sort.toString();
+
+        if (this.form.tpl.surge.doh === true) {
+          this.customSubUrl += "&surge.doh=true"
+        }
       }
 
       this.$copyText(this.customSubUrl);
