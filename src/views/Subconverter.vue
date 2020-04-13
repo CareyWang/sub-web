@@ -299,6 +299,11 @@ export default {
                 label: "贼船",
                 value:
                   "https://raw.githubusercontent.com/CareyWang/Rules/master/RemoteConfig/customized/zeichuan.ini"
+              },
+              {
+                label: "布丁",
+                value:
+                  "https://raw.githubusercontent.com/CareyWang/Rules/master/RemoteConfig/customized/pud.ini"
               }
             ]
           },
