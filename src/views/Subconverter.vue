@@ -314,6 +314,11 @@ export default {
                 label: "NeteaseUnblock(仅规则，No-Urltest)",
                 value:
                   "https://raw.githubusercontent.com/CareyWang/Rules/master/RemoteConfig/special/netease.ini"
+              },
+              {
+                label: "Basic(仅GEOIP CN + Final)",
+                value:
+                  "https://raw.githubusercontent.com/CareyWang/Rules/master/RemoteConfig/special/basic.ini"
               }
             ]
           }
