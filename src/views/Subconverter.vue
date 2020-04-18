@@ -412,7 +412,7 @@ export default {
           : this.form.customBackend;
 
       let sourceSub = this.form.sourceSubUrl;
-      sourceSub = sourceSub.replace(/[\n|\r|\n\r]/g, "|");
+      sourceSub = sourceSub.replace(/(\n|\r|\n\r)/g, "|");
 
       this.customSubUrl =
         backend +
