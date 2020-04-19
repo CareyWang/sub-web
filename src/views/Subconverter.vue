@@ -226,7 +226,7 @@ const tgBotLink = "https://t.me/ACL4SSR";
 
 export default {
   data() {
-    return {
+    var data = {
       advanced: "1",
 
       options: {
@@ -248,15 +248,20 @@ export default {
           "localhost:25500 本地版": "http://localhost:25500/sub?",
           "gfwsb.114514.best(subconverter作者提供1)":
             "https://gfwsb.114514.best/sub?",
-          "subconverter-web.now.sh(subconverter作者提供2)":
+          "subconverter-web.now.sh(subconverter作者提供2-稳定)":
             "https://subconverter-web.now.sh/sub?",
-          "api.wcc.best(sub-web作者提供)": "https://api.wcc.best/sub?"
+          "subconverter.herokuapp.com(subconverter作者提供3-稳定)":
+            "https://subconverter.herokuapp.com/sub?",
+          "api.dler.io(sub作者&lhie1提供-稳定)": "https://api.dler.io/sub?",
+          "api.wcc.best(sub-web作者提供-稳定)": "https://api.wcc.best/sub?"
         },
         backendOptions: [
-		{ value: "http://localhost:25500/sub?" },
-		{ value: "https://gfwsb.114514.best/sub?" },
-		{ value: "https://api.wcc.best/sub?" }
-		],
+          { value: "http://localhost:25500/sub?" },
+          { value: "https://gfwsb.114514.best/sub?" },
+          { value: "https://subconverter-web.now.sh/sub?" },
+          { value: "https://subconverter.herokuapp.com/sub?" },
+          { value: "https://api.wcc.best/sub?" }
+        ],
         remoteConfig: [
           {
             label: "默认",
@@ -453,14 +458,37 @@ export default {
       myBot: tgBotLink,
       sampleConfig: remoteConfigSample
     };
+
+    // window.console.log(data.options.remoteConfig);
+    // window.console.log(data.options.customBackend);
+    let phoneUserAgent = /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    );
+    if (phoneUserAgent) {
+      let acl4ssrConfig = data.options.remoteConfig[1].options;
+      for (let i = 0; i < acl4ssrConfig.length; i++) {
+        if (acl4ssrConfig[i].label.length > 10) {
+          acl4ssrConfig[i].label = acl4ssrConfig[i].label.replace(/\s.*/, "");
+        }
+      }
+      var serverList = {};
+      let serverKeys = Object.keys(data.options.customBackend);
+      for (let i = 0; i < serverKeys.length; i++) {
+        let key = serverKeys[i].replace(/\(.*/, "");
+        serverList[key] = data.options.customBackend[serverKeys[i]];
+      }
+      data.options.customBackend = serverList;
+    }
+    return data;
   },
   created() {
     document.title = "ACL4SSR Subscription Converter";
   },
   mounted() {
     this.form.clientType = "clashr";
-    this.form.customBackend = "http://localhost:25500/sub?";
-    this.form.remoteConfig = "config/ACL4SSR.ini";
+    this.form.customBackend = "https://subconverter-web.now.sh/sub?";
+    this.form.remoteConfig =
+      "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online.ini";
     this.notify();
   },
   methods: {
