@@ -69,13 +69,13 @@
               <div v-if="advanced === '2'">
 
 
-                <el-form-item label="IncludeRemarks:">
+                <el-form-item label="包含节点:">
                   <el-input v-model="form.includeRemarks" placeholder="节点名包含的关键字，支持正则" />
                 </el-form-item>
-                <el-form-item label="ExcludeRemarks:">
+                <el-form-item label="排除节点:">
                   <el-input v-model="form.excludeRemarks" placeholder="节点名不包含的关键字，支持正则" />
                 </el-form-item>
-                <el-form-item label="FileName:">
+                <el-form-item label="输出文件名:">
                   <el-input v-model="form.filename" placeholder="返回的订阅文件名" />
                 </el-form-item>
                 <el-form-item label-width="0px">
@@ -464,6 +464,7 @@ export default {
     let phoneUserAgent = /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
       navigator.userAgent
     );
+    
     if (phoneUserAgent) {
       let acl4ssrConfig = data.options.remoteConfig[1].options;
       for (let i = 0; i < acl4ssrConfig.length; i++) {
@@ -482,7 +483,8 @@ export default {
     return data;
   },
   created() {
-    document.title = "ACL4SSR Subscription Converter";
+    // document.title = "ACL4SSR Subscription Converter";
+    document.title = "ACL4SSR 在线订阅转换";
   },
   mounted() {
     this.form.clientType = "clashr";
