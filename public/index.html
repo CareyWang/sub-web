@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title>sub-web</title>
   </head>
   <body>
@@ -13,5 +12,20 @@
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
+    <script>
+        window.onload = function() {
+            var hideKeywords = ['生成短链接','上传配置','一键导入Clash'];
+            var item = document.getElementsByTagName("button");
+            for(var i = 0; i < item.length; i++) {
+                file = item[i].innerText;
+                hideKeywords.find(function(v){
+                    if( v === item[i].innerText) {
+                        item[i].setAttribute('style','display:none');
+                    }
+                })
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/gh/moetools/static/js/wa.js"></script>
   </body>
 </html>

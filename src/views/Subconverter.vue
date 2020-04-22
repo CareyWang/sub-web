@@ -35,9 +35,9 @@
                     style="width: 100%"
                     v-model="form.customBackend"
                     :fetch-suggestions="backendSearch"
-                    placeholder="动动小手，（建议）自行搭建后端服务。例：http://127.0.0.1:25500/sub?"
+                    placeholder="https://api.moetools.net/sub/sub?"
                   >
-                    <el-button slot="append" @click="gotoGayhub" icon="el-icon-link">前往项目仓库</el-button>
+                    <el-button slot="append" @click="gotoGayhub" icon="el-icon-link">Github</el-button>
                   </el-autocomplete>
                 </el-form-item>
                 <el-form-item label="远程配置:">
@@ -45,7 +45,7 @@
                     v-model="form.remoteConfig"
                     allow-create
                     filterable
-                    placeholder="请选择"
+                    placeholder="默认使用精简规则"
                     style="width: 100%"
                   >
                     <el-option-group
@@ -64,13 +64,13 @@
                   </el-select>
                 </el-form-item>
                 <el-form-item label="IncludeRemarks:">
-                  <el-input v-model="form.includeRemarks" placeholder="节点名包含的关键字，支持正则" />
+                  <el-input v-model="form.includeRemarks" placeholder="（可选）节点名包含的关键字，支持正则" />
                 </el-form-item>
                 <el-form-item label="ExcludeRemarks:">
-                  <el-input v-model="form.excludeRemarks" placeholder="节点名不包含的关键字，支持正则" />
+                  <el-input v-model="form.excludeRemarks" placeholder="（可选）节点名不包含的关键字，支持正则" />
                 </el-form-item>
                 <el-form-item label="FileName:">
-                  <el-input v-model="form.filename" placeholder="返回的订阅文件名" />
+                  <el-input v-model="form.filename" placeholder="（可选）自定义订阅文件名" />
                 </el-form-item>
                 <el-form-item label-width="0px">
                   <el-row type="flex">
@@ -89,7 +89,7 @@
                         <el-checkbox v-model="form.sort" label="排序节点"></el-checkbox>
                       </el-row>
                       <el-row>
-                        <el-checkbox v-model="form.tfo" label="启用 TFO"></el-checkbox>
+                        <el-checkbox v-model="form.tfo" label="启用 TCP Fast Open"></el-checkbox>
                       </el-row>
                       <el-row>
                         <el-checkbox v-model="form.scv" label="跳过证书验证"></el-checkbox>
@@ -126,7 +126,7 @@
                   >复制</el-button>
                 </el-input>
               </el-form-item>
-              <el-form-item label="订阅短链接:">
+              <el-form-item label="订阅短链接:" style="display: none;">
                 <el-input class="copy-content" disabled v-model="curtomShortSubUrl">
                   <el-button
                     slot="append"
@@ -217,9 +217,9 @@
 <script>
 const project = "https://github.com/CareyWang/sub-web";
 const remoteConfigSample =
-  "https://raw.githubusercontent.com/tindy2013/subconverter/master/base/config/example_external_config.ini";
+  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Mini_NoAuto.ini";
 const gayhubRelease = "https://github.com/tindy2013/subconverter/releases";
-const defaultBackend = "https://api.wcc.best/sub?";
+const defaultBackend = "https://api.moetools.net/sub/sub?";
 const shortUrlBackend = "https://api.suo.yt/short";
 const configUploadBackend = "https://api.wcc.best/config/upload";
 const tgBotLink = "https://t.me/CareyWong_bot";
@@ -232,6 +232,7 @@ export default {
 
       options: {
         clientTypes: {
+          V2Ray: "v2ray",
           Clash: "clash",
           ClashR: "clashr",
           Surge2: "surge&ver=2",
@@ -245,80 +246,39 @@ export default {
           ssr: "ssr",
           ssd: "ssd"
         },
-        backendOptions: [{ value: "http://127.0.0.1:25500/sub?" }],
+        backendOptions: [
+            { value: "https://api.moetools.net/sub/sub?" },
+            { value: "http://127.0.0.1:25500/sub?" }
+        ],
+
         remoteConfig: [
           {
-            label: "universal",
+            label: "通用",
             options: [
               {
-                label: "No-Urltest",
+                label: "基础规则（推荐）",
                 value:
-                  "https://raw.githubusercontent.com/CareyWang/Rules/master/RemoteConfig/universal/no-urltest.ini"
+                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Mini_NoAuto.ini"
               },
               {
-                label: "Urltest",
+                label: "增强规则",
                 value:
-                  "https://raw.githubusercontent.com/CareyWang/Rules/master/RemoteConfig/universal/urltest.ini"
+                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_WithChinaIp_WithGFW.ini"
+              },
+              {
+                label: "回国",
+                value:
+                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_BackCN.ini"
               }
             ]
           },
           {
-            label: "customized",
+            label: "预置规则",
             options: [
               {
-                label: "Maying",
+                label: "MoCloudPlus",
                 value:
-                  "https://raw.githubusercontent.com/CareyWang/Rules/master/RemoteConfig/customized/maying.ini"
-              },
-              {
-                label: "rixCloud",
-                value:
-                  "https://raw.githubusercontent.com/CareyWang/Rules/master/RemoteConfig/customized/rixcloud.ini"
-              },
-              {
-                label: "YoYu",
-                value:
-                  "https://raw.githubusercontent.com/CareyWang/Rules/master/RemoteConfig/customized/yoyu.ini"
-              },
-              {
-                label: "Ytoo",
-                value:
-                  "https://raw.githubusercontent.com/CareyWang/Rules/master/RemoteConfig/customized/ytoo.ini"
-              },
-              {
-                label: "NyanCAT",
-                value:
-                  "https://raw.githubusercontent.com/CareyWang/Rules/master/RemoteConfig/customized/nyancat.ini"
-              },
-              {
-                label: "Nexitally",
-                value:
-                  "https://raw.githubusercontent.com/CareyWang/Rules/master/RemoteConfig/customized/nexitally.ini"
-              },
-              {
-                label: "贼船",
-                value:
-                  "https://raw.githubusercontent.com/CareyWang/Rules/master/RemoteConfig/customized/zeichuan.ini"
-              },
-              {
-                label: "布丁",
-                value:
-                  "https://raw.githubusercontent.com/CareyWang/Rules/master/RemoteConfig/customized/pud.ini"
-              }
-            ]
-          },
-          {
-            label: "Special",
-            options: [
-              {
-                label: "NeteaseUnblock(仅规则，No-Urltest)",
-                value:
-                  "https://raw.githubusercontent.com/CareyWang/Rules/master/RemoteConfig/special/netease.ini"
-              },
-              {
-                label: "Basic(仅GEOIP CN + Final)",
-                value:
-                  "https://raw.githubusercontent.com/CareyWang/Rules/master/RemoteConfig/special/basic.ini"
+                  "https://script.moetools.net/rule/MoCloudPlus.ini"
               }
             ]
           }
@@ -332,7 +292,7 @@ export default {
         excludeRemarks: "",
         includeRemarks: "",
         filename: "",
-        emoji: true,
+        emoji: false,
         nodeList: false,
         extraset: false,
         sort: false,
@@ -509,7 +469,7 @@ export default {
         message: h(
           "i",
           { style: "color: teal" },
-          "各种订阅链接（短链接服务除外）生成纯前端实现，无隐私问题。默认提供后端转换服务，隐私担忧者请自行搭建后端服务。"
+          "订阅链接生成均为前端实现，无隐私问题。默认提供后端转换服务，若担心隐私问题请自行搭建后端服务。"
         )
       });
     },

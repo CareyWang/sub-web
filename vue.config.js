@@ -5,7 +5,10 @@ function resolve(dir) {
 }
 
 module.exports = {
+  publicPath: "/subweb/",
+  productionSourceMap: false,
   css: {
+    sourceMap: false,
     loaderOptions: {
       less: {
         javascriptEnabled: true
