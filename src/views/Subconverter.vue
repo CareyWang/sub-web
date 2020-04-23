@@ -75,10 +75,10 @@
                 <el-form-item label-width="0px">
                   <el-row type="flex">
                     <el-col>
-                      <el-checkbox v-model="form.nodeList" label="输出为 Node List" border></el-checkbox>
                       <el-checkbox v-model="form.emoji" label="Emoji" border></el-checkbox>
+                      <el-checkbox v-model="form.nodeList" label="输出为 Node List" border></el-checkbox>
                     </el-col>
-                    <el-popover placement="left" v-model="form.extraset">
+                    <el-popover placement="bottom" v-model="form.extraset">
                       <el-row>
                         <el-checkbox v-model="form.udp" label="启用 UDP"></el-checkbox>
                       </el-row>
@@ -99,9 +99,12 @@
                       </el-row>
                       <el-button slot="reference">更多选项</el-button>
                     </el-popover>
-                    <el-popover placement="left" style="margin-left: 20px">
+                    <el-popover placement="bottom" style="margin-left: 20px">
                       <el-row>
                         <el-checkbox v-model="form.tpl.surge.doh" label="Surge.DoH"></el-checkbox>
+                      </el-row>
+                      <el-row>
+                        <el-checkbox v-model="form.tpl.clash.doh" label="Clash.DoH"></el-checkbox>
                       </el-row>
                       <el-button slot="reference">模板定制功能</el-button>
                     </el-popover>
@@ -227,8 +230,11 @@ const tgBotLink = "https://t.me/CareyWong_bot";
 export default {
   data() {
     return {
-      backendVersion: '',
+      backendVersion: "",
       advanced: "2",
+
+      // 是否为 PC 端
+      isPC: true,
 
       options: {
         clientTypes: {
@@ -345,7 +351,10 @@ export default {
         // tpl 定制功能
         tpl: {
           surge: {
-            doh: false, // dns 查询是否使用 DoH 
+            doh: false // dns 查询是否使用 DoH
+          },
+          clash: {
+            doh: false
           }
         }
       },
@@ -363,6 +372,7 @@ export default {
   },
   created() {
     document.title = "Subscription Converter";
+    this.isPC = this.$getOS().isPc;
   },
   mounted() {
     this.form.clientType = "clash";
@@ -389,7 +399,14 @@ export default {
       }
 
       const url = "clash://install-config?url=";
-      window.open(url + encodeURIComponent(this.curtomShortSubUrl !== '' ? this.curtomShortSubUrl : this.customSubUrl));
+      window.open(
+        url +
+          encodeURIComponent(
+            this.curtomShortSubUrl !== ""
+              ? this.curtomShortSubUrl
+              : this.customSubUrl
+          )
+      );
     },
     surgeInstall() {
       if (this.customSubUrl === "") {
@@ -460,7 +477,10 @@ export default {
           this.form.sort.toString();
 
         if (this.form.tpl.surge.doh === true) {
-          this.customSubUrl += "&surge.doh=true"
+          this.customSubUrl += "&surge.doh=true";
+        }
+        if (this.form.tpl.clash.doh === true) {
+          this.customSubUrl += "&clash.doh=true";
         }
       }
 
@@ -571,11 +591,15 @@ export default {
       };
     },
     getBackendVersion() {
-      this.$axios.get(defaultBackend.substring(0, defaultBackend.length - 5) + '/version').then(res => {
-        this.backendVersion = res.data.replace(/backend\n$/gm, '');
-        this.backendVersion = this.backendVersion.replace('subconverter', '');
-      })
-    }
+      this.$axios
+        .get(
+          defaultBackend.substring(0, defaultBackend.length - 5) + "/version"
+        )
+        .then(res => {
+          this.backendVersion = res.data.replace(/backend\n$/gm, "");
+          this.backendVersion = this.backendVersion.replace("subconverter", "");
+        });
+    },
   }
 };
 </script>
