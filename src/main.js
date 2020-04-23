@@ -6,6 +6,7 @@ require(`@/plugins/clipboard`)
 require(`@/plugins/base64`)
 require(`@/plugins/particles`)
 require(`@/plugins/axios`)
+require(`@/plugins/device`)
 
 import '@/icons' // icon
 
