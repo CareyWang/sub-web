@@ -4,8 +4,9 @@
       <el-col>
         <el-card>
           <div slot="header">
-            Subscription Converter
+            订阅转换
             <svg-icon icon-class="github" style="margin-left: 20px" @click="goToProject" />
+            <svg-icon icon-class="telegram" style="margin-left: 20px" @click="gotoTgChannel" />
 
             <div style="display: inline-block; position:absolute; right: 20px">{{ backendVersion }}</div>
           </div>
@@ -223,7 +224,7 @@
 </template>
 
 <script>
-const project = "https://github.com/leosam1024/sub-web";
+const project = "https://github.com/ACL4SSR/ACL4SSR";
 const remoteConfigSample =
   "https://raw.githubusercontent.com/tindy2013/subconverter/master/base/config/example_external_config.ini";
 const gayhubRelease = "https://github.com/tindy2013/subconverter/releases";
@@ -531,6 +532,9 @@ export default {
     },
     goToProject() {
       window.open(project);
+    },
+	gotoTgChannel() {
+      window.open(tgBotLink);
     },
     gotoGayhub() {
       window.open(gayhubRelease);
