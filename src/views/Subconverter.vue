@@ -242,6 +242,7 @@ export default {
         clientTypes: {
           Clash: "clash",
           ClashR: "clashr",
+          ClashR新参数: "clashr&new_name=true",
           Surge2: "surge&ver=2",
           Surge3: "surge&ver=3",
           Surge4: "surge&ver=4",
@@ -519,7 +520,7 @@ export default {
   },
   mounted() {
     this.form.clientType = "clashr";
-    this.form.customBackend = "https://subconverter-web.now.sh/sub?";
+    this.form.customBackend = "https://gfwsb.114514.best/sub?";
     this.form.remoteConfig =
       "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online.ini";
     this.notify();
