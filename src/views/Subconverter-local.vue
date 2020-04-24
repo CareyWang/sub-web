@@ -520,8 +520,8 @@ export default {
   },
   mounted() {
     this.form.clientType = "clashr";
-    this.form.customBackend = "https://gfwsb.114514.best/sub?";
-    this.form.remoteConfig = "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online.ini";
+    this.form.customBackend = "http://localhost:25500/sub?";
+    this.form.remoteConfig = "config/ACL4SSR.ini";
     this.notify();
     this.getBackendVersion();
   },
