@@ -89,12 +89,6 @@
                         <el-checkbox v-model="form.sort" label="排序节点"></el-checkbox>
                       </el-row>
                       <el-row>
-                        <el-checkbox v-model="form.tfo" label="启用 TFO"></el-checkbox>
-                      </el-row>
-                      <el-row>
-                        <el-checkbox v-model="form.scv" label="跳过证书验证"></el-checkbox>
-                      </el-row>
-                      <el-row>
                         <el-checkbox v-model="form.fdn" label="过滤非法节点"></el-checkbox>
                       </el-row>
                       <el-button slot="reference">更多选项</el-button>
@@ -106,7 +100,10 @@
                       <el-row>
                         <el-checkbox v-model="form.tpl.clash.doh" label="Clash.DoH"></el-checkbox>
                       </el-row>
-                      <el-button slot="reference">模板定制功能</el-button>
+                      <el-row>
+                        <el-checkbox v-model="form.insert" label="网易云"></el-checkbox>
+                      </el-row>
+                      <el-button slot="reference">定制功能</el-button>
                     </el-popover>
                   </el-row>
                 </el-form-item>
@@ -347,6 +344,7 @@ export default {
         scv: false,
         fdn: false,
         appendType: false,
+        insert: false, // 是否插入默认订阅的节点，对应配置项 insert_url 
 
         // tpl 定制功能
         tpl: {
@@ -436,7 +434,9 @@ export default {
         "target=" +
         this.form.clientType +
         "&url=" +
-        encodeURIComponent(sourceSub);
+        encodeURIComponent(sourceSub) + 
+        "&insert=" + 
+        this.form.insert;
 
       if (this.advanced === "2") {
         if (this.form.remoteConfig !== "") {
