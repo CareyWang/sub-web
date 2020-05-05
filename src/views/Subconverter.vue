@@ -256,12 +256,12 @@ export default {
               {
                 label: "No-Urltest",
                 value:
-                  "https://subconverter.s3-ap-southeast-1.amazonaws.com/RemoteConfig/universal/no-urltest.ini"
+                  "https://storage.googleapis.com/subconverter/RemoteConfig/universal/no-urltest.ini"
               },
               {
                 label: "Urltest",
                 value:
-                  "https://subconverter.s3-ap-southeast-1.amazonaws.com/RemoteConfig/universal/urltest.ini"
+                  "https://storage.googleapis.com/subconverter/RemoteConfig/universal/urltest.ini"
               }
             ]
           },
@@ -271,42 +271,42 @@ export default {
               {
                 label: "Maying",
                 value:
-                  "https://subconverter.s3-ap-southeast-1.amazonaws.com/RemoteConfig/customized/maying.ini"
+                  "https://storage.googleapis.com/subconverter/RemoteConfig/customized/maying.ini"
               },
               {
                 label: "rixCloud",
                 value:
-                  "https://subconverter.s3-ap-southeast-1.amazonaws.com/RemoteConfig/customized/rixcloud.ini"
+                  "https://storage.googleapis.com/subconverter/RemoteConfig/customized/rixcloud.ini"
               },
               {
                 label: "YoYu",
                 value:
-                  "https://subconverter.s3-ap-southeast-1.amazonaws.com/RemoteConfig/customized/yoyu.ini"
+                  "https://storage.googleapis.com/subconverter/RemoteConfig/customized/yoyu.ini"
               },
               {
                 label: "Ytoo",
                 value:
-                  "https://subconverter.s3-ap-southeast-1.amazonaws.com/RemoteConfig/customized/ytoo.ini"
+                  "https://storage.googleapis.com/subconverter/RemoteConfig/customized/ytoo.ini"
               },
               {
                 label: "NyanCAT",
                 value:
-                  "https://subconverter.s3-ap-southeast-1.amazonaws.com/RemoteConfig/customized/nyancat.ini"
+                  "https://storage.googleapis.com/subconverter/RemoteConfig/customized/nyancat.ini"
               },
               {
                 label: "Nexitally",
                 value:
-                  "https://subconverter.s3-ap-southeast-1.amazonaws.com/RemoteConfig/customized/nexitally.ini"
+                  "https://storage.googleapis.com/subconverter/RemoteConfig/customized/nexitally.ini"
               },
               {
                 label: "贼船",
                 value:
-                  "https://subconverter.s3-ap-southeast-1.amazonaws.com/RemoteConfig/customized/zeichuan.ini"
+                  "https://storage.googleapis.com/subconverter/RemoteConfig/customized/zeichuan.ini"
               },
               {
                 label: "布丁",
                 value:
-                  "https://subconverter.s3-ap-southeast-1.amazonaws.com/RemoteConfig/customized/pud.ini"
+                  "https://storage.googleapis.com/subconverter/RemoteConfig/customized/pud.ini"
               }
             ]
           },
@@ -316,12 +316,12 @@ export default {
               {
                 label: "NeteaseUnblock(仅规则，No-Urltest)",
                 value:
-                  "https://subconverter.s3-ap-southeast-1.amazonaws.com/RemoteConfig/special/netease.ini"
+                  "https://storage.googleapis.com/subconverter/RemoteConfig/special/netease.ini"
               },
               {
                 label: "Basic(仅GEOIP CN + Final)",
                 value:
-                  "https://subconverter.s3-ap-southeast-1.amazonaws.com/RemoteConfig/special/basic.ini"
+                  "https://storage.googleapis.com/subconverter/RemoteConfig/special/basic.ini"
               }
             ]
           }
