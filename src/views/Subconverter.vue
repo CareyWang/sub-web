@@ -307,6 +307,11 @@ export default {
                 label: "布丁",
                 value:
                   "https://subconverter.oss-ap-southeast-1.aliyuncs.com/Rules/RemoteConfig/customized/pud.ini"
+              },
+              {
+                label: "SoCloud",
+                value:
+                  "https://subconverter.oss-ap-southeast-1.aliyuncs.com/Rules/RemoteConfig/customized/socloud.ini"
               }
             ]
           },
