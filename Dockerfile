@@ -1,7 +1,7 @@
 # ---- Dependencies ----
 FROM node:lts-alpine AS dependencies
 WORKDIR /app
-COPY package.json yarn.lock ./
+COPY package.json ./
 RUN yarn install
 
 # ---- Build ----
