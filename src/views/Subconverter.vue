@@ -89,6 +89,9 @@
                     </el-col>
                     <el-popover placement="bottom" v-model="form.extraset">
                       <el-row>
+                        <el-checkbox v-model="form.new_name" label="Clash New Field"></el-checkbox>
+                      </el-row>
+                      <el-row>
                         <el-checkbox v-model="form.udp" label="启用 UDP"></el-checkbox>
                       </el-row>
                       <el-row>
@@ -430,6 +433,16 @@ export default {
                   "https://subconverter.oss-ap-southeast-1.aliyuncs.com/Rules/RemoteConfig/customized/nexitally.ini"
               },
               {
+                label: "SoCloud",
+                value:
+                  "https://subconverter.oss-ap-southeast-1.aliyuncs.com/Rules/RemoteConfig/customized/socloud.ini"
+              },
+              {
+                label: "ARK",
+                value:
+                  "https://subconverter.oss-ap-southeast-1.aliyuncs.com/Rules/RemoteConfig/customized/ark.ini"
+              },
+              {
                 label: "贼船",
                 value:
                   "https://subconverter.oss-ap-southeast-1.aliyuncs.com/Rules/RemoteConfig/customized/zeichuan.ini"
@@ -438,11 +451,6 @@ export default {
                 label: "布丁",
                 value:
                   "https://subconverter.oss-ap-southeast-1.aliyuncs.com/Rules/RemoteConfig/customized/pud.ini"
-              },
-              {
-                label: "SoCloud",
-                value:
-                  "https://subconverter.oss-ap-southeast-1.aliyuncs.com/Rules/RemoteConfig/customized/socloud.ini"
               }
             ]
           },
@@ -481,6 +489,7 @@ export default {
         fdn: false,
         appendType: false,
         insert: false, // 是否插入默认订阅的节点，对应配置项 insert_url
+        new_name: true, // 是否使用 Clash 新字段
 
         // tpl 定制功能
         tpl: {
@@ -612,6 +621,10 @@ export default {
       }
 
       if (this.advanced === "2") {
+        if (this.form.remoteConfig !== "") {
+          this.customSubUrl +=
+            "&config=" + encodeURIComponent(this.form.remoteConfig);
+        }
         if (this.form.excludeRemarks !== "") {
           this.customSubUrl +=
             "&exclude=" + encodeURIComponent(this.form.excludeRemarks);
@@ -648,8 +661,9 @@ export default {
         if (this.form.tpl.surge.doh === true) {
           this.customSubUrl += "&surge.doh=true";
         }
-        if (this.form.tpl.clash.doh === true) {
-          this.customSubUrl += "&clash.doh=true";
+
+        if (this.form.clientType === "clash") {
+          this.customSubUrl += "&new_name=" + this.form.new_name.toString();
         }
       }
 
@@ -768,7 +782,7 @@ export default {
           this.backendVersion = res.data.replace(/backend\n$/gm, "");
           this.backendVersion = this.backendVersion.replace("subconverter", "");
         });
-    },
+    }
   }
 };
 </script>

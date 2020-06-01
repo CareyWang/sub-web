@@ -29,5 +29,5 @@ jobs:
     - name: Upload
       uses: actions/upload-artifact@v1
       with:
-        name: release
+        name: dist
         path: dist/
