@@ -542,7 +542,7 @@ export default {
      this.isPC = this.$getOS().isPc;
   },
   mounted() {
-    this.form.clientType = "clashr";
+    this.form.clientType = "clashr&new_name=true";
     this.form.customBackend = "https://gfwsb.114514.best/sub?";
     this.form.remoteConfig = "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online.ini";
     this.notify();
@@ -603,7 +603,6 @@ export default {
       // 远程配置
       let config = this.form.remoteConfig === "" ? "" : this.form.remoteConfig;
 
-
       let sourceSub = this.form.sourceSubUrl;
       sourceSub = sourceSub.replace(/(\n|\r|\n\r)/g, "|");
 
@@ -621,10 +620,6 @@ export default {
       }
 
       if (this.advanced === "2") {
-        if (this.form.remoteConfig !== "") {
-          this.customSubUrl +=
-            "&config=" + encodeURIComponent(this.form.remoteConfig);
-        }
         if (this.form.excludeRemarks !== "") {
           this.customSubUrl +=
             "&exclude=" + encodeURIComponent(this.form.excludeRemarks);
