@@ -249,7 +249,8 @@ export default {
           Loon: "loon",
           ss: "ss",
           ssr: "ssr",
-          ssd: "ssd"
+          ssd: "ssd",
+          v2ray: "v2ray"
         },
         backendOptions: [{ value: "http://127.0.0.1:25500/sub?" }],
         remoteConfig: [
