@@ -259,7 +259,8 @@ export default {
           Loon: "loon",
           ss: "ss",
           ssr: "ssr",
-          ssd: "ssd"
+          ssd: "ssd",
+          v2ray: "v2ray"
         },
         customBackend: {
           "localhost:25500 本地版": "http://localhost:25500/sub?",
@@ -451,6 +452,11 @@ export default {
                 label: "ARK",
                 value:
                   "https://subconverter.oss-ap-southeast-1.aliyuncs.com/Rules/RemoteConfig/customized/ark.ini"
+              },
+              {
+                label: "ssrCloud",
+                value:
+                  "https://subconverter.oss-ap-southeast-1.aliyuncs.com/Rules/RemoteConfig/customized/ssrcloud.ini"
               },
               {
                 label: "贼船",
