@@ -249,7 +249,7 @@ export default {
         clientTypes: {
           Clash: "clash",
           ClashR: "clashr",
-          ClashR新参数: "clashr&new_name=true",
+          "Clash(R)新参数": "clashr&new_name=true",
           Surge2: "surge&ver=2",
           Surge3: "surge&ver=3",
           Surge4: "surge&ver=4",
@@ -422,6 +422,11 @@ export default {
                 label: "rixCloud",
                 value:
                   "https://subconverter.oss-ap-southeast-1.aliyuncs.com/Rules/RemoteConfig/customized/rixcloud.ini"
+              },
+              {
+                label: "V2rayPro",
+                value:
+                  "https://raw.githubusercontent.com/Mazetsz/ACL4SSR/master/Clash/config/V2rayPro.ini"
               },
               {
                 label: "YoYu",
