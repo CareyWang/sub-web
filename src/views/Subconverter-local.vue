@@ -209,7 +209,7 @@
             v-model="uploadConfig"
             type="textarea"
             :autosize="{ minRows: 15, maxRows: 15}"
-            maxlength="3000"
+            maxlength="10000"
             show-word-limit
           ></el-input>
         </el-form-item>
@@ -247,9 +247,10 @@ export default {
 
       options: {
         clientTypes: {
+          "Clash新参数": "clash&new_name=true",
+          "ClashR新参数": "clashr&new_name=true",
           Clash: "clash",
           ClashR: "clashr",
-          "Clash(R)新参数": "clashr&new_name=true",
           Surge2: "surge&ver=2",
           Surge3: "surge&ver=3",
           Surge4: "surge&ver=4",
@@ -352,6 +353,11 @@ export default {
                 label: "ACL4SSR_Online_Full_AdblockPlus 全分组 重度用户使用 更多去广告 (与Github同步)",
                 value:
                   "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_Full_AdblockPlus.ini"
+              },
+              {
+                label: "ACL4SSR_Online_Full_Netflix 全分组 重度用户使用 奈飞全量 (与Github同步)",
+                value:
+                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_Full_Netflix.ini"
               },
               {
                 label: "ACL4SSR 本地 默认版 分组比较全",
@@ -563,7 +569,7 @@ export default {
      this.isPC = this.$getOS().isPc;
   },
   mounted() {
-    this.form.clientType = "clashr&new_name=true";
+    this.form.clientType = "clash&new_name=true";
     this.form.customBackend = "http://localhost:25500/sub?";
     this.form.remoteConfig = "config/ACL4SSR.ini";
     this.notify();
