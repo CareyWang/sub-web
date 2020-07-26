@@ -265,8 +265,8 @@ export default {
         },
         customBackend: {
           "localhost:25500 本地版": "http://localhost:25500/sub?",
-          "gfwsb.114514.best(subconverter作者提供1)":
-            "https://gfwsb.114514.best/sub?",
+          "subcon.py6.pw(subconverter作者提供1)":
+            "https://subcon.py6.pw/sub?",
           "subconverter-web.now.sh(subconverter作者提供2-稳定)":
             "https://subconverter-web.now.sh/sub?",
           "subconverter.herokuapp.com(subconverter作者提供3-稳定)":
@@ -276,7 +276,7 @@ export default {
         },
         backendOptions: [
           { value: "http://localhost:25500/sub?" },
-          { value: "https://gfwsb.114514.best/sub?" },
+          { value: "https://subcon.py6.pw/sub?" },
           { value: "https://subconverter-web.now.sh/sub?" },
           { value: "https://subconverter.herokuapp.com/sub?" },
           { value: "https://api.wcc.best/sub?" }
@@ -570,7 +570,7 @@ export default {
   },
   mounted() {
     this.form.clientType = "clash&new_name=true";
-    this.form.customBackend = "https://gfwsb.114514.best/sub?";
+    this.form.customBackend = "https://subcon.py6.pw/sub?";
     this.form.remoteConfig = "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online.ini";
     this.notify();
     this.getBackendVersion();
