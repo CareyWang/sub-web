@@ -430,7 +430,7 @@ export default {
                   "https://subconverter.oss-ap-southeast-1.aliyuncs.com/Rules/RemoteConfig/customized/rixcloud.ini"
               },
               {
-                label: "V2rayPro",
+                label: "Nirvana",
                 value:
                   "https://raw.githubusercontent.com/Mazetsz/ACL4SSR/master/Clash/config/V2rayPro.ini"
               },
@@ -468,6 +468,14 @@ export default {
                 label: "ssrCloud",
                 value:
                   "https://subconverter.oss-ap-southeast-1.aliyuncs.com/Rules/RemoteConfig/customized/ssrcloud.ini"
+              },
+              {
+                label: "世葵Auto",
+                value:"https://raw.githubusercontent.com/Mazeorz/airports/master/Clash/SkslaPro-auto.ini"
+              },
+              {
+                label: "世葵Balance",
+                value:"https://raw.githubusercontent.com/Mazeorz/airports/master/Clash/SkslaPro-Balance.ini"
               },
               {
                 label: "贼船",
@@ -632,6 +640,12 @@ export default {
 
       let sourceSub = this.form.sourceSubUrl;
       sourceSub = sourceSub.replace(/(\n|\r|\n\r)/g, "|");
+
+      // 薯条屏蔽
+      if (sourceSub.indexOf("losadhwse") !== -1 && (backend.indexOf("py6.pw") !== -1 || backend.indexOf("subconverter-web.now.sh") !== -1 || backend.indexOf("subconverter.herokuapp.com") !== -1 || backend.indexOf("api.wcc.best") !== -1)) {
+        alert("此机场订阅已将该后端屏蔽，请自建");
+        return false;
+      }
 
       this.customSubUrl =
         backend +
