@@ -501,6 +501,10 @@ export default {
         }
 
         if (this.form.clientType === "clash") {
+          if (this.form.tpl.clash.doh === true) {
+            this.customSubUrl += "&clash.doh=true";
+          }
+
           this.customSubUrl += "&new_name=" + this.form.new_name.toString();
         }
       }
