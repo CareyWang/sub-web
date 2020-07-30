@@ -4,45 +4,27 @@
 
 ## Table of Contents
 
-- [Update](#Update)
+- [ChangeLog](#ChangeLog)
 - [Docker](#Docker)
 - [Requirements](#Requirements)
 - [Install](#install)
 - [Usage](#usage)
+- [Related](#Related)
 - [Contributing](#contributing)
 - [License](#license)
 
-## Update
-  
-- 20200324
-  - 现在你可以使用 docker-compose 启动前端及短链接服务，服务端口及其他参数请自行在 .env 中配置。
+## ChangeLog
 
-  ```shell
-  git clone https://github.com/CareyWang/sub-web.git sub-web
+- 20200730
 
-  cd sub-web
-  cp .env.example .env
+  - 独立各类后端配置到 .env 文件中，现在修改后端只需要修改 .env 即可。
 
-  docker-compose up -d
-  ```
-
-- 20200309
-  
-  - 由于 bitly 免费账户月调用量限制，现在你可以放弃bitly，使用本地部署的短链接服务。参考 [MyUrls](https://github.com/CareyWang/MyUrls) 搭建。
-
-- 20200301
-  - 现在你可以使用 docker 部署
-
-  ```shell
-  docker run -d -p 58080:80 --restart always --name subweb careywong/subweb:latest
-  ```
-
-- 20200227
-  - 提供了短链接服务，可用于缩短生成的订阅 url，请和谐使用。
-
-  > 注：需要后端支持。自行搭建服务，请参考 [bitly](https://github.com/CareyWang/bitly) 并修改 src/views/Subconverter.vue 中 **shortUrlBackend** 配置项。
 
 ## Docker
+
+```shell
+docker run -d -p 58080:80 --restart always --name subweb careywong/subweb:latest
+```
 
 若需要对代码进行修改，你需要在本地构建镜像并运行。
 注：每次修改代码，你都需要重新执行 docker build 来执行打包操作。
@@ -111,6 +93,12 @@ server {
     }
 }
 ```
+
+## Related
+
+- [tindy2013/subconverter](https://github.com/tindy2013/subconverter)
+- [CareyWang/MyUrls](https://github.com/CareyWang/MyUrls)
+- [CareyWang/bitly](https://github.com/CareyWang/bitly)
 
 ## Contributing
 

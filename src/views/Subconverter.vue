@@ -218,14 +218,13 @@
 </template>
 
 <script>
-const project = "https://github.com/CareyWang/sub-web";
-const remoteConfigSample =
-  "https://raw.githubusercontent.com/tindy2013/subconverter/master/base/config/example_external_config.ini";
-const gayhubRelease = "https://github.com/tindy2013/subconverter/releases";
-const defaultBackend = "https://api.wcc.best/sub?";
-const shortUrlBackend = "https://api.suo.yt/short";
-const configUploadBackend = "https://api.wcc.best/config/upload";
-const tgBotLink = "https://t.me/CareyWong_bot";
+const project = process.env.VUE_APP_PROJECT
+const remoteConfigSample = process.env.VUE_APP_SUBCONVERTER_REMOTE_CONFIG
+const gayhubRelease = process.env.VUE_APP_BACKEND_RELEASE
+const defaultBackend = process.env.VUE_APP_SUBCONVERTER_DEFAULT_BACKEND + '/sub?'
+const shortUrlBackend = process.env.VUE_APP_MYURLS_DEFAULT_BACKEND + '/short'
+const configUploadBackend = process.env.VUE_APP_CONFIG_UPLOAD_BACKEND + '/config/upload'
+const tgBotLink = process.env.VUE_APP_BOT_LINK
 
 export default {
   data() {
