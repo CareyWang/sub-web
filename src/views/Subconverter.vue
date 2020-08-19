@@ -21,6 +21,7 @@
                   type="textarea"
                   rows="3"
                   placeholder="支持订阅或ss/ssr/vmess单链接。多个链接请每行一个或用 | 分隔"
+                  @blur="saveSubUrl"
                 />
               </el-form-item>
               <el-form-item label="客户端:">
@@ -390,6 +391,11 @@ export default {
   created() {
     document.title = "Subscription Converter";
     this.isPC = this.$getOS().isPc;
+
+    // 获取 url cache
+    if (process.env.VUE_APP_USE_STORAGE === 'true') {
+      this.form.sourceSubUrl = this.getLocalStorageItem('sourceSubUrl')
+    }
   },
   mounted() {
     this.form.clientType = "clash";
@@ -623,7 +629,40 @@ export default {
           this.backendVersion = res.data.replace(/backend\n$/gm, "");
           this.backendVersion = this.backendVersion.replace("subconverter", "");
         });
+    },
+    saveSubUrl() {
+      if (this.form.sourceSubUrl !== '') {
+        this.setLocalStorageItem('sourceSubUrl', this.form.sourceSubUrl)
+      }
+    },
+    getLocalStorageItem(itemKey) {
+      const now = +new Date()
+      let ls = localStorage.getItem(itemKey)
+
+      let itemValue = ''
+      if (ls !== null) {
+        let data = JSON.parse(ls)
+        if (data.expire > now) {
+          itemValue = data.value 
+        } else {
+          localStorage.removeItem(itemKey)
+        }
+      }
+
+      return itemValue 
+    },
+    setLocalStorageItem(itemKey, itemValue) {
+      const ttl = process.env.VUE_APP_CACHE_TTL 
+      const now = +new Date()
+
+      let data = {
+        setTime: now,
+        ttl: parseInt(ttl),
+        expire: now + ttl * 1000,
+        value: itemValue
+      }
+      localStorage.setItem(itemKey, JSON.stringify(data))
     }
-  }
+  },
 };
 </script>
