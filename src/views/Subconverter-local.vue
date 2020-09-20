@@ -265,8 +265,8 @@ export default {
         },
         customBackend: {
           "localhost:25500 本地版": "http://localhost:25500/sub?",
-          "subcon.py6.pw(subconverter作者提供1)":
-            "https://subcon.py6.pw/sub?",
+          "subcon.dlj.tf(subconverter作者提供1)":
+            "https://subcon.dlj.tf/sub?",
           "subconverter-web.now.sh(subconverter作者提供2-稳定)":
             "https://subconverter-web.now.sh/sub?",
           "subconverter.herokuapp.com(subconverter作者提供3-稳定)":
@@ -276,7 +276,7 @@ export default {
         },
         backendOptions: [
           { value: "http://localhost:25500/sub?" },
-          { value: "https://subcon.py6.pw/sub?" },
+          { value: "https://subcon.dlj.tf/sub?" },
           { value: "https://subconverter-web.now.sh/sub?" },
           { value: "https://subconverter.herokuapp.com/sub?" },
           { value: "https://api.wcc.best/sub?" }
@@ -473,14 +473,6 @@ export default {
                 label: "ssrCloud",
                 value:
                   "https://subconverter.oss-ap-southeast-1.aliyuncs.com/Rules/RemoteConfig/customized/ssrcloud.ini"
-              },
-              {
-                label: "世葵Auto",
-                value:"https://raw.githubusercontent.com/Mazeorz/airports/master/Clash/SkslaPro-auto.ini"
-              },
-              {
-                label: "世葵Balance",
-                value:"https://raw.githubusercontent.com/Mazeorz/airports/master/Clash/SkslaPro-Balance.ini"
               },
               {
                 label: "贼船",
