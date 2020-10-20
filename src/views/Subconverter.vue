@@ -76,10 +76,12 @@
                 <el-form-item label-width="0px">
                   <el-row type="flex">
                     <el-col>
-                      <el-checkbox v-model="form.emoji" label="Emoji" border></el-checkbox>
                       <el-checkbox v-model="form.nodeList" label="输出为 Node List" border></el-checkbox>
                     </el-col>
                     <el-popover placement="bottom" v-model="form.extraset">
+                      <el-row>
+                        <el-checkbox v-model="form.emoji" label="Emoji"></el-checkbox>
+                      </el-row>
                       <el-row>
                         <el-checkbox v-model="form.new_name" label="Clash New Field"></el-checkbox>
                       </el-row>
@@ -97,7 +99,7 @@
                       </el-row>
                       <el-button slot="reference">更多选项</el-button>
                     </el-popover>
-                    <el-popover placement="bottom" style="margin-left: 20px">
+                    <el-popover placement="bottom" style="margin-left: 10px">
                       <el-row>
                         <el-checkbox v-model="form.tpl.surge.doh" label="Surge.DoH"></el-checkbox>
                       </el-row>
