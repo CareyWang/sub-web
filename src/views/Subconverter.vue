@@ -241,18 +241,19 @@ export default {
       options: {
         clientTypes: {
           Clash: "clash",
-          ClashR: "clashr",
-          Surge2: "surge&ver=2",
           Surge3: "surge&ver=3",
           Surge4: "surge&ver=4",
           Quantumult: "quan",
           QuantumultX: "quanx",
           Surfboard: "surfboard",
           Loon: "loon",
+          SSAndroid: "sssub",
+          V2Ray: "v2ray",
           ss: "ss",
           ssr: "ssr",
           ssd: "ssd",
-          v2ray: "v2ray"
+          ClashR: "clashr",
+          Surge2: "surge&ver=2",
         },
         backendOptions: [{ value: "http://127.0.0.1:25500/sub?" }],
         remoteConfig: [
