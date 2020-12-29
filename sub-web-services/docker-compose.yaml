@@ -1,0 +1,25 @@
+version: "3"
+services:
+  subweb:
+    build: ../.
+    container_name: subweb
+    restart: always
+    ports: 
+      - "${SUBWEB_PORT}:80"
+
+  myurls:
+    image: "careywong/myurls:latest"
+    container_name: myurls
+    restart: always
+    ports:
+      - "${MYURLS_PORT}:8002"
+    depends_on:
+      - myurls-redis
+    entrypoint: ["/app/myurls", "-domain", "${MYURLS_DOMAIN}", "-conn", myurls-redis:6379, "-ttl", "${MYURLS_TTL}"]
+  
+  myurls-redis:
+    image: "redis:5"
+    container_name: myurls-redis
+    restart: always
+    expose:
+      - "6379"
