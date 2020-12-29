@@ -275,6 +275,7 @@ export default {
             "https://subconverter-web.now.sh/sub?",
           "subconverter.herokuapp.com(subconverter作者提供3-稳定)":
             "https://subconverter.herokuapp.com/sub?",
+          "sub.id9.cc(品云提供-稳定)": "https://sub.id9.cc/sub?",
           "api.dler.io(sub作者&lhie1提供-稳定)": "https://api.dler.io/sub?",
           "api.wcc.best(sub-web作者提供-稳定)": "https://api.wcc.best/sub?"
         },
@@ -342,6 +343,11 @@ export default {
                 label: "ACL4SSR_Online_Mini_MultiMode.ini 精简版 自动测速、故障转移、负载均衡(与Github同步)",
                 value:
                   "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_Mini_MultiMode.ini"
+              },
+              {
+                label: "ACL4SSR_Online_Mini_MultiCountry.ini 精简版 带港美日国家(与Github同步)",
+                value:
+                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_Mini_MultiCountry.ini"
               },
               {
                 label: "ACL4SSR_Online_Full 全分组 重度用户使用(与Github同步)",
