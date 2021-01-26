@@ -13,6 +13,8 @@ services:
     restart: always
     ports:
       - "${MYURLS_PORT}:8002"
+    volumes:
+      - ./data/myurls/logs:/app/logs       
     depends_on:
       - myurls-redis
     entrypoint: ["/app/myurls", "-domain", "${MYURLS_DOMAIN}", "-conn", myurls-redis:6379, "-ttl", "${MYURLS_TTL}"]
@@ -21,5 +23,7 @@ services:
     image: "redis:5"
     container_name: myurls-redis
     restart: always
+    volumes:
+      - ./data/redis:/data    
     expose:
       - "6379"
