@@ -375,6 +375,11 @@ export default {
                   "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_Full_Netflix.ini"
               },
               {
+                label: "ACL4SSR_Online_Full_Google 全分组 重度用户使用 谷歌细分(与Github同步)",
+                value:
+                  "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_Full_Google.ini"
+              },
+              {
                 label: "ACL4SSR 本地 默认版 分组比较全",
                 value: "config/ACL4SSR.ini"
               },
