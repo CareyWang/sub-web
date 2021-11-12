@@ -1,0 +1,20 @@
+{
+    "short_name": "sub-web",
+    "name": "sub-web",
+    "icon": [
+        {
+            "src": "./img/icons/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "./img/icons/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "start_url": "index.html",
+    "display": "standalone",
+    "background_color": "#002140",
+    "theme_color": "#002140"
+}
