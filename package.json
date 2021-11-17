@@ -29,7 +29,7 @@
     "babel-plugin-import": "^1.13.3",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
-    "node-sass": "^4.13.0",
+    "sass": "^1.43.4",
     "sass-loader": "^8.0.0",
     "svg-sprite-loader": "^4.2.1",
     "vue-particles": "^1.0.9",
