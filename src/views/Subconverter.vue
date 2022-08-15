@@ -441,6 +441,7 @@ export default {
 
       this.customSubUrl =
         backend +
+        "sub?" + 
         "target=" +
         this.form.clientType +
         "&url=" +
