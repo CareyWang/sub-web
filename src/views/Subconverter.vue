@@ -177,6 +177,15 @@
                   :disabled="customSubUrl.length === 0"
                 >一键导入Clash</el-button>
               </el-form-item>
+              <el-form-item label-width="0px" style="text-align: center">
+                <el-button
+                    style="width: 250px"
+                    type="primary"
+                    @click="dialogLoadConfigVisible = true"
+                    icon="el-icon-copy-document"
+                    :loading="loading"
+                >从URL解析</el-button>
+              </el-form-item>
             </el-form>
           </el-container>
         </el-card>
@@ -217,6 +226,38 @@
         >确 定</el-button>
       </div>
     </el-dialog>
+
+    <el-dialog
+        :visible.sync="dialogLoadConfigVisible"
+        :show-close="false"
+        :close-on-click-modal="false"
+        :close-on-press-escape="false"
+        width="700px"
+    >
+      <div slot="title">
+        可以从老的订阅信息中解析信息,填入页面中去
+      </div>
+      <el-form label-position="left">
+        <el-form-item prop="uploadConfig">
+          <el-input
+              v-model="loadConfig"
+              type="textarea"
+              :autosize="{ minRows: 15, maxRows: 15}"
+              maxlength="5000"
+              show-word-limit
+          ></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="loadConfig = ''; dialogLoadConfigVisible = false">取 消</el-button>
+        <el-button
+            type="primary"
+            @click="confirmLoadConfig"
+            :disabled="loadConfig.length === 0"
+        >确 定</el-button>
+      </div>
+    </el-dialog>
+
   </div>
 </template>
 
@@ -365,6 +406,8 @@ export default {
       curtomShortSubUrl: "",
 
       dialogUploadConfigVisible: false,
+      loadConfig: "",
+      dialogLoadConfigVisible: false,
       uploadConfig: "",
       uploadPassword: "",
       myBot: tgBotLink,
@@ -589,6 +632,77 @@ export default {
         .finally(() => {
           this.loading = false;
         });
+    },
+    confirmLoadConfig(){
+      // 怎么解析短链接的302和301...
+      if (this.loadConfig.indexOf("target")=== -1){
+        this.$message.error("请输入正确的订阅地址,暂不支持短链接!");
+        return;
+      }
+      let url
+      try {
+        url = new URL(this.loadConfig)
+      } catch (error) {
+        this.$message.error("请输入正确的订阅地址!");
+        return;
+      }
+      this.form.customBackend = url.origin + url.pathname + "?"
+      let param = new URLSearchParams(url.search);
+      if (param.get("target")){
+        this.form.clientType = param.get("target");
+      }
+      if (param.get("url")){
+        this.form.sourceSubUrl = param.get("url");
+      }
+      if (param.get("insert")){
+        this.form.insert = param.get("insert") === 'true';
+      }
+      if (param.get("config")){
+        this.form.remoteConfig = param.get("config");
+      }
+      if (param.get("exclude")){
+        this.form.excludeRemarks = param.get("exclude");
+      }
+      if (param.get("include")){
+        this.form.includeRemarks = param.get("include");
+      }
+      if (param.get("filename")){
+        this.form.filename = param.get("filename");
+      }
+      if (param.get("append_type")){
+        this.form.appendType = param.get("append_type") === 'true';
+      }
+      if (param.get("emoji")){
+        this.form.emoji = param.get("emoji") === 'true';
+      }
+      if (param.get("list")){
+        this.form.nodeList = param.get("list") === 'true';
+      }
+      if (param.get("tfo")){
+        this.form.tfo = param.get("tfo") === 'true';
+      }
+      if (param.get("scv")){
+        this.form.scv = param.get("scv") === 'true';
+      }
+      if (param.get("fdn")){
+        this.form.fdn = param.get("fdn") === 'true';
+      }
+      if (param.get("sort")){
+        this.form.sort = param.get("sort") === 'true';
+      }
+      if (param.get("udp")){
+        this.form.udp = param.get("udp") === 'true';
+      }
+      if (param.get("surge.doh")){
+        this.form.tpl.surge.doh = param.get("surge.doh") === 'true';
+      }
+      if (param.get("clash.doh")){
+        this.form.tpl.clash.doh = param.get("clash.doh") === 'true';
+      }
+      if (param.get("new_name")){
+        this.form.new_name = param.get("new_name") === 'true';
+      }
+      this.dialogLoadConfigVisible = false;
     },
     backendSearch(queryString, cb) {
       let backends = this.options.backendOptions;
