@@ -649,7 +649,17 @@ export default {
       this.form.customBackend = url.origin + url.pathname + "?"
       let param = new URLSearchParams(url.search);
       if (param.get("target")){
-        this.form.clientType = param.get("target");
+        let target = param.get("target");
+        if (target === 'surge' && param.get("ver")) {
+          // 类型为surge,有ver
+          this.form.clientType = target+"&ver="+param.get("ver");
+        } else if (target === 'surge'){
+          //类型为surge,没有ver
+          this.form.clientType = target+"&ver=4"
+        } else {
+          //类型为其他
+          this.form.clientType = target;
+        }
       }
       if (param.get("url")){
         this.form.sourceSubUrl = param.get("url");
