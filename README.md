@@ -30,8 +30,10 @@ docker run -d -p 58080:80 --restart always --name subweb careywong/subweb:latest
 注：每次修改代码，你都需要重新执行 docker build 来执行打包操作。
 
 ```shell
-docker build -t subweb-local:latest .
+docker -v
+Docker version 23.0.4, build f480fb1
 
+docker build -t subweb-local:latest .
 docker run -d -p 58080:80 --restart always --name subweb subweb-local:latest
 ```
 
@@ -42,7 +44,10 @@ docker run -d -p 58080:80 --restart always --name subweb subweb-local:latest
 
 ```shell
 node -v
+v16.20.0
+
 yarn -v
+1.22.19
 ```
 
 ## Install
@@ -98,7 +103,6 @@ server {
 
 - [tindy2013/subconverter](https://github.com/tindy2013/subconverter)
 - [CareyWang/MyUrls](https://github.com/CareyWang/MyUrls)
-- [CareyWang/bitly](https://github.com/CareyWang/bitly)
 
 ## Contributing
 
