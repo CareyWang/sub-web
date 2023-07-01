@@ -2,7 +2,7 @@ name: Build
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
 
@@ -24,10 +24,16 @@ jobs:
 
     - name: Get dependencies and build
       run: |
-        yarn install
-        yarn build
+        npm ci
+        npm run build
     - name: Upload
-      uses: actions/upload-artifact@v1
+      uses: saltbo/uptoc@master
       with:
-        name: dist
-        path: dist/
+        driver: qiniu
+        region: cn-south-1
+        bucket: fly-converterv
+        exclude: .cache,test
+        dist: dist
+      env:
+        UPTOC_UPLOADER_AK: ${{ secrets.UPTOC_UPLOADER_KEYID }}
+        UPTOC_UPLOADER_SK: ${{ secrets.UPTOC_UPLOADER_KEYSECRET }}
