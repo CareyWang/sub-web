@@ -633,86 +633,110 @@ export default {
           this.loading = false;
         });
     },
-    confirmLoadConfig(){
-      // 怎么解析短链接的302和301...
-      if (this.loadConfig.indexOf("target")=== -1){
-        this.$message.error("请输入正确的订阅地址,暂不支持短链接!");
-        return;
+    analyzeUrl() {
+      if (this.loadConfig.indexOf("target") !== -1) {
+        return this.loadConfig;
+      } else {
+        this.loading = true;
+        return (async () => {
+          try {
+            let response = await fetch(this.loadConfig, {
+              method: "GET",
+              redirect: "follow",
+            });
+            return response.url;
+          } catch (e) {
+            this.$message.error(
+              "解析短链接失败，请检查短链接服务端是否配置跨域：" + e
+            );
+          } finally {
+            this.loading = false;
+          }
+        })();
       }
-      let url
-      try {
-        url = new URL(this.loadConfig)
-      } catch (error) {
-        this.$message.error("请输入正确的订阅地址!");
-        return;
+    },
+    confirmLoadConfig() {
+      if (this.loadConfig.trim() === "") {
+        this.$message.error("订阅链接不能为空");
+        return false;
       }
-      this.form.customBackend = url.origin + url.pathname + "?"
-      let param = new URLSearchParams(url.search);
-      if (param.get("target")){
-        let target = param.get("target");
-        if (target === 'surge' && param.get("ver")) {
-          // 类型为surge,有ver
-          this.form.clientType = target+"&ver="+param.get("ver");
-        } else if (target === 'surge'){
-          //类型为surge,没有ver
-          this.form.clientType = target+"&ver=4"
-        } else {
-          //类型为其他
-          this.form.clientType = target;
+      (async () => {
+        let url;
+        try {
+          url = new URL(await this.analyzeUrl());
+        } catch (error) {
+          this.$message.error("请输入正确的订阅地址!");
+          return;
         }
-      }
-      if (param.get("url")){
-        this.form.sourceSubUrl = param.get("url");
-      }
-      if (param.get("insert")){
-        this.form.insert = param.get("insert") === 'true';
-      }
-      if (param.get("config")){
-        this.form.remoteConfig = param.get("config");
-      }
-      if (param.get("exclude")){
-        this.form.excludeRemarks = param.get("exclude");
-      }
-      if (param.get("include")){
-        this.form.includeRemarks = param.get("include");
-      }
-      if (param.get("filename")){
-        this.form.filename = param.get("filename");
-      }
-      if (param.get("append_type")){
-        this.form.appendType = param.get("append_type") === 'true';
-      }
-      if (param.get("emoji")){
-        this.form.emoji = param.get("emoji") === 'true';
-      }
-      if (param.get("list")){
-        this.form.nodeList = param.get("list") === 'true';
-      }
-      if (param.get("tfo")){
-        this.form.tfo = param.get("tfo") === 'true';
-      }
-      if (param.get("scv")){
-        this.form.scv = param.get("scv") === 'true';
-      }
-      if (param.get("fdn")){
-        this.form.fdn = param.get("fdn") === 'true';
-      }
-      if (param.get("sort")){
-        this.form.sort = param.get("sort") === 'true';
-      }
-      if (param.get("udp")){
-        this.form.udp = param.get("udp") === 'true';
-      }
-      if (param.get("surge.doh")){
-        this.form.tpl.surge.doh = param.get("surge.doh") === 'true';
-      }
-      if (param.get("clash.doh")){
-        this.form.tpl.clash.doh = param.get("clash.doh") === 'true';
-      }
-      if (param.get("new_name")){
-        this.form.new_name = param.get("new_name") === 'true';
-      }
-      this.dialogLoadConfigVisible = false;
+        this.form.customBackend = url.origin + url.pathname + "?";
+        let param = new URLSearchParams(url.search);
+        if (param.get("target")) {
+          let target = param.get("target");
+          if (target === "surge" && param.get("ver")) {
+            // 类型为surge,有ver
+            this.form.clientType = target + "&ver=" + param.get("ver");
+          } else if (target === "surge") {
+            //类型为surge,没有ver
+            this.form.clientType = target + "&ver=4";
+          } else {
+            //类型为其他
+            this.form.clientType = target;
+          }
+        }
+        if (param.get("url")) {
+          this.form.sourceSubUrl = param.get("url");
+        }
+        if (param.get("insert")) {
+          this.form.insert = param.get("insert") === "true";
+        }
+        if (param.get("config")) {
+          this.form.remoteConfig = param.get("config");
+        }
+        if (param.get("exclude")) {
+          this.form.excludeRemarks = param.get("exclude");
+        }
+        if (param.get("include")) {
+          this.form.includeRemarks = param.get("include");
+        }
+        if (param.get("filename")) {
+          this.form.filename = param.get("filename");
+        }
+        if (param.get("append_type")) {
+          this.form.appendType = param.get("append_type") === "true";
+        }
+        if (param.get("emoji")) {
+          this.form.emoji = param.get("emoji") === "true";
+        }
+        if (param.get("list")) {
+          this.form.nodeList = param.get("list") === "true";
+        }
+        if (param.get("tfo")) {
+          this.form.tfo = param.get("tfo") === "true";
+        }
+        if (param.get("scv")) {
+          this.form.scv = param.get("scv") === "true";
+        }
+        if (param.get("fdn")) {
+          this.form.fdn = param.get("fdn") === "true";
+        }
+        if (param.get("sort")) {
+          this.form.sort = param.get("sort") === "true";
+        }
+        if (param.get("udp")) {
+          this.form.udp = param.get("udp") === "true";
+        }
+        if (param.get("surge.doh")) {
+          this.form.tpl.surge.doh = param.get("surge.doh") === "true";
+        }
+        if (param.get("clash.doh")) {
+          this.form.tpl.clash.doh = param.get("clash.doh") === "true";
+        }
+        if (param.get("new_name")) {
+          this.form.new_name = param.get("new_name") === "true";
+        }
+        this.dialogLoadConfigVisible = false;
+        this.$message.success("长/短链接已成功解析为订阅信息");
+      })();
     },
     backendSearch(queryString, cb) {
       let backends = this.options.backendOptions;
