@@ -31,7 +31,7 @@ jobs:
       uses: saltbo/uptoc@master
       with:
         driver: oss
-        region: oss-cn-hongkong
+        region: cn-hongkong
         bucket: subs-converter
         exclude: .cache,test
         dist: dist
