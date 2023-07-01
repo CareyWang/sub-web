@@ -24,8 +24,8 @@ jobs:
 
     - name: Get dependencies and build
       run: |
-        yarn install
-        yarn build
+        npm ci
+        npm run build
     - name: Upload
       uses: saltbo/uptoc@master
       with:
