@@ -26,13 +26,13 @@ jobs:
       run: |
         npm i
         npm run build
-        
+
     - name: Upload
       uses: saltbo/uptoc@master
       with:
-        driver: qiniu
-        region: cn-south-1
-        bucket: fly-converterv
+        driver: oss
+        region: oss-cn-hongkong
+        bucket: subs-converter
         exclude: .cache,test
         dist: dist
       env:
