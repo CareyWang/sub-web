@@ -5,7 +5,7 @@
         <el-card>
           <div slot="header">
             Subscription Converter
-            <svg-icon icon-class="github" style="margin-left: 20px" @click="goToProject" />
+            <!-- <svg-icon icon-class="github" style="margin-left: 20px" @click="goToProject" /> -->
 
             <div style="display: inline-block; position:absolute; right: 20px">{{ backendVersion }}</div>
           </div>
@@ -146,18 +146,19 @@
 
               <el-form-item label-width="0px" style="margin-top: 40px; text-align: center">
                 <el-button
-                  style="width: 120px"
+                  style="width: 250px"
                   type="danger"
-                  @click="makeUrl"
+                  :loading="loading"
+                  @click="makeShortUrl"
                   :disabled="form.sourceSubUrl.length === 0"
                 >生成订阅链接</el-button>
-                <el-button
+                <!-- <el-button
                   style="width: 120px"
                   type="danger"
                   @click="makeShortUrl"
                   :loading="loading"
                   :disabled="customSubUrl.length === 0"
-                >生成短链接</el-button>
+                >生成短链接</el-button> -->
                 <!-- <el-button style="width: 120px" type="primary" @click="surgeInstall" icon="el-icon-connection">一键导入Surge</el-button> -->
               </el-form-item>
 
@@ -268,7 +269,7 @@ const gayhubRelease = process.env.VUE_APP_BACKEND_RELEASE
 const defaultBackend = process.env.VUE_APP_SUBCONVERTER_DEFAULT_BACKEND + '/sub?'
 const shortUrlBackend = process.env.VUE_APP_MYURLS_DEFAULT_BACKEND + '/short'
 const configUploadBackend = process.env.VUE_APP_CONFIG_UPLOAD_BACKEND + '/config/upload'
-const tgBotLink = process.env.VUE_APP_BOT_LINK
+// const tgBotLink = process.env.VUE_APP_BOT_LINK
 
 export default {
   data() {
@@ -410,7 +411,7 @@ export default {
       dialogLoadConfigVisible: false,
       uploadConfig: "",
       uploadPassword: "",
-      myBot: tgBotLink,
+      // myBot: tgBotLink,
       sampleConfig: remoteConfigSample,
 
       needUdp: false, // 是否需要添加 udp 参数
@@ -548,6 +549,7 @@ export default {
       this.$message.success("定制订阅已复制到剪贴板");
     },
     makeShortUrl() {
+      this.makeUrl();
       if (this.customSubUrl === "") {
         this.$message.warning("请先生成订阅链接，再获取对应短链接");
         return false;
