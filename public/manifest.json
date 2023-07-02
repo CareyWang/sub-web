@@ -1,6 +1,6 @@
 {
-    "short_name": "sub-web",
-    "name": "sub-web",
+    "short_name": "Subs-Cv",
+    "name": "Subscription Converter",
     "icon": [
         {
             "src": "./img/icons/icon-192x192.png",
