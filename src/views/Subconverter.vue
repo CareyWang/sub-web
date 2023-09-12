@@ -266,8 +266,8 @@ const project = process.env.VUE_APP_PROJECT
 const remoteConfigSample = process.env.VUE_APP_SUBCONVERTER_REMOTE_CONFIG
 const gayhubRelease = process.env.VUE_APP_BACKEND_RELEASE
 const defaultBackend = process.env.VUE_APP_SUBCONVERTER_DEFAULT_BACKEND + '/sub?'
-const shortUrlBackend = process.env.VUE_APP_MYURLS_DEFAULT_BACKEND + '/short'
-const configUploadBackend = process.env.VUE_APP_CONFIG_UPLOAD_BACKEND + '/config/upload'
+const shortUrlBackend = process.env.VUE_APP_MYURLS_API
+const configUploadBackend = process.env.VUE_APP_CONFIG_UPLOAD_API
 const tgBotLink = process.env.VUE_APP_BOT_LINK
 
 export default {
@@ -601,37 +601,30 @@ export default {
 
       this.loading = true;
 
-      let data = new FormData();
-      data.append("password", this.uploadPassword);
-      data.append("config", this.uploadConfig);
+      let body = {
+        content: this.uploadConfig,
+      }
+      this.$axios.post(configUploadBackend, body).then(res => {
+        if (res.data.code === 0 && res.data.data.url !== "") {
+          this.$message.success(
+            "远程配置上传成功，配置链接已复制到剪贴板，有效期三个月望知悉"
+          );
 
-      this.$axios
-        .post(configUploadBackend, data, {
-          header: {
-            "Content-Type": "application/form-data; charset=utf-8"
-          }
-        })
-        .then(res => {
-          if (res.data.code === 0 && res.data.data.url !== "") {
-            this.$message.success(
-              "远程配置上传成功，配置链接已复制到剪贴板，有效期三个月望知悉"
-            );
+          // 自动填充至『表单-远程配置』
+          this.form.remoteConfig = res.data.data.url;
+          this.$copyText(this.form.remoteConfig);
 
-            // 自动填充至『表单-远程配置』
-            this.form.remoteConfig = res.data.data.url;
-            this.$copyText(this.form.remoteConfig);
-
-            this.dialogUploadConfigVisible = false;
-          } else {
-            this.$message.error("远程配置上传失败: " + res.data.msg);
-          }
-        })
-        .catch(() => {
-          this.$message.error("远程配置上传失败");
-        })
-        .finally(() => {
-          this.loading = false;
-        });
+          this.dialogUploadConfigVisible = false;
+        } else {
+          this.$message.error("远程配置上传失败: " + res.data.msg);
+        }
+      })
+      .catch(() => {
+        this.$message.error("远程配置上传失败");
+      })
+      .finally(() => {
+        this.loading = false;
+      });
     },
     confirmLoadConfig(){
       // 怎么解析短链接的302和301...
