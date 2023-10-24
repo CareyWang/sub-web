@@ -199,6 +199,7 @@ const remoteConfigSample = process.env.VUE_APP_SUBCONVERTER_REMOTE_CONFIG
 const gayhubRelease = process.env.VUE_APP_BACKEND_RELEASE
 const defaultBackend = process.env.VUE_APP_SUBCONVERTER_DEFAULT_BACKEND + '/sub?'
 const shortUrlBackend = process.env.VUE_APP_MYURLS_API
+const shortUrlBackendPort = process.env.VUE_APP_MYURLS_PORT
 const configUploadBackend = process.env.VUE_APP_CONFIG_UPLOAD_API
 const tgBotLink = process.env.VUE_APP_BOT_LINK
 
@@ -538,7 +539,7 @@ export default {
           })
           .then(res => {
             if (res.data.Code === 1 && res.data.ShortUrl !== "") {
-              this.curtomShortSubUrl = res.data.ShortUrl;
+              this.curtomShortSubUrl = res.data.ShortUrl.replace(shortUrlBackend, `${shortUrlBackend}:${shortUrlBackendPort || 80}`);
               this.$copyText(res.data.ShortUrl);
               this.$message.success("短链接已复制到剪贴板");
             } else {
