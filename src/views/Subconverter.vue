@@ -199,9 +199,13 @@ const remoteConfigSample = process.env.VUE_APP_SUBCONVERTER_REMOTE_CONFIG
 const gayhubRelease = process.env.VUE_APP_BACKEND_RELEASE
 const defaultBackend = process.env.VUE_APP_SUBCONVERTER_DEFAULT_BACKEND + '/sub?'
 const shortUrlBackend = process.env.VUE_APP_MYURLS_API
-const shortUrlBackendPort = process.env.VUE_APP_MYURLS_PORT
 const configUploadBackend = process.env.VUE_APP_CONFIG_UPLOAD_API
 const tgBotLink = process.env.VUE_APP_BOT_LINK
+
+const shortUrlBackendDomain = process.env.VUE_APP_MYURLS_DOMAIN
+const shortUrlBackendPort = process.env.VUE_APP_MYURLS_PORT || 80
+// const shortUrlBackendPath = process.env.VUE_APP_MYURLS_PATH
+
 
 export default {
   data() {
@@ -539,7 +543,9 @@ export default {
           })
           .then(res => {
             if (res.data.Code === 1 && res.data.ShortUrl !== "") {
-              this.curtomShortSubUrl = res.data.ShortUrl.replace(shortUrlBackend, `${shortUrlBackend}:${shortUrlBackendPort || 80}`);
+              console.log('=>(Subconverter.vue:542) res', res);
+              console.log('=>(Subconverter.vue:542) res', shortUrlBackendDomain);
+              this.curtomShortSubUrl = res.data.ShortUrl.replace(shortUrlBackendDomain, `${shortUrlBackendDomain}:${shortUrlBackendPort}`);
               this.$copyText(res.data.ShortUrl);
               this.$message.success("短链接已复制到剪贴板");
             } else {
