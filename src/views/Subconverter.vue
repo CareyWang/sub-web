@@ -210,7 +210,7 @@ export default {
           ClashR: "clashr",
           Surge2: "surge&ver=2",
         },
-        backendOptions: [{ value: "https://r1.fxx6.asia/sub?" }],
+        backendOptions: [{ value: "https://r1.fxx6.asia/sub?" },{ value: "https://r2.fxx6.asia/sub?" }],
         remoteConfig: [{
             label: "ACL4SSR",
             options: [
