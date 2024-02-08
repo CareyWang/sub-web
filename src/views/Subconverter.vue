@@ -4,10 +4,10 @@
       <el-col>
         <el-card>
           <div slot="header">
-            Subscription Converter
+            订阅转换服务
             <svg-icon icon-class="github" style="margin-left: 20px" @click="goToProject" />
 
-            <div style="display: inline-block; position:absolute; right: 20px">{{ backendVersion }}</div>
+            <!-- <div style="display: inline-block; position:absolute; right: 20px">{{ backendVersion }}</div> -->
           </div>
           <el-container>
             <el-form :model="form" label-width="80px" label-position="left" style="width: 100%">
@@ -188,7 +188,7 @@ export default {
   data() {
     return {
       backendVersion: "",
-      advanced: "2",
+      advanced: "1",
 
       // 是否为 PC 端
       isPC: true,
@@ -396,7 +396,7 @@ export default {
       form: {
         sourceSubUrl: "",
         clientType: "",
-        customBackend: "",
+        customBackend: "https://r1.fxx6.asia/sub?",
         remoteConfig: "",
         excludeRemarks: "",
         includeRemarks: "",
