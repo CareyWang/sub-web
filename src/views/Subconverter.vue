@@ -146,7 +146,7 @@
       </div>
       <el-form label-position="left">
         <el-form-item prop="uploadConfig">
-          <el-input v-model="uploadConfig" type="textarea" :autosize="{ minRows: 15, maxRows: 15 }" maxlength="5000"
+          <el-input v-model="uploadConfig" type="textarea" :autosize="{ minRows: 15, maxRows: 30 }" maxlength="10000"
             show-word-limit></el-input>
         </el-form-item>
       </el-form>
