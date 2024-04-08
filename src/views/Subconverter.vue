@@ -210,7 +210,7 @@ export default {
           ClashR: "clashr",          
           V2Ray: "v2ray",
           Trojan: "trojan",
-        }
+        },
         backendOptions: [{ value: "http://127.0.0.1:25500/sub?" }],
         remoteConfig: [
           {
