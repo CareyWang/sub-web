@@ -196,7 +196,7 @@ export default {
       options: {
         clientTypes: {
           Clash: "clash",
-          Surge: "surge",
+          Surge: "surge&ver=4",
           Quantumult: "quan",
           QuantumultX: "quanx",
           Mellow: "mellow",
@@ -210,6 +210,7 @@ export default {
           ClashR: "clashr",          
           V2Ray: "v2ray",
           Trojan: "trojan",
+          Surge3: "surge&ver=3",
         },
         backendOptions: [{ value: "http://127.0.0.1:25500/sub?" }],
         remoteConfig: [
