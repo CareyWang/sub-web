@@ -212,7 +212,7 @@ export default {
           Trojan: "trojan",
           Surge3: "surge&ver=3",
         },
-        backendOptions: [{ value: "https://r1.fxx6.asia/sub?" },{ value: "https://r2.fxx6.asia/sub?" }],
+        backendOptions: [{ value: "https://r1.fxx6.top/sub?" },{ value: "https://r2.fxx6.top/sub?" }],
         remoteConfig: [{
             label: "ACL4SSR",
             options: [
