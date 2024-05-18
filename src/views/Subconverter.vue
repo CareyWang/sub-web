@@ -146,7 +146,7 @@
       </div>
       <el-form label-position="left">
         <el-form-item prop="uploadConfig">
-          <el-input v-model="uploadConfig" type="textarea" :autosize="{ minRows: 15, maxRows: 15 }" maxlength="5000"
+          <el-input v-model="uploadConfig" type="textarea" :autosize="{ minRows: 15, maxRows: 30 }" maxlength="10000"
             show-word-limit></el-input>
         </el-form-item>
       </el-form>
@@ -196,19 +196,21 @@ export default {
       options: {
         clientTypes: {
           Clash: "clash",
-          Surge3: "surge&ver=3",
-          Surge4: "surge&ver=4",
+          Surge: "surge&ver=4",
           Quantumult: "quan",
           QuantumultX: "quanx",
+          Mellow: "mellow",
           Surfboard: "surfboard",
           Loon: "loon",
-          SSAndroid: "sssub",
-          V2Ray: "v2ray",
+          singbox: "singbox",
           ss: "ss",
-          ssr: "ssr",
           ssd: "ssd",
-          ClashR: "clashr",
-          Surge2: "surge&ver=2",
+          sssub: "sssub",
+          ssr: "ssr",
+          ClashR: "clashr",          
+          V2Ray: "v2ray",
+          Trojan: "trojan",
+          Surge3: "surge&ver=3",
         },
         backendOptions: [{ value: "https://r1.fxx6.asia/sub?" },{ value: "https://r2.fxx6.asia/sub?" }],
         remoteConfig: [{
