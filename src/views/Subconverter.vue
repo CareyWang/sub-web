@@ -398,7 +398,7 @@ export default {
       form: {
         sourceSubUrl: "",
         clientType: "",
-        customBackend: "https://r1.fxx6.asia/sub?",
+        customBackend: "https://r1.fxx6.top/sub?",
         remoteConfig: "",
         excludeRemarks: "",
         includeRemarks: "",
