@@ -409,16 +409,20 @@ export default {
 
       if (this.advanced === "2") {
         if (this.form.remoteConfig) {
-          this.customSubUrl += "&config=" + encodeURIComponent(this.form.remoteConfig);
+          this.customSubUrl +=
+            "&config=" + encodeURIComponent(this.form.remoteConfig);
         }
         if (this.form.excludeRemarks) {
-          this.customSubUrl += "&exclude=" + encodeURIComponent(this.form.excludeRemarks);
+          this.customSubUrl +=
+            "&exclude=" + encodeURIComponent(this.form.excludeRemarks);
         }
         if (this.form.includeRemarks) {
-          this.customSubUrl += "&include=" + encodeURIComponent(this.form.includeRemarks);
+          this.customSubUrl +=
+            "&include=" + encodeURIComponent(this.form.includeRemarks);
         }
         if (this.form.filename) {
-          this.customSubUrl += "&filename=" + encodeURIComponent(this.form.filename);
+          this.customSubUrl +=
+            "&filename=" + encodeURIComponent(this.form.filename);
         }
         if (this.form.appendType) {
           this.customSubUrl +=
