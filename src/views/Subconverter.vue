@@ -74,6 +74,9 @@
                       <el-row>
                         <el-checkbox v-model="form.fdn" label="过滤非法节点"></el-checkbox>
                       </el-row>
+                      <el-row>
+                        <el-checkbox v-model="form.expand" label="规则展开"></el-checkbox>
+                      </el-row>
                       <el-button slot="reference">更多选项</el-button>
                     </el-popover>
                     <el-popover placement="bottom" style="margin-left: 10px">
@@ -302,6 +305,7 @@ export default {
         tfo: false,
         scv: true,
         fdn: false,
+        expand: true,
         appendType: false,
         insert: false, // 是否插入默认订阅的节点，对应配置项 insert_url
         new_name: true, // 是否使用 Clash 新字段
@@ -440,6 +444,8 @@ export default {
           this.form.scv.toString() +
           "&fdn=" +
           this.form.fdn.toString() +
+          "&expand=" +
+          this.form.expand.toString() +
           "&sort=" +
           this.form.sort.toString();
 
