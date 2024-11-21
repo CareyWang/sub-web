@@ -2,9 +2,6 @@
   "name": "sub-web",
   "version": "0.1.0",
   "private": true,
-   "engines": {
-    "node": "18.x"
-  },
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
