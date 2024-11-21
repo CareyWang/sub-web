@@ -5,6 +5,11 @@ function resolve(dir) {
 }
 
 module.exports = {
+  configureWebpack: {
+    optimization: {
+      minimize: false  // 暂时关闭代码压缩
+    }
+  },
   css: {
     loaderOptions: {
       less: {
