@@ -1,24 +1,24 @@
-const path = require('path')
+const path = require('path');
 
 function resolve(dir) {
-  return path.join(__dirname, dir)
+  return path.join(__dirname, dir);
 }
 
 module.exports = {
   css: {
     loaderOptions: {
       less: {
-        javascriptEnabled: true
-      }
-    }
+        javascriptEnabled: true,
+      },
+    },
   },
 
-  chainWebpack: config => {
+  chainWebpack: (config) => {
     // set svg-sprite-loader
     config.module
       .rule('svg')
       .exclude.add(resolve('src/icons'))
-      .end()
+      .end();
     config.module
       .rule('icons')
       .test(/\.svg$/)
@@ -27,20 +27,20 @@ module.exports = {
       .use('svg-sprite-loader')
       .loader('svg-sprite-loader')
       .options({
-        symbolId: 'icon-[name]'
+        symbolId: 'icon-[name]',
       })
-      .end()
+      .end();
   },
 
   pwa: {
     workboxOptions: {
-      // https://developers.google.com/web/tools/workbox/modules/workbox-webpack-plugin
       skipWaiting: true,
       clientsClaim: true,
-      importWorkboxFrom: 'local',
-      importsDirectory: 'js',
+      importScripts: [
+        'https://storage.googleapis.com/workbox-cdn/releases/6.4.1/workbox-sw.js', // 使用 CDN 版本的 Workbox
+      ],
       navigateFallback: '/',
-      navigateFallbackBlacklist: [/\/api\//]
-    }
-  }
+      navigateFallbackAllowlist: [/\/api\//],
+    },
+  },
 };
