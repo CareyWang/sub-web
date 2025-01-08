@@ -44,10 +44,10 @@ docker run -d -p 58080:80 --restart always --name subweb subweb-local:latest
 
 ```shell
 node -v
-v16.20.0
+v20.xx.x
 
 yarn -v
-1.22.19
+1.22.22
 ```
 
 ## Install
