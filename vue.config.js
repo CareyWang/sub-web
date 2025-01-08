@@ -37,10 +37,11 @@ module.exports = {
       // https://developers.google.com/web/tools/workbox/modules/workbox-webpack-plugin
       skipWaiting: true,
       clientsClaim: true,
-      importWorkboxFrom: 'local',
-      importsDirectory: 'js',
+      importScripts: [
+        'https://storage.googleapis.com/workbox-cdn/releases/6.4.1/workbox-sw.js'
+      ],
       navigateFallback: '/',
-      navigateFallbackBlacklist: [/\/api\//]
+      navigateFallbackDenylist: [/\/api\//]
     }
   }
 };
