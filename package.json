@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "atob": "^2.1.2",
-    "axios": "^0.21.1",
+    "axios": "^0.30.0",
     "btoa": "^1.2.1",
     "core-js": "^3.12.1",
     "element-ui": "^2.15.1",
