@@ -227,80 +227,85 @@ export default {
           ssd: "ssd",
           sssub: "sssub",
           ssr: "ssr",
-          ClashR: "clashr",          
+          ClashR: "clashr",
           V2Ray: "v2ray",
           Trojan: "trojan",
           Surge3: "surge&ver=3",
         },
-        backendOptions: [{ value: "http://127.0.0.1:25500/sub?" }],
+        backendOptions: [{ value: "https://sub.520679.xyz/sub?" }],
         remoteConfig: [
           {
-            label: "universal",
+            label: "ACL4SSR",
             options: [
               {
-                label: "No-Urltest",
+                label: "ACL4SSR_Online_Full 全分组 重度用户使用 custom (与Github同步)",
                 value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/universal/no-urltest.ini"
+                    "https://raw.githubusercontent.com/Riglen/ACL4SSR/master/Clash/config/ACL4SSR_Online_Full_custom.ini"
               },
               {
-                label: "Urltest",
+                label: "ACL4SSR_Online_Full 全分组 重度用户使用 (与Github同步)",
                 value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/universal/urltest.ini"
-              }
-            ]
-          },
-          {
-            label: "customized",
-            options: [
-              {
-                label: "Maying",
-                value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/maying.ini"
+                    "https://raw.githubusercontent.com/Riglen/ACL4SSR/master/Clash/config/ACL4SSR_Online_Full.ini"
               },
               {
-                label: "Ytoo",
+                label: "ACL4SSR_Online 默认版 分组比较全 (与Github同步)",
                 value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/ytoo.ini"
+                    "https://raw.githubusercontent.com/Riglen/ACL4SSR/master/Clash/config/ACL4SSR_Online.ini"
               },
               {
-                label: "FlowerCloud",
+                label: "ACL4SSR_Online_AdblockPlus 更多去广告 (与Github同步)",
                 value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/flowercloud.ini"
+                    "https://raw.githubusercontent.com/Riglen/ACL4SSR/master/Clash/config/ACL4SSR_Online_AdblockPlus.ini"
               },
               {
-                label: "Nexitally",
+                label: "ACL4SSR_Online_NoAuto 无自动测速 (与Github同步)",
                 value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/nexitally.ini"
+                    "https://raw.githubusercontent.com/Riglen/ACL4SSR/master/Clash/config/ACL4SSR_Online_NoAuto.ini"
               },
               {
-                label: "SoCloud",
+                label: "ACL4SSR_Online_NoReject 无广告拦截规则 (与Github同步)",
                 value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/socloud.ini"
+                    "https://raw.githubusercontent.com/Riglen/ACL4SSR/master/Clash/config/ACL4SSR_Online_NoReject.ini"
               },
               {
-                label: "ARK",
+                label: "ACL4SSR_Online_Mini 精简版 (与Github同步)",
                 value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/ark.ini"
+                    "https://raw.githubusercontent.com/Riglen/ACL4SSR/master/Clash/config/ACL4SSR_Online_Mini.ini"
               },
               {
-                label: "ssrCloud",
+                label: "ACL4SSR_Online_Mini_AdblockPlus.ini 精简版 更多去广告 (与Github同步)",
                 value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/ssrcloud.ini"
-              }
-            ]
-          },
-          {
-            label: "Special",
-            options: [
-              {
-                label: "NeteaseUnblock(仅规则，No-Urltest)",
-                value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/special/netease.ini"
+                    "https://raw.githubusercontent.com/Riglen/ACL4SSR/master/Clash/config/ACL4SSR_Online_Mini_AdblockPlus.ini"
               },
               {
-                label: "Basic(仅GEOIP CN + Final)",
+                label: "ACL4SSR_Online_Mini_NoAuto.ini 精简版 不带自动测速 (与Github同步)",
                 value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/special/basic.ini"
+                    "https://raw.githubusercontent.com/Riglen/ACL4SSR/master/Clash/config/ACL4SSR_Online_Mini_NoAuto.ini"
+              },
+              {
+                label: "ACL4SSR_Online_Mini_Fallback.ini 精简版 带故障转移 (与Github同步)",
+                value:
+                    "https://raw.githubusercontent.com/Riglen/ACL4SSR/master/Clash/config/ACL4SSR_Online_Mini_Fallback.ini"
+              },
+              {
+                label: "ACL4SSR_Online_Mini_MultiMode.ini 精简版 自动测速、故障转移、负载均衡 (与Github同步)",
+                value:
+                    "https://raw.githubusercontent.com/Riglen/ACL4SSR/master/Clash/config/ACL4SSR_Online_Mini_MultiMode.ini"
+              },
+              {
+                label: "ACL4SSR_Online_Full_NoAuto.ini 全分组 无自动测速 重度用户使用 (与Github同步)",
+                value:
+                    "https://raw.githubusercontent.com/Riglen/ACL4SSR/master/Clash/config/ACL4SSR_Online_Full_NoAuto.ini"
+              },
+              {
+                label: "ACL4SSR_Online_Full_AdblockPlus 全分组 重度用户使用 更多去广告 (与Github同步)",
+                value:
+                    "https://raw.githubusercontent.com/Riglen/ACL4SSR/master/Clash/config/ACL4SSR_Online_Full_AdblockPlus.ini"
+              },
+              {
+                label: "ACL4SSR_Online_Full_Netflix 全分组 重度用户使用 奈飞全量 (与Github同步)",
+                value:
+                    "https://raw.githubusercontent.com/Riglen/ACL4SSR/master/Clash/config/ACL4SSR_Online_Full_Netflix.ini"
               }
             ]
           }
