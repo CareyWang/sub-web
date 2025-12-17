@@ -5,14 +5,6 @@ function resolve(dir) {
 }
 
 module.exports = {
-  css: {
-    loaderOptions: {
-      less: {
-        javascriptEnabled: true
-      }
-    }
-  },
-
   chainWebpack: config => {
     // set svg-sprite-loader
     config.module

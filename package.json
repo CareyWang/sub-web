@@ -11,12 +11,10 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "atob": "^2.1.2",
     "axios": "^0.21.1",
-    "btoa": "^1.2.1",
     "core-js": "^3.12.1",
     "element-ui": "^2.15.1",
-        "vue": "^2.6.10",
+    "vue": "^2.6.10",
     "vue-clipboard2": "^0.3.1",
     "vue-router": "^3.5.1"
   },
@@ -25,16 +23,12 @@
     "@babel/eslint-parser": "^7.25.9",
     "@vue/cli-plugin-babel": "5",
     "@vue/cli-plugin-eslint": "5",
-        "@vue/cli-plugin-router": "5",
+    "@vue/cli-plugin-router": "5",
     "@vue/cli-service": "5",
     "babel-plugin-component": "^1.1.1",
-    "babel-plugin-import": "^1.13.3",
     "eslint": "8.56.0",
     "eslint-plugin-vue": "9.17.0",
-    "sass": "^1.43.4",
-    "sass-loader": "^8.0.0",
     "svg-sprite-loader": "6.0.11",
-    "vue-particles": "^1.0.9",
     "vue-template-compiler": "^2.6.10"
   }
 }

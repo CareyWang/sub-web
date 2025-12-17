@@ -1,20 +1,60 @@
 import Vue from 'vue'
-import Element from 'element-ui'
-import locale from 'element-ui/lib/locale/lang/zh-CN'
-// import '@/assets/css/element-ui.scss'
-// import '@/assets/css/element-element-variables.scss'
+import {
+  Autocomplete,
+  Button,
+  Card,
+  Checkbox,
+  Col,
+  Container,
+  Dialog,
+  Divider,
+  Form,
+  FormItem,
+  Input,
+  Link,
+  Loading,
+  Message,
+  MessageBox,
+  Notification,
+  Option,
+  OptionGroup,
+  Popover,
+  Radio,
+  Row,
+  Select
+} from 'element-ui'
+import lang from 'element-ui/lib/locale/lang/zh-CN'
+import locale from 'element-ui/lib/locale'
 
-Vue.use(Element, {
-    locale,
-    size: 'small'
-})
+locale.use(lang)
 
-Vue.use(Element.Loading.directive);
+Vue.prototype.$ELEMENT = { size: 'small', zIndex: 3000 }
 
-Vue.prototype.$loading = Element.Loading.service;
-Vue.prototype.$msgbox = Element.MessageBox;
-Vue.prototype.$alert = Element.MessageBox.alert;
-Vue.prototype.$confirm = Element.MessageBox.confirm;
-Vue.prototype.$prompt = Element.MessageBox.prompt;
-Vue.prototype.$notify = Element.Notification;
-Vue.prototype.$message = Element.Message;
+Vue.use(Row)
+Vue.use(Col)
+Vue.use(Card)
+Vue.use(Container)
+Vue.use(Form)
+Vue.use(FormItem)
+Vue.use(Radio)
+Vue.use(Input)
+Vue.use(Select)
+Vue.use(Option)
+Vue.use(OptionGroup)
+Vue.use(Autocomplete)
+Vue.use(Button)
+Vue.use(Checkbox)
+Vue.use(Popover)
+Vue.use(Link)
+Vue.use(Divider)
+Vue.use(Dialog)
+
+Vue.use(Loading.directive)
+
+Vue.prototype.$loading = Loading.service
+Vue.prototype.$msgbox = MessageBox
+Vue.prototype.$alert = MessageBox.alert
+Vue.prototype.$confirm = MessageBox.confirm
+Vue.prototype.$prompt = MessageBox.prompt
+Vue.prototype.$notify = Notification
+Vue.prototype.$message = Message
