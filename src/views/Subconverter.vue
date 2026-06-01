@@ -304,9 +304,12 @@ export default {
     this.getBackendVersion();
     
     // 延迟加载隐私提示，避免阻塞页面初始化
-    setTimeout(() => {
+    this.notifyTimer = setTimeout(() => {
       this.notify();
     }, 1000);
+  },
+  beforeDestroy() {
+    clearTimeout(this.notifyTimer);
   },
   methods: {
     onCopy() {
