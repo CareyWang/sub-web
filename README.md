@@ -1,27 +1,27 @@
 # sub-web
 
-![Vue](https://img.shields.io/badge/Vue-2.6.x-brightgreen.svg)
+![Vue](https://img.shields.io/badge/Vue-2.7.x-brightgreen.svg)
+![Vite](https://img.shields.io/badge/Vite-8.x-646CFF.svg)
 ![Node](https://img.shields.io/badge/Node-22.x-green.svg)
 ![License](https://img.shields.io/badge/License-MIT-blue.svg)
 ![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)
 
-基于 Vue.js 2.6 与 [tindy2013/subconverter](https://github.com/tindy2013/subconverter) 后端实现的订阅配置自动生成 Web 界面。提供了简洁美观的前端界面，支持多种代理客户端配置生成。
+基于 Vue.js 2.7 与 [tindy2013/subconverter](https://github.com/tindy2013/subconverter) 后端实现的订阅配置自动生成 Web 界面。
 
 ## ✨ 特性
 
-- 🎨 基于 Vue 2.6 + Element UI 的现代化界面
-- 📦 模块化架构，易于维护和扩展
-- 🐳 Docker 一键部署
-- 🚀 高性能构建，支持 Gzip 压缩
-- 📱 响应式设计，支持移动端
-- ⚡ 支持自定义转换参数
-- 🔄 实时配置预览和生成
+- 基于 Vue 2.7 + Element UI 的现代化界面
+- Vite 8 构建，热重载开发体验
+- 模块化架构：composables / services / utils / config 分层
+- SVG 图标精灵（vite-plugin-svg-icons）
+- 本地存储缓存，TTL 可配置
+- 短链接与配置文件上传集成
+- 一键导入 Clash
+- Docker 一键部署
 
 ## 🚀 快速开始
 
 ### 使用 Docker（推荐）
-
-一键部署，无需配置：
 
 ```bash
 docker run -d \
@@ -31,58 +31,37 @@ docker run -d \
   careywong/subweb:latest
 ```
 
-访问 <http://localhost:58080/> 即可使用。
+访问 <http://localhost:58080/>
 
 ### 本地开发
 
 ```bash
-# 克隆项目
 git clone https://github.com/CareyWang/sub-web.git
 cd sub-web
-
-# 安装依赖
 yarn install
-
-# 启动开发服务器
 yarn dev
 ```
 
-访问 <http://localhost:5173/> 查看应用。
+访问 <http://localhost:5173/>
 
 ## 📦 环境要求
 
 - **Node.js**: 22.x
 - **Yarn**: 1.22+
-- **Docker**: 20.10+ （可选，用于容器化部署）
+- **Docker**: 20.10+（可选）
 
-### 验证安装
+## 🛠️ 常用命令
 
-```bash
-# 检查 Node.js 版本
-node -v
-# 应输出: v22.x.x
+| 命令 | 说明 |
+|------|------|
+| `yarn dev` | 启动开发服务器 |
+| `yarn build` | 构建生产版本 |
+| `yarn preview` | 本地预览构建产物 |
+| `yarn lint` | ESLint 代码检查 |
 
-# 检查 Yarn 版本
-yarn -v
-# 应输出: 1.22.x
-```
+## ⚙️ 环境配置
 
-## 🛠️ 安装
-
-### 使用 Yarn（推荐）
-
-```bash
-# 克隆项目
-git clone https://github.com/CareyWang/sub-web.git
-cd sub-web
-
-# 安装依赖
-yarn install
-```
-
-### 环境配置
-
-创建 `.env` 文件配置后端服务（可选，如需自定义后端地址）：
+创建 `.env` 文件（参考如下）：
 
 ```env
 # Subconverter 后端地址
@@ -92,56 +71,57 @@ VITE_SUBCONVERTER_DEFAULT_BACKEND=https://api.wcc.best
 VITE_PROJECT=https://github.com/CareyWang/sub-web
 VITE_BOT_LINK=https://t.me/subconverter_discuss
 
-# 可选：远程配置与说明文档
-VITE_SUBCONVERTER_REMOTE_CONFIG=
-VITE_SUBCONVERTER_DOC_ADVANCED=
+# 后端版本页
+VITE_BACKEND_RELEASE=https://github.com/tindy2013/subconverter/actions
 
-# 可选：后端版本标识
-VITE_BACKEND_RELEASE=
+# 远程配置示例与进阶文档
+VITE_SUBCONVERTER_REMOTE_CONFIG=https://raw.githubusercontent.com/tindy2013/subconverter/master/base/config/example_external_config.ini
+VITE_SUBCONVERTER_DOC_ADVANCED=https://github.com/tindy2013/subconverter/blob/master/README-cn.md
 
-# 可选：短链接与配置上传服务
-VITE_MYURLS_API=
-VITE_CONFIG_UPLOAD_API=
+# 短链接后端
+VITE_MYURLS_API=https://suosuo.de/short
 
-# 可选：开启本地存储与缓存 TTL（秒）
+# 配置文件托管后端
+VITE_CONFIG_UPLOAD_API=https://oss.wcc.best/upload
+
+# 本地存储与缓存 TTL（秒）
 VITE_USE_STORAGE=true
 VITE_CACHE_TTL=86400
 ```
 
-如果部署在子路径（如 `/sub-web/`），通过 `BASE_URL` 指定路由基础路径。
-
-## 🚀 使用
-
-### 开发环境
+如果部署在子路径（如 `/sub-web/`），在构建时指定 base：
 
 ```bash
-# 启动开发服务器
-yarn dev
+yarn build --base=/sub-web/
 ```
 
-访问 <http://localhost:5173/> 查看应用。
+或在 `vite.config.js` 中设置 `base: '/sub-web/'`。
 
-### 生产构建
+## 📁 目录结构
 
-```bash
-# 构建生产版本
-yarn build
 ```
-
-构建完成后，`dist` 目录包含所有生产文件。
-
+src/
+├── main.js              # 应用入口，插件注册
+├── App.vue
+├── router/              # Vue Router（history 模式）
+├── views/
+│   └── Subconverter.vue # 主页面
+├── components/          # 可复用组件（弹窗等）
+├── composables/         # 共享逻辑（表单、订阅、URL 解析）
+├── services/            # API 封装（后端版本、短链接、配置上传）
+├── config/              # 常量、客户端类型、远程配置列表
+├── utils/               # 工具函数（storage、validators、formatters）
+├── plugins/             # Vue 插件注册（Element UI、Axios 等）
+└── icons/svg/           # SVG 精灵图源文件
+```
 
 ## 🐳 Docker 部署
 
 ### 本地构建
 
-如需修改代码并自定义构建：
-
 ```bash
-# 构建镜像
 docker build -t subweb-local:latest .
 
-# 运行容器
 docker run -d \
   -p 58080:80 \
   --restart always \
@@ -149,150 +129,67 @@ docker run -d \
   subweb-local:latest
 ```
 
-### Docker Compose 部署
-
-使用 Docker Compose 一键部署完整服务栈（包含 MyUrls 短链接服务）：
+### Docker Compose（含短链接服务）
 
 ```bash
-# 进入 services 目录
 cd services
 
-# 编辑 .env 文件，修改端口和域名配置
-# 默认配置：SUBWEB_PORT=58080, MYURLS_PORT=8002
+# 编辑 .env，配置端口和域名
+# 默认：SUBWEB_PORT=58080, MYURLS_PORT=8002, MYURLS_DOMAIN=example.com
 vim .env
 
-# 启动所有服务
 docker-compose up -d
 ```
 
-## 🌐 部署
-
-### Nginx 配置示例
-
-配置 Nginx 作为反向代理和静态文件服务器：
+## 🌐 Nginx 配置示例
 
 ```nginx
 server {
     listen 80;
     server_name your-domain.com;
 
-    # HTTPS 重定向（可选）
-    # return 301 https://$server_name$request_uri;
-
     root /var/www/sub-web/dist;
-    index index.html index.htm;
+    index index.html;
 
-    # SPA 路由支持
     location / {
         try_files $uri $uri/ /index.html;
     }
 
-    # Gzip 压缩
     gzip on;
+    gzip_types text/plain text/css application/javascript application/json;
     gzip_min_length 1k;
-    gzip_buffers 4 16k;
-    gzip_http_version 1.0;
-    gzip_comp_level 6;
-    gzip_types
-        text/plain
-        text/css
-        text/javascript
-        application/json
-        application/javascript
-        application/x-javascript
-        application/xml
-        text/xml;
-    gzip_vary on;
 
-    # 静态资源缓存
-    location ~* \.(css|js|png|jpg|jpeg|gif|gz|svg|mp4|ogg|ogv|webm|htc|xml|woff|woff2|ttf|eot)$ {
-        access_log off;
+    location ~* \.(css|js|png|jpg|svg|woff2|ttf|eot)$ {
         add_header Cache-Control "public,max-age=86400";
-        add_header Vary Accept-Encoding;
-    }
-}
-
-# HTTPS 配置示例（可选）
-server {
-    listen 443 ssl http2;
-    server_name your-domain.com;
-
-    ssl_certificate /path/to/your/cert.pem;
-    ssl_certificate_key /path/to/your/key.pem;
-
-    # SSL 安全配置
-    ssl_protocols TLSv1.2 TLSv1.3;
-    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384;
-    ssl_prefer_server_ciphers off;
-
-    root /var/www/sub-web/dist;
-    index index.html index.htm;
-
-    location / {
-        try_files $uri $uri/ /index.html;
     }
 }
 ```
 
 ## 🔗 相关项目
 
-- **[tindy2013/subconverter](https://github.com/tindy2013/subconverter)** - 强大的订阅转换后端
-- **[CareyWang/MyUrls](https://github.com/CareyWang/MyUrls)** - 短链接服务，可与 sub-web 配合使用
+- **[tindy2013/subconverter](https://github.com/tindy2013/subconverter)** - 订阅转换后端
+- **[CareyWang/MyUrls](https://github.com/CareyWang/MyUrls)** - 短链接服务
 
-## 🤝 贡献指南
+## 🤝 贡献
 
-我们欢迎所有形式的贡献！
+1. Fork 本仓库
+2. 创建特性分支 `git checkout -b feature/AmazingFeature`
+3. 提交更改 `git commit -m 'Add some AmazingFeature'`
+4. 推送到分支 `git push origin feature/AmazingFeature`
+5. 创建 Pull Request
 
-### 贡献方式
-
-1. **Fork** 本仓库
-2. 创建特性分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
-4. 推送到分支 (`git push origin feature/AmazingFeature`)
-5. 创建 **Pull Request**
-
-### 开发指南
-
-- 遵循 ESLint 代码规范
-- 更新相关文档
-- 确保所有 CI 检查通过
-
-### 问题反馈
-
-如果您遇到任何问题或有改进建议，请：
-
-1. 查看 [Issues](https://github.com/CareyWang/sub-web/issues) 是否已有类似问题
-2. 创建新的 Issue 并提供详细信息
-3. 使用合适的标签标记问题类型
+代码风格：2 空格缩进、单引号、无分号，遵循 ESLint 配置。
 
 ## 📄 许可证
 
-本项目采用 MIT 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情。
-
-Copyright © 2020-2025 CareyWong
-
-## 🙏 致谢
-
-感谢所有为这个项目做出贡献的开发者和用户！
-
-特别感谢：
-- [tindy2013/subconverter](https://github.com/tindy2013/subconverter) - 提供强大的转换后端
-- Vue.js 和 Element UI 团队 - 优秀的前端框架和组件库
+MIT License — Copyright © 2020-2025 CareyWang
 
 ## 📈 项目统计
 
 <a href="https://www.star-history.com/#CareyWang/sub-web&type=date&legend=top-left">
-
  <picture>
-
    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=CareyWang/sub-web&type=date&theme=dark&legend=top-left" />
-
    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=CareyWang/sub-web&type=date&legend=top-left" />
-
    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=CareyWang/sub-web&type=date&legend=top-left" />
-
  </picture>
-
 </a>
-
-<br>

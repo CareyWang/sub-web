@@ -1,124 +1,199 @@
 # AGENTS GUIDE
 
-This repository is a Vue 2 + Vite SPA with Element UI. Keep changes small, follow existing patterns, and avoid refactors during fixes.
+Vue 2.7 + Vite 8 SPA with Element UI. Keep changes small, follow existing patterns, avoid refactors during fixes.
 
 ## Quick Facts
-- Framework: Vue 2.6 (Options API)
-- Build tool: Vite 5
+
+- Framework: Vue 2.7 (Options API)
+- Build tool: Vite 8
 - UI: Element UI 2
-- Router: Vue Router 3
-- Node: 22.x (see package.json)
+- Router: Vue Router 3 (history mode, base from `import.meta.env.BASE_URL`)
+- Node: 22.x
 - No automated tests currently
 
-## Commands (local)
-- Install: `yarn install`
-- Dev server: `yarn dev`
-- Build: `yarn build`
-- Preview build: `yarn preview`
-- Lint: `yarn lint`
+## Commands
 
-## Single-Test / Focused Runs
-- There is no test runner configured (no Jest/Vitest scripts).
-- If you add tests later, document the single-test command here.
+| Command | Description |
+|---------|-------------|
+| `yarn install` | Install dependencies |
+| `yarn dev` | Start dev server (host: 0.0.0.0) |
+| `yarn build` | Production build |
+| `yarn preview` | Preview production build locally |
+| `yarn lint` | ESLint check |
 
 ## CI / Workflows
-- Build on push to `master` and `dev`: `.github/workflows/build.yml` runs `yarn install` + `yarn build`.
-- Docker build+push on `master`: `.github/workflows/docker-build-push.yml`.
+
+- **build.yml**: triggers on push/PR to `master` and `dev` — runs `yarn install --frozen-lockfile` + `yarn lint` + `yarn build`, then uploads `dist/` as artifact (7-day retention)
+- **docker-build-push.yml**: triggers on push to `master` — builds and pushes multi-arch image (`linux/amd64`, `linux/arm64`) to `careywong/subweb:latest`
 
 ## Repository Layout
-- `src/main.js`: app bootstrap, plugin setup, Vue mount
-- `src/router/index.js`: router (history mode)
-- `src/views/Subconverter.vue`: main screen
-- `src/components/`: UI components
-- `src/composables/`: shared logic
-- `src/services/`: API adapters
-- `src/utils/`: utility helpers
-- `src/config/`: env-backed constants and option lists
-- `src/icons/svg`: SVG sprite inputs
-- `services/`: docker compose stack
 
-## Code Style (Observed + ESLint)
+```
+src/
+├── main.js                      # App bootstrap, plugin registration, Vue mount
+├── App.vue
+├── router/index.js              # Vue Router (history mode)
+├── views/Subconverter.vue       # Main page
+├── components/
+│   ├── ConfigUploadDialog.vue   # Config upload dialog
+│   ├── UrlParseDialog.vue       # URL parse dialog
+│   └── SvgIcon/index.vue        # SVG icon wrapper component
+├── composables/
+│   ├── useSubscription.js       # URL building logic (makeUrl, buildBaseUrl, buildAdvancedParams)
+│   ├── useSubscriptionForm.js   # Reactive form state + addCustomParam + saveSubUrl
+│   └── useUrlParser.js          # Short-link expansion + URL-to-form parser (analyzeUrl, parseUrl)
+├── services/
+│   ├── backendService.js        # BackendService.getBackendVersion()
+│   ├── shortUrlService.js       # ShortUrlService.generateShortUrl()
+│   └── configUploadService.js   # ConfigUploadService.uploadConfig(), handleUploadSuccess()
+├── config/
+│   ├── constants.js             # CONSTANTS (env-backed, DEFAULT_CLIENT_TYPE='clash')
+│   ├── client-types.js          # CLIENT_TYPES map (display label → target value)
+│   └── remote-configs.js        # REMOTE_CONFIGS grouped options array
+├── utils/
+│   ├── storage.js               # getLocalStorageItem / setLocalStorageItem (TTL-based)
+│   ├── validators.js            # validateSubUrl → { valid, message } | validateForm → boolean
+│   ├── formatters.js            # formatVersion, formatErrorMessage, processSubUrl
+│   └── search.js                # Backend autocomplete search helper
+├── plugins/                     # Vue plugin registrations (element-ui, clipboard, axios, device)
+└── icons/
+    ├── index.js                 # Registers SVG sprite
+    └── svg/                     # SVG source files (e.g., github.svg)
+services/                        # Docker Compose stack (subweb + myurls + redis)
+```
+
+## Key Modules
+
+### `src/config/constants.js`
+All values read from `import.meta.env` with `VITE_` prefix. Key constants:
+- `DEFAULT_BACKEND` — appends `/sub?` to `VITE_SUBCONVERTER_DEFAULT_BACKEND`
+- `DEFAULT_CLIENT_TYPE` — hardcoded `'clash'`
+- `SHORT_URL_API`, `CONFIG_UPLOAD_API`, `PROJECT`, `BOT_LINK`, etc.
+
+### `src/composables/useSubscriptionForm.js`
+Returns plain object merged into `data()` via spread. Form fields include: `sourceSubUrl`, `clientType`, `customBackend`, `remoteConfig`, `emoji`, `nodeList`, `sort`, `udp`, `tfo`, `scv`, `fdn`, `expand`, `appendType`, `insert`, `new_name`, `tpl.surge.doh`, `tpl.clash.doh`. Default mode is advanced (`advanced: "2"`).
+
+### `src/composables/useSubscription.js`
+`makeUrl(form, advanced, processedSubUrl, currentBackend, customParams, needUdp)` — returns empty string on validation failure, otherwise builds full query string. Advanced mode adds remote config, include/exclude, filename, UDP, template, and custom params.
+
+### `src/composables/useUrlParser.js`
+`analyzeUrl(url)` — if URL contains `"target"`, returns as-is; otherwise fetches and returns `response.url` (short-link expansion, requires CORS on short-link service).  
+`parseUrl(url, form, customParams, onSuccess, onError)` — parses all query params back into form fields; unknown params become `customParams` entries.
+
+### `src/services/`
+All service classes are static methods. They take `$axios` as first argument (injected via plugin). Silent failures are acceptable for `getBackendVersion`. Upload response shape: `{ code: 0, data: { url }, msg }`. Short URL response shape: `{ Code: 1, ShortUrl, Message }`.
+
+### `src/utils/storage.js`
+TTL stored inside the JSON value as `{ setTime, ttl, expire, value }`. `expire` checked on every read; expired entries are removed automatically. TTL value comes from `VITE_CACHE_TTL` env var.
+
+## Code Style
+
 - Indentation: 2 spaces
-- Quotes: single quotes are preferred in most files
-- Semicolons: not used (`semi: 0`)
+- Quotes: single quotes preferred
+- Semicolons: none (`semi: 0`)
 - Vue component names: single-word allowed (`vue/multi-word-component-names: off`)
-- Console/debugger: forbidden in production (`no-console`, `no-debugger`)
+- `no-console` / `no-debugger`: error in production, off in dev
+- ESLint extends: `plugin:vue/essential`, `eslint:recommended`
+- Parser: `@babel/eslint-parser` with `requireConfigFile: false`
 
 ## Imports & Modules
-- Use ES modules (`import`/`export`).
-- Prefer absolute alias `@` for `src/` (see `vite.config.js`).
-- Keep import groups readable: core libs, local config/utils, services, components.
-- Dynamic import only used for route lazy-load.
+
+- ES modules (`import`/`export`) throughout
+- Absolute alias `@` maps to `src/` (see `vite.config.js`)
+- Import order: core libs → local config/utils → services → components
+- Dynamic imports only for route lazy-load
 
 ## Vue Patterns
-- Options API is used across components.
-- Component file structure: `<template>`, `<script>`, `<style>`.
-- Keep reactive state in `data()`; derived state in `computed`.
-- Use composables from `src/composables/` for shared logic.
 
-## Services & Error Handling
-- Service classes in `src/services/*Service.js` handle API calls.
-- Prefer explicit error messages with `Error` instances.
-- UI errors are surfaced with `this.$message.*` or `this.$notify`.
-- Silent failures are acceptable only when UX demands it (e.g., backend version fetch).
-
-## Validation
-- Use validators from `src/utils/validators.js` for user-facing checks.
-- Return `{ valid, message }` or booleans; avoid throwing for validation flow.
-
-## Environment Variables
-- Use `import.meta.env` with `VITE_` prefix.
-- Key constants live in `src/config/constants.js`.
-- Do not commit local env files (`.env.local`, `.env.*.local`).
+- Options API everywhere; do not introduce Composition API
+- Component structure: `<template>`, `<script>`, `<style>`
+- Reactive state in `data()`; derived state in `computed`
+- Composables spread via `...useSubscription()` / `...useUrlParser()` in `methods`
+- `useSubscriptionForm()` spread via `...subscriptionForm` in `data()`
 
 ## Icons
-- SVG sprites via `vite-plugin-svg-icons` and `src/icons/svg`.
-- Use `<svg-icon icon-class="name" />`.
 
-## Storage
-- Local storage helpers live in `src/utils/storage.js`.
-- TTL-based caching is already implemented; reuse it.
+- SVG sprites via `vite-plugin-svg-icons`; icon dirs: `src/icons/svg`
+- Usage: `<svg-icon icon-class="name" />`
+- Symbol ID format: `icon-[name]`
 
-## Linting
-- ESLint config: `.eslintrc.js`.
-- If you add new rules, keep consistent with current minimal setup.
+## Environment Variables
 
-## Formatting
-- No Prettier config present; rely on ESLint and existing style.
-- Keep formatting consistent with nearby code.
+- All env vars use `VITE_` prefix; access via `import.meta.env`
+- Do not commit `.env.local`, `.env.*.local`
+- Constants centralised in `src/config/constants.js` — do not scatter `import.meta.env` calls
+
+## Validation
+
+- Use `src/utils/validators.js` for user-facing checks
+- `validateSubUrl` returns `{ valid, message }`; `validateForm` returns boolean
+- Do not throw for validation flow
+
+## Error Handling
+
+- UI errors via `this.$message.*` or `this.$notify`
+- Silent failures acceptable only when UX demands it (e.g., backend version fetch)
+- Use `formatErrorMessage` from `src/utils/formatters.js` for consistent error strings
+
+## Docker
+
+- Base images: `node:22-alpine` (build), `nginx:1.24-alpine` (runtime)
+- Build: `yarn install && yarn build`, output copied to `/usr/share/nginx/html`
+- Services compose stack in `services/` includes myurls + Redis
 
 ## Git Hygiene
-- Do not commit `dist/`, `node_modules/`, `.env.local`, `.env.*.local`.
-- Avoid adding generated files.
+
+- Do not commit `dist/`, `node_modules/`, `.env.local`, `.env.*.local`
+- Avoid adding generated files
 
 ## Frontend Safety
-- Avoid adding inline styles unless already used in nearby code.
-- Prefer Element UI components and existing patterns.
-- Keep UX messages consistent with existing language (mostly Chinese UI strings).
 
-## Performance Notes
-- Do not introduce heavy deps; prefer existing utilities.
-- Keep network calls centralized in `src/services`.
+- Avoid inline styles unless already present in nearby code
+- Prefer Element UI components and existing patterns
+- Keep UI message strings consistent (mostly Chinese)
+
+## Performance
+
+- Do not introduce heavy dependencies; prefer existing utilities
+- Keep all network calls in `src/services/`
 
 ## Example Patterns
-- Router lazy-load: `component: () => import('../views/Subconverter.vue')`
-- Service class: `export class BackendService { static async ... }`
-- Composable: `export function useSubscription() { return { ... } }`
 
-## Cursor / Copilot Rules
-- No Cursor rules found (`.cursor/rules`, `.cursorrules` absent).
-- No Copilot instructions found (`.github/copilot-instructions.md` absent).
+```js
+// Route lazy-load
+component: () => import('../views/Subconverter.vue')
 
-## If You Add Tests Later
-- Document the runner and single-test command here.
-- Keep test files near the logic or under a dedicated `tests/` folder.
+// Service class
+export class BackendService {
+  static async getBackendVersion($axios) { ... }
+}
+
+// Composable (Options API style)
+export function useSubscription() {
+  return { makeUrl, buildBaseUrl, buildAdvancedParams }
+}
+
+// Spread composable into methods
+methods: {
+  ...useSubscription(),
+  ...useUrlParser()
+}
+
+// Spread form state into data()
+data() {
+  return { ...useSubscriptionForm(), otherField: '' }
+}
+```
 
 ## Suggested Manual Checks
+
 - `yarn lint`
 - `yarn build`
-- Run dev server and smoke the main screen
+- Run `yarn dev` and smoke the main screen
 
 ## Notes for Agents
-- Follow existing patterns and minimize scope.
-- No large refactors unless explicitly requested.
-- Avoid introducing TypeScript or new tooling without approval.
+
+- Follow existing patterns; minimise scope
+- No large refactors unless explicitly requested
+- Do not introduce TypeScript or new tooling without approval
+- No test runner configured; if added, document the single-test command here
