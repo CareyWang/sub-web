@@ -29,7 +29,6 @@
     "fast-glob": "^3.3.3",
     "sass": "^1.69.0",
     "vite": "^8.0.16",
-    "vite-plugin-svg-icons": "^2.0.1",
     "vue-template-compiler": "^2.7.16"
   }
 }
