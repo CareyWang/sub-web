@@ -8,7 +8,7 @@ Vue 2.7 + Vite 8 SPA with Element UI. Keep changes small, follow existing patter
 - Build tool: Vite 8
 - UI: Element UI 2
 - Router: Vue Router 3 (history mode, base from `import.meta.env.BASE_URL`)
-- Node: 22.x
+- Node: 24.x
 - No automated tests currently
 
 ## Commands
@@ -137,7 +137,7 @@ TTL stored inside the JSON value as `{ setTime, ttl, expire, value }`. `expire` 
 
 ## Docker
 
-- Base images: `node:22-alpine` (build), `nginx:1.24-alpine` (runtime)
+- Base images: `node:24-alpine` (build), `nginx:1.24-alpine` (runtime)
 - Build: `yarn install && yarn build`, output copied to `/usr/share/nginx/html`
 - Services compose stack in `services/` includes myurls + Redis
 
