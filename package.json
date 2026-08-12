@@ -12,20 +12,20 @@
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^2.3.2",
     "axios": "^1.18.1",
-    "element-ui": "^2.15.1",
-    "vue": "^2.7.16",
-    "vue-clipboard2": "^0.3.1",
-    "vue-router": "^3.5.1"
+    "element-plus": "^2.14.4",
+    "vue": "^3.5.41",
+    "vue-router": "^4.6.4"
   },
   "devDependencies": {
     "@babel/core": "^7.29.7",
     "@babel/eslint-parser": "^7.29.7",
-    "@vitejs/plugin-vue2": "^2.3.4",
-    "eslint": "8.56.0",
-    "eslint-plugin-vue": "9.17.0",
+    "@vitejs/plugin-vue": "^6.0.8",
+    "eslint": "^8.57.1",
+    "eslint-plugin-vue": "^9.33.0",
     "sass": "^1.101.0",
-    "vite": "^8.1.0",
-    "vue-template-compiler": "^2.7.16"
+    "unplugin-element-plus": "^0.11.2",
+    "vite": "^8.1.0"
   }
 }

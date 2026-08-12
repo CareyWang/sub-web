@@ -1,16 +1,18 @@
-import Vue from 'vue'
+import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
-import '@/plugins/element-ui'
-import '@/plugins/clipboard'
-import '@/plugins/axios'
-import '@/plugins/device'
+import { setupElementPlus } from '@/plugins/element-plus'
+import { setupAxios } from '@/plugins/axios'
+import { setupDevice } from '@/plugins/device'
 
-import '@/icons' // icon
+import { setupIcons } from '@/icons' // icon
 
-Vue.config.productionTip = false
+const app = createApp(App)
 
-new Vue({
-  router,
-  render: h => h(App)
-}).$mount('#app')
+setupElementPlus(app)
+setupAxios(app)
+setupDevice(app)
+setupIcons(app)
+
+app.use(router)
+app.mount('#app')

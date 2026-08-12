@@ -1,14 +1,12 @@
 <template>
   <el-dialog
-    :visible.sync="localVisible"
+    v-model="localVisible"
     :show-close="false"
-    :close-on-click-modal="false"
-    :close-on-press-escape="false"
     width="700px"
   >
-    <div slot="title">
+    <template #header>
       解析 Subconverter 链接
-    </div>
+    </template>
 
     <el-form label-position="left" :inline="true">
       <el-form-item prop="loadConfig" label="订阅链接：" label-width="85px">
@@ -16,12 +14,14 @@
       </el-form-item>
     </el-form>
 
-    <div slot="footer" class="dialog-footer">
-      <el-button @click="handleCancel">取 消</el-button>
-      <el-button type="primary" @click="handleConfirm" :disabled="localLoadConfig.length === 0">
-        确 定
-      </el-button>
-    </div>
+    <template #footer>
+      <div class="dialog-footer">
+        <el-button @click="handleCancel">取 消</el-button>
+        <el-button type="primary" @click="handleConfirm" :disabled="localLoadConfig.length === 0">
+          确 定
+        </el-button>
+      </div>
+    </template>
   </el-dialog>
 </template>
 
@@ -42,21 +42,25 @@ export default {
       default: false
     }
   },
+  emits: ['update:visible', 'cancel', 'confirm'],
   data() {
     return {
-      localLoadConfig: this.loadConfig,
-      localVisible: this.visible
+      localLoadConfig: this.loadConfig
     };
+  },
+  computed: {
+    localVisible: {
+      get() {
+        return this.visible;
+      },
+      set(newVal) {
+        this.$emit('update:visible', newVal);
+      }
+    }
   },
   watch: {
     loadConfig(newVal) {
       this.localLoadConfig = newVal;
-    },
-    visible(newVal) {
-      this.localVisible = newVal;
-    },
-    localVisible(newVal) {
-      this.$emit('update:visible', newVal);
     }
   },
   methods: {

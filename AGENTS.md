@@ -1,13 +1,13 @@
 # AGENTS GUIDE
 
-Vue 2.7 + Vite 8 SPA with Element UI. Keep changes small, follow existing patterns, avoid refactors during fixes.
+Vue 3 + Vite 8 SPA with Element Plus. Keep changes small, follow existing patterns, avoid refactors during fixes.
 
 ## Quick Facts
 
-- Framework: Vue 2.7 (Options API)
+- Framework: Vue 3 (Options API)
 - Build tool: Vite 8
-- UI: Element UI 2
-- Router: Vue Router 3 (history mode, base from `import.meta.env.BASE_URL`)
+- UI: Element Plus 2 (icons via `@element-plus/icons-vue`)
+- Router: Vue Router 4 (`createWebHistory`, base from `import.meta.env.BASE_URL`)
 - Node: 24.x
 - No automated tests currently
 
@@ -54,8 +54,9 @@ src/
 │   ├── storage.js               # getLocalStorageItem / setLocalStorageItem (TTL-based)
 │   ├── validators.js            # validateSubUrl → { valid, message } | validateForm → boolean
 │   ├── formatters.js            # formatVersion, formatErrorMessage, processSubUrl
+│   ├── clipboard.js             # copyText (Clipboard API + execCommand fallback)
 │   └── search.js                # Backend autocomplete search helper
-├── plugins/                     # Vue plugin registrations (element-ui, clipboard, axios, device)
+├── plugins/                     # setupXxx(app) registrations (element-plus, axios, device)
 └── icons/
     ├── index.js                 # Registers SVG sprite
     └── svg/                     # SVG source files (e.g., github.svg)
@@ -93,7 +94,7 @@ TTL stored inside the JSON value as `{ setTime, ttl, expire, value }`. `expire` 
 - Semicolons: none (`semi: 0`)
 - Vue component names: single-word allowed (`vue/multi-word-component-names: off`)
 - `no-console` / `no-debugger`: error in production, off in dev
-- ESLint extends: `plugin:vue/essential`, `eslint:recommended`
+- ESLint extends: `plugin:vue/vue3-essential`, `eslint:recommended`
 - Parser: `@babel/eslint-parser` with `requireConfigFile: false`
 
 ## Imports & Modules
@@ -105,17 +106,21 @@ TTL stored inside the JSON value as `{ setTime, ttl, expire, value }`. `expire` 
 
 ## Vue Patterns
 
-- Options API everywhere; do not introduce Composition API
+- Options API everywhere; do not introduce Composition API or `<script setup>`
 - Component structure: `<template>`, `<script>`, `<style>`
 - Reactive state in `data()`; derived state in `computed`
 - Composables spread via `...useSubscription()` / `...useUrlParser()` in `methods`
 - `useSubscriptionForm()` spread via `...subscriptionForm` in `data()`
+- Globals registered on `app.config.globalProperties` (`$axios`, `$getOS`, `$message`, `$notify`)
+- Named slots only (`<template #header>`); `slot="x"` and `$listeners` do not exist in Vue 3
+- Element Plus icon components exposed via `computed` (not `data`) to avoid reactive wrapping
 
 ## Icons
 
 - SVG sprites via `vite-plugin-svg-icons`; icon dirs: `src/icons/svg`
 - Usage: `<svg-icon icon-class="name" />`
 - Symbol ID format: `icon-[name]`
+- UI icons come from `@element-plus/icons-vue` as components; there are no `el-icon-*` font classes
 
 ## Environment Variables
 
@@ -149,8 +154,9 @@ TTL stored inside the JSON value as `{ setTime, ttl, expire, value }`. `expire` 
 ## Frontend Safety
 
 - Avoid inline styles unless already present in nearby code
-- Prefer Element UI components and existing patterns
+- Prefer Element Plus components and existing patterns
 - Keep UI message strings consistent (mostly Chinese)
+- `.el-form-item__content` and `el-row` are flex containers in Element Plus; use `justify-content` / explicit widths rather than `text-align` to position controls
 
 ## Performance
 
@@ -162,6 +168,11 @@ TTL stored inside the JSON value as `{ setTime, ttl, expire, value }`. `expire` 
 ```js
 // Route lazy-load
 component: () => import('../views/Subconverter.vue')
+
+// Plugin registration
+export function setupAxios(app) {
+  app.config.globalProperties.$axios = axios
+}
 
 // Service class
 export class BackendService {
