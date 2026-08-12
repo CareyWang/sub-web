@@ -186,10 +186,10 @@ MIT License — Copyright © 2020-2025 CareyWang
 
 ## 📈 项目统计
 
-<a href="https://www.star-history.com/#CareyWang/sub-web&type=date&legend=top-left">
+<a href="https://star-history.dera.page/#CareyWang/sub-web&type=date&legend=top-left">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=CareyWang/sub-web&type=date&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=CareyWang/sub-web&type=date&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=CareyWang/sub-web&type=date&legend=top-left" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://star-history.dera.page/svg?repos=CareyWang/sub-web&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://star-history.dera.page/svg?repos=CareyWang/sub-web&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://star-history.dera.page/svg?repos=CareyWang/sub-web&type=date&legend=top-left" />
  </picture>
 </a>
