@@ -22,21 +22,26 @@ export class ConfigUploadService {
   /**
    * 处理上传成功响应
    * @param {Object} res - 响应对象 (已经是response.data)
-   * @param {Function} $copyText - 复制文本函数
+   * @param {Function} copyText - 复制文本函数
    * @param {Function} $message - 消息提示函数
-   * @returns {Object} 处理结果
+   * @returns {Promise<Object>} 处理结果
    */
-  static handleUploadSuccess(res, $copyText, $message) {
+  static async handleUploadSuccess(res, copyText, $message) {
     // res 已经是 response.data，所以直接访问 res.code, res.msg, res.data.url
     if (res.code === 0 && res.data && res.data.url) {
       const configUrl = res.data.url;
-      $copyText(configUrl);
-      $message.success(
-        "远程配置上传成功，配置链接已复制到剪贴板，有效期三个月望知悉"
-      );
+      const copied = await copyText(configUrl);
+      if (copied) {
+        $message.success(
+          "远程配置上传成功，配置链接已复制到剪贴板，有效期三个月望知悉"
+        );
+      } else {
+        $message.error("复制失败，请手动选中链接复制");
+      }
       return {
         success: true,
-        url: configUrl
+        url: configUrl,
+        copied
       };
     } else {
       const errorMsg = res.msg || "远程配置上传失败";

@@ -1,6 +1,4 @@
-import Vue from 'vue'
-
-Vue.prototype.$getOS = () => {
+const getOS = () => {
   let ua = navigator.userAgent,
     isWindowsPhone = /(?:Windows Phone)/.test(ua),
     isSymbian = /(?:SymbianOS)/.test(ua) || isWindowsPhone,
@@ -17,4 +15,8 @@ Vue.prototype.$getOS = () => {
     isAndroid: isAndroid,
     isPc: isPc
   };
+}
+
+export function setupDevice(app) {
+  app.config.globalProperties.$getOS = getOS
 }
