@@ -10,7 +10,7 @@
             <div style="display: inline-block; position:absolute; right: 20px">{{ backendVersion }}</div>
           </template>
           <el-container>
-            <el-form :model="form" label-width="140px" label-position="left" style="width: 100%">
+            <el-form class="subconverter-form" :model="form" label-width="140px" label-position="left" style="width: 100%">
               <el-form-item label="模式设置:">
                 <el-radio v-model="advanced" value="1">基础模式</el-radio>
                 <el-radio v-model="advanced" value="2">进阶模式</el-radio>
@@ -30,7 +30,7 @@
                   <el-autocomplete style="width: 100%" v-model="form.customBackend" :fetch-suggestions="backendSearch"
                     placeholder="动动小手，（建议）自行搭建后端服务。例：http://127.0.0.1:25500/sub?">
                     <template #append>
-                      <el-button @click="gotoGayhub" :icon="Link">前往项目仓库</el-button>
+                      <el-button @click="gotoGayhub" :icon="Link" aria-label="前往项目仓库"><span class="backend-link-text">前往项目仓库</span></el-button>
                     </template>
                   </el-autocomplete>
                 </el-form-item>
@@ -273,7 +273,7 @@ export default {
       // 配置选项
       options: {
         clientTypes: CLIENT_TYPES,
-        backendOptions: [{ value: "http://127.0.0.1:25500/sub?" }],
+        backendOptions: [{ value: CONSTANTS.DEFAULT_BACKEND || "http://127.0.0.1:25500/sub?" }],
         remoteConfig: REMOTE_CONFIGS
       },
 
@@ -367,7 +367,7 @@ export default {
     this.isPC = this.$getOS().isPc;
 
     // 获取 url cache
-    if (import.meta.env.VITE_USE_STORAGE === 'true') {
+    if (CONSTANTS.USE_STORAGE) {
       const cachedUrl = getLocalStorageItem('sourceSubUrl');
       if (cachedUrl) {
         this.form.sourceSubUrl = cachedUrl;
@@ -580,5 +580,39 @@ export default {
 /* 占满剩余空间，将右侧选项按钮推至行尾 */
 .options-row :deep(.el-col) {
   flex: 1;
+}
+
+/* 窄屏下标签置顶，避免 140px 标签和 append 按钮挤压输入框 */
+@media (max-width: 640px) {
+  .subconverter-form :deep(.el-form-item) {
+    display: block;
+  }
+
+  .subconverter-form :deep(.el-form-item__label) {
+    width: auto !important;
+    height: auto;
+    line-height: 1.5;
+    justify-content: flex-start;
+    padding: 0 0 4px;
+  }
+
+  .subconverter-form :deep(.el-form-item__content) {
+    margin-left: 0 !important;
+  }
+
+  .actions-row :deep(.el-form-item__content) {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .actions-row :deep(.el-button) {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .backend-link-text {
+    display: none;
+  }
 }
 </style>

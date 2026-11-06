@@ -1,3 +1,4 @@
+import { CONSTANTS } from '@/config/constants'
 import { setLocalStorageItem } from '@/utils/storage'
 import { createSubscriptionForm } from '@/composables/useSubscription'
 
@@ -27,7 +28,7 @@ export function addCustomParam(customParams) {
  */
 export function saveSubUrl(form) {
   if (form && form.sourceSubUrl !== '') {
-    const ttl = Number(import.meta.env.VITE_CACHE_TTL) || 3600;
+    const ttl = CONSTANTS.CACHE_TTL;
     setLocalStorageItem('sourceSubUrl', form.sourceSubUrl, ttl);
   }
 }

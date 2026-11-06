@@ -8,11 +8,12 @@ export class BackendService {
   /**
    * 获取后端版本信息
    * @param {Object} $axios - Axios实例
+   * @param {string} backend - 后端转换地址
    * @returns {Promise<string>} 版本信息
    */
-  static async getBackendVersion($axios) {
-    // 提取版本 API 路径
-    const versionApiUrl = CONSTANTS.DEFAULT_BACKEND.substring(0, CONSTANTS.DEFAULT_BACKEND.length - 5) + "/version";
+  static async getBackendVersion($axios, backend = CONSTANTS.DEFAULT_BACKEND) {
+    // 去掉查询参数和末尾的 /sub，得到版本 API 路径
+    const versionApiUrl = backend.split('?')[0].replace(/\/sub$/, '') + "/version";
 
     try {
       const response = await $axios.get(versionApiUrl);

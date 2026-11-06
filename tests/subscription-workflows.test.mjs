@@ -302,3 +302,19 @@ test('short-link resolution checks query parameters instead of the target substr
     }
   )
 })
+
+test('backend version URL is derived from every supported backend form', async () => {
+  const { BackendService } = await server.ssrLoadModule('/src/services/backendService.js')
+  const cases = [
+    ['https://h.example/sub?', 'https://h.example/version'],
+    ['https://h.example/sub', 'https://h.example/version'],
+    ['https://h.example/sub?token=x', 'https://h.example/version'],
+    ['https://h.example/api/sub?', 'https://h.example/api/version']
+  ]
+  for (const [backend, expected] of cases) {
+    let requested
+    const $axios = { get: async url => { requested = url; return { data: 'subconverter v0.9.0 backend' } } }
+    await BackendService.getBackendVersion($axios, backend)
+    assert.equal(requested, expected)
+  }
+})
