@@ -43,3 +43,42 @@ jobs:
         name: dist-${{ matrix.node-version }}
         path: dist/
         retention-days: 7
+
+  e2e:
+    name: E2E
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v7
+
+    - name: Use Node.js 24.x
+      uses: actions/setup-node@v6
+      with:
+        node-version: 24.x
+        cache: 'yarn'
+
+    - name: Install dependencies
+      run: yarn install --frozen-lockfile
+
+    - name: Download build artifacts
+      uses: actions/download-artifact@v8
+      with:
+        name: dist-24.x
+        path: dist/
+
+    - name: Install Playwright browser
+      run: npx playwright install --with-deps chromium
+
+    - name: Run E2E tests
+      run: yarn test:e2e
+
+    - name: Upload Playwright report
+      if: failure()
+      uses: actions/upload-artifact@v7
+      with:
+        name: playwright-report
+        path: |
+          playwright-report/
+          test-results/
+        retention-days: 7

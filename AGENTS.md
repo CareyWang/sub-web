@@ -10,6 +10,7 @@ Vue 3 + Vite 8 SPA with Element Plus. Keep changes small, follow existing patter
 - Router: Vue Router 4 (`createWebHistory`, base from `import.meta.env.BASE_URL`)
 - Node: 24.x
 - Regression tests use Node’s built-in test runner with the existing Vite loader; no additional test dependency
+- E2E tests use `@playwright/test` (Chromium only) against the production build served by `vite preview`
 
 ## Commands
 
@@ -21,10 +22,11 @@ Vue 3 + Vite 8 SPA with Element Plus. Keep changes small, follow existing patter
 | `yarn preview` | Preview production build locally |
 | `yarn lint` | ESLint check |
 | `node --test tests/subscription-workflows.test.mjs` | Subscription workflow regression tests |
+| `yarn build && yarn test:e2e` | Playwright E2E tests against the production build (first run: `npx playwright install chromium`) |
 
 ## CI / Workflows
 
-- **build.yml**: triggers on push/PR to `master` and `dev` — runs `yarn install --frozen-lockfile` + `yarn lint` + Node regression tests + `yarn build`, then uploads `dist/` as artifact (7-day retention)
+- **build.yml**: triggers on push/PR to `master` and `dev` — runs `yarn install --frozen-lockfile` + `yarn lint` + Node regression tests + `yarn build`, then uploads `dist/` as artifact (7-day retention); the `e2e` job then downloads that `dist/` and runs `yarn test:e2e`, uploading the Playwright report on failure
 - **docker-build-push.yml**: triggers on push to `master` — builds and pushes multi-arch image (`linux/amd64`, `linux/arm64`) to `careywong/subweb:latest`
 
 ## Repository Layout
@@ -65,6 +67,7 @@ src/
 services/                        # Docker Compose stack (subweb + myurls + redis)
 docker/                          # 40-subweb-config.sh (runtime config generation)
 public/config.js                 # Runtime config placeholder served before the app
+e2e/                             # Playwright specs: workflows, render completeness, desktop/mobile layout; config.js is replaced and every API is stubbed with page.route
 ```
 
 ## Key Modules
@@ -213,6 +216,7 @@ For import, generation, or upload compatibility reviews, read [Subscription work
 - Single case: `node --test --test-name-pattern="invalid import leaves" tests/subscription-workflows.test.mjs`
 - `yarn lint`
 - `yarn build`
+- `yarn test:e2e` (after `yarn build`)
 - Run `yarn dev` and smoke the main screen
 - Docker runtime config: build the image, run with `-e VITE_SUBCONVERTER_DEFAULT_BACKEND=...`, then check `/config.js` and a generated subscription URL
 
