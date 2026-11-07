@@ -40,7 +40,7 @@ src/
 ├── components/
 │   ├── ConfigUploadDialog.vue   # Config upload dialog
 │   ├── UrlParseDialog.vue       # URL parse dialog
-│   └── SvgIcon/index.vue        # SVG icon wrapper component
+│   └── SvgIcon/index.vue        # Inline SVG icon component (paths embedded per icon-class)
 ├── composables/
 │   ├── useSubscription.js       # Form defaults + URL generation and parsing rules
 │   ├── useSubscriptionForm.js   # Reactive form state + addCustomParam + saveSubUrl
@@ -62,8 +62,7 @@ src/
 │   └── search.js                # Backend autocomplete search helper
 ├── plugins/                     # setupXxx(app) registrations (element-plus, axios, device)
 └── icons/
-    ├── index.js                 # Registers SVG sprite
-    └── svg/                     # SVG source files (e.g., github.svg)
+    └── index.js                 # Registers the global svg-icon component
 services/                        # Docker Compose stack (subweb + myurls + redis)
 docker/                          # 40-subweb-config.sh (runtime config generation)
 public/config.js                 # Runtime config placeholder served before the app
@@ -124,9 +123,8 @@ TTL stored inside the JSON value as `{ setTime, ttl, expire, value }`. `expire` 
 
 ## Icons
 
-- SVG sprites via `vite-plugin-svg-icons`; icon dirs: `src/icons/svg`
-- Usage: `<svg-icon icon-class="name" />`
-- Symbol ID format: `icon-[name]`
+- Custom icons are inline `<path>` elements in `src/components/SvgIcon/index.vue`, selected by `icon-class`; there is no sprite plugin (removed with `vite-plugin-svg-icons`)
+- Usage: `<svg-icon icon-class="github" />`; add a new icon by adding its `<path>` branch to `SvgIcon`
 - UI icons come from `@element-plus/icons-vue` as components; there are no `el-icon-*` font classes
 
 ## Environment Variables
